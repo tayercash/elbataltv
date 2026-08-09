@@ -1,0 +1,203 @@
+/* Calculator Styles Updated */
+.calc-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 4px;
+}
+
+.calc-wrapper[data-dir="rtl"],
+.calc-wrapper:not([data-dir="ltr"]) {
+    flex-direction: row-reverse;
+}
+
+.calc-wrapper[data-dir="ltr"] {
+    flex-direction: row;
+}
+
+.calc-btn-trigger {
+    flex-shrink: 0;
+    background: rgba(255, 204, 0, 0.15);
+    color: #ffcc00;
+    border: 1px solid rgba(255, 204, 0, 0.2);
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.calc-btn-trigger:hover {
+    background: #ffcc00;
+    color: #000;
+    transform: scale(1.05);
+}
+
+.calc-btn-trigger i {
+    pointer-events: none;
+}
+
+/* Calculator Popup - Highest Z-Index */
+/* Calculator Popup - Premium Floating Modal Style */
+.mou_calc_popup {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.85) !important;
+    /* توسيط دقيق مع تصغير أولي حركي */
+    width: 90% !important;
+    max-width: 350px !important;
+    /* عرض مدمج فخم كالهواتف الذكية */
+    background: rgba(20, 20, 22, 0.96) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    z-index: 9999999999999 !important;
+    /* فوق الكل */
+    border-radius: 24px !important;
+    padding: 20px !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    /* حركة ارتدادية فخمة للغاية */
+    box-shadow: var(--shadow-modal) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-sizing: border-box !important;
+}
+
+.mou_calc_popup.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+    /* تفعيل التكبير الحركي الارتدادي */
+}
+
+.calc-screen {
+    background: rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
+    padding: 12px 18px !important;
+    margin-bottom: 16px !important;
+    text-align: right !important;
+    min-height: 70px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+}
+
+.calc-expression {
+    color: #888 !important;
+    font-size: 0.9rem !important;
+    height: 20px !important;
+    margin-bottom: 2px !important;
+    font-family: 'Outfit', monospace !important;
+}
+
+.calc-result {
+    color: #ffcc00 !important;
+    font-size: 1.85rem !important;
+    font-weight: 800 !important;
+    word-break: break-all !important;
+    font-family: 'Outfit', monospace !important;
+    line-height: 1 !important;
+}
+
+.calc-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 10px !important;
+}
+
+.calc-key {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    color: #fff !important;
+    border-radius: 14px !important;
+    height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    -webkit-tap-highlight-color: transparent !important;
+    box-sizing: border-box !important;
+}
+
+.calc-key:active {
+    background: rgba(255, 204, 0, 0.15) !important;
+    border-color: rgba(255, 204, 0, 0.3) !important;
+    transform: scale(0.92) !important;
+}
+
+.calc-key.op {
+    background: rgba(255, 204, 0, 0.07) !important;
+    color: #ffcc00 !important;
+    border-color: rgba(255, 204, 0, 0.18) !important;
+}
+
+.calc-key.equal {
+    background: var(--primary-color) !important;
+    color: #080809 !important;
+    border-color: var(--primary-color) !important;
+    grid-column: span 2 !important;
+}
+
+.calc-key.clear {
+    color: #ff5555 !important;
+    background: rgba(255, 85, 85, 0.05) !important;
+    border-color: rgba(255, 85, 85, 0.15) !important;
+}
+
+.calc-key.done {
+    background: #27ae60 !important;
+    color: #fff !important;
+    border-color: #27ae60 !important;
+    grid-column: span 3 !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+}
+
+/* التراكب الخلفي المغبش الفخم */
+.calc-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    z-index: 999999999998 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+}
+
+.calc-overlay.active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* تحويل الحاسبة لتظهر كدرج منزلق من الأسفل على شاشات الهواتف */
+@media (max-width: 576px) {
+    .mou_calc_popup {
+        top: auto !important;
+        bottom: -100% !important; /* خارج الشاشة من الأسفل */
+        left: 0 !important;
+        transform: translate(0, 0) scale(1) !important; /* إلغاء التوسيط الرأسي */
+        width: 100% !important;
+        max-width: 100% !important; /* عرض كامل ليلائم شاشة الهاتف */
+        border-radius: 24px 24px 0 0 !important; /* زوايا دائرية علوية فقط كأدراج تطبيقات آيفون */
+        box-shadow: var(--shadow-modal) !important;
+        transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) !important; /* انزلاق مرن وارتدادي */
+        padding-bottom: calc(20px + env(safe-area-inset-bottom)) !important; /* حماية الجزء السفلي من هواتف الآيفون الحديثة */
+    }
+
+    .mou_calc_popup.active {
+        bottom: 0 !important; /* انزلاق لأعلى الشاشة */
+        transform: translate(0, 0) scale(1) !important;
+    }
+}

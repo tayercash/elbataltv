@@ -1,0 +1,803 @@
+/* ============================================
+   Light Theme Overrides
+   Activated when <html class="light">
+   ============================================ */
+
+:root.light {
+  /* ---- General Backgrounds & Text ---- */
+  --body-bg: #f5f6f8;
+}
+
+/* ---- Page Background ---- */
+:root.light body,
+:root.light .mou_background {
+  background-color: #f5f6f8 !important;
+}
+
+/* ---- Scrollbar ---- */
+:root.light ::-webkit-scrollbar-thumb {
+  background: #ccc !important;
+}
+
+/* ---- App Header ---- */
+:root.light .app-header {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+  border-bottom-color: #e0e0e0 !important;
+}
+
+:root.light .app-header .icon-btn {
+  color: #333 !important;
+}
+
+/* ---- Sidebar ---- */
+:root.light .sidebar-content {
+  border-left-color: #e0e0e0 !important;
+  border-right-color: #e0e0e0 !important;
+}
+
+:root.light .sidebar-header {
+  border-bottom-color: #e0e0e0 !important;
+}
+
+:root.light .sidebar-header .close-btn {
+  color: #999 !important;
+}
+
+:root.light .sidebar-user-section {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-bottom-color: #e0e0e0 !important;
+}
+
+:root.light .sidebar-user-info .username {
+  color: #1a1a2e !important;
+}
+
+:root.light .sidebar-header .app-logo .logo-text {
+  color: #1a1a2e !important;
+}
+
+:root.light .sidebar-menu .menu-item {
+  color: #555 !important;
+}
+
+:root.light .sidebar-menu .menu-item i {
+  color: #999 !important;
+}
+
+:root.light .sidebar-menu .menu-item:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #1a1a2e !important;
+}
+
+:root.light .sidebar-menu .menu-item.active {
+  background: rgba(255, 204, 0, 0.12) !important;
+}
+
+:root.light .sidebar-footer {
+  border-top-color: #e0e0e0 !important;
+}
+
+:root.light .sidebar-dropdown-wrapper.open {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+:root.light .sidebar-dropdown-wrapper.open .dropdown-toggle {
+  background: rgba(255, 204, 0, 0.08) !important;
+}
+
+:root.light .sidebar-submenu {
+  border-right-color: rgba(0, 0, 0, 0.15) !important;
+  border-left-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+:root.light .submenu-item {
+  color: #666 !important;
+}
+
+:root.light .submenu-item:hover {
+  color: #333 !important;
+}
+
+:root.light .sidebar-user-info .username {
+  color: #1a1a2e !important;
+}
+
+/* ---- Sub-page Header ---- */
+:root.light .full_view_container [data-navigation_url] .header {
+  border-bottom-color: #e0e0e0 !important;
+}
+
+:root.light .full_view_container [data-navigation_url] .header .actions button,
+:root.light .full_view_container [data-navigation_url] .header .header-tools button {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  border-color: #e0e0e0 !important;
+  color: #333 !important;
+}
+
+:root.light .full_view_container [data-navigation_url] .header .actions button:hover {
+  box-shadow: 0 2px 8px rgba(255, 204, 0, 0.25) !important;
+}
+
+/* ---- Inputs & Selects ---- */
+:root.light input,
+:root.light textarea,
+:root.light select,
+:root.light .input_group input,
+:root.light .input_group textarea,
+:root.light .form-group input,
+:root.light .form-group textarea,
+:root.light .form-group select {
+  background-color: #f0f1f3 !important;
+  background: #f0f1f3 !important;
+  border-color: #d0d0d0 !important;
+  color: #1a1a2e !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root.light input:hover,
+:root.light textarea:hover,
+:root.light select:hover,
+:root.light .form-group input:hover,
+:root.light .form-group textarea:hover,
+:root.light .form-group select:hover {
+  background-color: #e8e9eb !important;
+  background: #e8e9eb !important;
+  border-color: #bbb !important;
+}
+
+:root.light input:focus,
+:root.light textarea:focus,
+:root.light select:focus,
+:root.light .form-group input:focus,
+:root.light .form-group textarea:focus,
+:root.light .form-group select:focus {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.12), inset 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root.light input::placeholder,
+:root.light textarea::placeholder {
+  color: rgba(0, 0, 0, 0.35) !important;
+}
+
+:root.light input[type="date"] {
+  color-scheme: light !important;
+}
+
+:root.light select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") !important;
+}
+
+:root.light .mou_input_container {
+  background: #f0f1f3 !important;
+}
+
+:root.light .mou_input_container .input {
+  background-color: transparent !important;
+}
+
+:root.light .mou_btn {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ---- Header title ---- */
+:root.light .header_title {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ---- Navigation (bottom bar) ---- */
+:root.light .navigation {
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06) !important;
+}
+
+:root.light .navigation ul li a .icon {
+  color: #999 !important;
+}
+
+:root.light .navigation ul li.active a .icon {
+  color: var(--colorAccent) !important;
+}
+
+:root.light .navigation ul li a .text {
+  color: #999 !important;
+}
+
+:root.light .navigation ul li.active a .text {
+  color: #1a1a2e !important;
+}
+
+:root.light .full_app_loader {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ---- Popup ---- */
+:root.light .mou_popup {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+:root.light .mou_popup_container {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+:root.light .mou_popup_header {
+  border-bottom-color: #e0e0e0 !important;
+}
+
+:root.light .mou_popup_footer {
+  border-top-color: #e0e0e0 !important;
+}
+
+/* ---- Container/Card backgrounds ---- */
+:root.light .mou_container {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ---- Status badge ---- */
+:root.light .status-badge {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ---- Breakdown page ---- */
+:root.light .breakdown-header-main {
+  background: #ffffff !important;
+  border-bottom-color: #e0e0e0 !important;
+}
+
+:root.light .summary-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #e0e0e0 !important;
+  color: #1a1a2e !important;
+}
+
+:root.light .column-header {
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+:root.light .add_category_btn_inline {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #333 !important;
+}
+
+:root.light .add_category_btn_inline:hover {
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+:root.light .category-card {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+}
+
+:root.light .category-header {
+  border-bottom-color: #e8e8e8 !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+:root.light .item-desc {
+  color: #333 !important;
+}
+
+:root.light .item-amount {
+  color: #1a1a2e !important;
+}
+
+:root.light .breakdown-item {
+  border-bottom-color: #f0f0f0 !important;
+}
+
+:root.light .category-actions button {
+  color: #999 !important;
+}
+
+:root.light .category-actions button:hover {
+  color: #333 !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+
+/* ---- Custom Select ---- */
+:root.light .custom-select {
+  background: #ffffff !important;
+  border-color: #d0d0d0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+}
+
+:root.light .custom-select:hover {
+  background: #fafafa !important;
+}
+
+:root.light .custom-select.open {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+:root.light .custom-select-trigger {
+  color: #333 !important;
+}
+
+:root.light .custom-select-trigger:after {
+  border-top-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+:root.light .custom-options {
+  background: #ffffff !important;
+  border-color: #d0d0d0 !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+:root.light .custom-option {
+  color: #333 !important;
+}
+
+:root.light .custom-option:hover {
+  background: rgba(255, 204, 0, 0.08) !important;
+}
+
+:root.light .custom-option.selection {
+  background: rgba(255, 204, 0, 0.12) !important;
+}
+
+:root.light .merchant-option-item .m-name {
+  color: #333 !important;
+}
+
+/* ---- Calculator ---- */
+:root.light .mou_calc_popup {
+  background: rgba(245, 246, 248, 0.98) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+:root.light .calc-screen {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+:root.light .calc-expression {
+  color: #999 !important;
+}
+
+:root.light .calc-key {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  color: #333 !important;
+}
+
+:root.light .calc-key:active {
+  background: rgba(255, 204, 0, 0.15) !important;
+}
+
+:root.light .calc-key.op {
+  background: rgba(255, 204, 0, 0.06) !important;
+}
+
+:root.light .calc-key.equal {
+  background: var(--primary-color) !important;
+  color: #1a1a2e !important;
+}
+
+:root.light .calc-key.clear {
+  background: rgba(255, 85, 85, 0.06) !important;
+}
+
+:root.light .calc-key.done {
+  background: #27ae60 !important;
+  color: #fff !important;
+}
+
+:root.light .calc-overlay {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ---- Visa page ---- */
+
+:root.light .actions button {
+  color: #555 !important;
+}
+
+:root.light .actions button:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+:root.light .sort-dropdown {
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+:root.light .merchant_actions .action {
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+:root.light .merchant_actions .action:hover {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+:root.light .merchant_actions .action:active {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ---- PWA Install Popup ---- */
+:root.light #pwa_install_popup .mou_popup_container {
+  background: #ffffff !important;
+}
+
+:root.light #pwa_install_popup p {
+  color: #555 !important;
+}
+
+:root.light .close_popup {
+  opacity: 0.6 !important;
+}
+
+/* ---- Camera popup ---- */
+:root.light .camera-popup {
+  background: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* ---- Toastify ---- */
+:root.light .toastify {
+  color: #1a1a2e !important;
+}
+
+/* ---- User page inline styles ---- */
+:root.light #receipt_preview_popup .mou_popup_container {
+  background: #ffffff !important;
+}
+
+:root.light #receipt_preview_popup .mou_popup_header .mou_pop_up_title {
+  color: #333 !important;
+}
+
+:root.light #receipt_loader span {
+  color: #888 !important;
+}
+
+:root.light #no_receipt_msg {
+  color: #999 !important;
+}
+
+/* ---- Counter / Total ---- */
+:root.light .counter_total {
+  border-bottom-color: #ccc !important;
+}
+
+/* ---- Operations page (Unified Operations) ---- */
+:root.light .operations-page-container {
+  color: #333 !important;
+}
+
+:root.light .action-card {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+}
+
+:root.light .action-card:hover {
+  background: rgba(255, 204, 0, 0.04) !important;
+  box-shadow: 0 8px 20px rgba(255, 204, 0, 0.12) !important;
+}
+
+:root.light .action-card .action-title {
+  color: #333 !important;
+}
+
+:root.light .pill {
+  background: #ffffff !important;
+  border-color: #d0d0d0 !important;
+  color: #666 !important;
+}
+
+:root.light .op-search-input {
+  background: #f0f1f3 !important;
+  border-color: #d0d0d0 !important;
+  color: #333 !important;
+}
+
+:root.light .op-search-input:focus {
+  background: #ffffff !important;
+  border-color: #ffcc00 !important;
+  box-shadow: 0 0 6px rgba(255, 204, 0, 0.15) !important;
+}
+
+:root.light .op-search-icon {
+  color: #999 !important;
+}
+
+:root.light .op-account-card {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root.light .op-account-card:hover {
+  border-color: rgba(255, 204, 0, 0.3) !important;
+}
+
+:root.light .op-card-title {
+  color: #333 !important;
+}
+
+:root.light .op-card-subtitle {
+  color: #888 !important;
+}
+
+:root.light .op-card-balance-row {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+:root.light .op-balance-label {
+  color: #999 !important;
+}
+
+:root.light .form-group select.form-control,
+:root.light .form-group input.form-control {
+  background: #f0f1f3 !important;
+  border-color: #d0d0d0 !important;
+  color: #333 !important;
+}
+
+:root.light .form-group select.form-control option {
+  background: #ffffff !important;
+  color: #333 !important;
+}
+
+:root.light .money-counter-original {
+  color: #333 !important;
+}
+
+:root.light .money-counter-original .total_container .action {
+  background: #ffffff !important;
+  color: #333 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+:root.light .money-counter-original .cat_text,
+:root.light .money-counter-original .total_container .total,
+:root.light .money-counter-original .equal_icon,
+:root.light .money-counter-original .x_icon,
+:root.light .money-counter-original .cat input,
+:root.light .money-counter-original .cat_value,
+:root.light .money-counter-original .cat_set {
+  color: #333 !important;
+}
+
+:root.light .money-counter-original .percentage input {
+  color: #333 !important;
+}
+
+:root.light .money-counter-original .percentage span {
+  color: #888 !important;
+}
+
+/* ---- Audit / Admin table ---- */
+:root.light .mou_admin_table th {
+  color: rgba(0, 0, 0, 0.6) !important;
+  border-bottom-color: #e0e0e0 !important;
+}
+
+:root.light .mou_admin_table td {
+  color: #333 !important;
+  border-bottom-color: #f0f0f0 !important;
+}
+
+:root.light .mou_admin_table tr:hover td {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+:root.light .mou_admin_table .table-header-row th {
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* ---- Account cards ---- */
+:root.light .account-card {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+}
+
+:root.light .account-card:hover {
+  border-color: #ccc !important;
+}
+
+/* ---- Transaction items ---- */
+:root.light .transaction-item {
+  background: #ffffff !important;
+  border-color: #f0f0f0 !important;
+}
+
+:root.light .t-meta {
+  color: #999 !important;
+}
+
+:root.light .t-note {
+  color: #555 !important;
+}
+
+/* ---- All transactions ---- */
+:root.light .filter-bar {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+}
+
+:root.light .filter-bar input,
+:root.light .filter-bar select {
+  background: #f0f1f3 !important;
+  border-color: #d0d0d0 !important;
+  color: #333 !important;
+}
+
+/* ---- Merchant page ---- */
+:root.light .merchant-card {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+  color: #333 !important;
+}
+
+:root.light .merchant-card .label {
+  color: #888 !important;
+}
+
+:root.light .merchant-card .value {
+  color: #1a1a1a !important;
+}
+
+/* ---- Alerts ---- */
+:root.light .mou_alert {
+  color: #333 !important;
+}
+
+/* ---- Sidebar inline styles override ---- */
+:root.light .sidebar-footer button {
+  background: rgba(239, 68, 68, 0.06) !important;
+  border-color: rgba(239, 68, 68, 0.12) !important;
+}
+
+/* ---- Text utility classes ---- */
+:root.light .text-muted {
+  color: #999 !important;
+}
+
+/* ---- Header lang toggle ---- */
+:root.light .lang-btn {
+  color: #888 !important;
+}
+
+:root.light .lang-btn.active {
+  color: #ffcc00 !important;
+}
+
+/* ---- Theme toggle button ---- */
+:root.light .theme-btn {
+  color: #f39c12 !important;
+}
+
+/* ---- Receipt popup ---- */
+:root.light #receipt_preview_image {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ---- User info in header ---- */
+:root.light #display-username {
+  color: #333 !important;
+}
+
+:root.light .user-info {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ---- Sidebar logout button ---- */
+:root.light .sidebar-logout-btn {
+  color: #e74c3c !important;
+}
+
+/* ---- Quick actions grid ---- */
+:root.light .quick-actions-grid .action-btn {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+  color: #555 !important;
+}
+
+:root.light .quick-actions-grid .action-btn:hover {
+  border-color: #ffcc00 !important;
+  color: #333 !important;
+}
+
+/* ---- Cards grid ---- */
+:root.light .card:not(.maxab-card),
+:root.light .dashboard-card {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+}
+
+/* ---- Input groups ---- */
+:root.light .input-group {
+  background: #ffffff !important;
+}
+
+
+/* ---- Profit header card gradient override ---- */
+:root.light .profits-header-card::after {
+  background: radial-gradient(circle, rgba(255, 204, 0, 0.05) 0%, transparent 70%) !important;
+}
+
+/* ---- Login page ---- */
+:root.light #login-html,
+:root.light #login-html html {
+  background-color: #f0f2f5 !important;
+  background: #f0f2f5 !important;
+}
+
+:root.light #login-html body {
+  background: radial-gradient(circle at center, #e8eaf0 0%, #f0f2f5 80%) !important;
+  color: #333 !important;
+}
+
+:root.light #login-html .login-container {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+}
+
+:root.light #login-html .login-container:hover {
+  border-color: rgba(255, 204, 0, 0.3) !important;
+  box-shadow: 0 15px 50px rgba(255, 204, 0, 0.08), 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+:root.light #login-html .app-name {
+  background: linear-gradient(135deg, #1a1a2e 30%, #444 70%, #ffcc00 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root.light #login-html .app-tagline {
+  color: #888 !important;
+}
+
+:root.light #login-html .input-group label {
+  color: #555 !important;
+}
+
+:root.light #login-html .input-group input {
+  background: #f0f1f3 !important;
+  border-color: #d0d0d0 !important;
+  color: #333 !important;
+}
+
+:root.light #login-html .input-group input:focus {
+  background: #fff !important;
+  border-color: #ffcc00 !important;
+}
+
+:root.light #login-html .input-group input::placeholder {
+  color: rgba(0, 0, 0, 0.3) !important;
+}
+
+:root.light #login-html .forgot-link {
+  color: #888 !important;
+}
+
+:root.light #login-html .divider-text {
+  color: #aaa !important;
+}
+
+:root.light #login-html #submit-btn {
+  color: #1a1a2e !important;
+}
+
+:root.light #login-html #error-msg {
+  color: #e74c3c !important;
+  background: rgba(231, 76, 60, 0.08) !important;
+}
+
+:root.light #login-html .bg-glow-1 {
+  background: radial-gradient(circle, rgba(255, 204, 0, 0.06) 0%, transparent 70%) !important;
+}
+
+:root.light #login-html .bg-glow-2 {
+  background: radial-gradient(circle, rgba(255, 153, 0, 0.05) 0%, transparent 70%) !important;
+}
+
+:root.light #login-html .logo-img {
+  border-color: rgba(255, 204, 0, 0.5) !important;
+}
