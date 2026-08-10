@@ -3,7 +3,7 @@ var what_window = window;
 if (window.frameElement) {
     what_window = window.parent;
 }
-var elbatal_api = "https://mou.elbatal-app.com/users/";
+var elbatal_api = "https://new.elbatal-app.com/users/";
 // var elbatal_api = "http://192.168.1.6/users/";
 no_g_icon_img_url = "files/images/no_user.png";
 

@@ -101,7 +101,7 @@ function load_from_query(this_query_data) {
 }
 
 
-// IntentExtra_string = '{"qurey_data":"film_title=%25D9%2583%25D9%2588%25D8%25A8%25D8%25B1%25D8%25A7&film_server_name=akowam&film_url=%252Fseries%252F4831%252F%2525D9%252583%2525D9%252588%2525D8%2525A8%2525D8%2525B1%2525D8%2525A7&film_type=muslsal&halka_num=3","notification_id":"693","body":"مشاهدة كوبرا الحلقة 3","image":"https:\/\/mou.elbatal-app.com\/users\/share\/imgs\/l1Apo_1711798729.png","sound":"default","title":"كوبرا الحلقة 3","Action_title":"مشاهدة"}';
+// IntentExtra_string = '{"qurey_data":"film_title=%25D9%2583%25D9%2588%25D8%25A8%25D8%25B1%25D8%25A7&film_server_name=akowam&film_url=%252Fseries%252F4831%252F%2525D9%252583%2525D9%252588%2525D8%2525A8%2525D8%2525B1%2525D8%2525A7&film_type=muslsal&halka_num=3","notification_id":"693","body":"مشاهدة كوبرا الحلقة 3","image":"https:\/\/new.elbatal-app.com\/users\/share\/imgs\/l1Apo_1711798729.png","sound":"default","title":"كوبرا الحلقة 3","Action_title":"مشاهدة"}';
 
 
 // console.log(main_qurey_data);

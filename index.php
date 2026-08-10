@@ -810,7 +810,7 @@ $is_dev = $_GET["is_dev"] == "1" ? true : false;
                     $("#create_active_code").html(`<i class="fas fa-circle-notch fa-spin"></i> جاري انشاء رابط التفعيل`);
                     // var windowReference = window.open();
                     $.ajax({
-                        url: "https://mou.elbatal-app.com/users/accounts/code_1.php",
+                        url: "https://new.elbatal-app.com/users/accounts/code_1.php",
                         type: 'POST',
                         timeout: 30 * 1000,
                         data: {

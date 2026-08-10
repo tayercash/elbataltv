@@ -883,7 +883,7 @@ $(document).on("click", ".share_this_post", function () {
     ctx = canvasElmt.getContext("2d");
     ctx.drawImage(this_vid_img, 0, 0, this_vid_img_width, this_vid_img_height);
     img_base64 = $("#canvasElement")[0].toDataURL();
-    // var share_server_api = "https://mou.elbatal-app.com/app/share.php";
+    // var share_server_api = "https://new.elbatal-app.com/app/share.php";
     var share_server_api = elbatal_api + "share/fcm.php";
     $.ajax({
         type: "POST",

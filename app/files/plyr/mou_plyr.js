@@ -421,7 +421,7 @@ get_window_id(async function (id) {
                     Clappr_config["continueWatching"] = {
                         userId: userId,             // 👤 رقم المستخدم
                         videoId: continue_watch_code,    // 🎬 رقم الفيديو
-                        apiUrl: 'https://my.elbatal-app.com/users/api/continue_watching.php',
+                        apiUrl: 'https://new.elbatal-app.com/users/api/continue_watching.php',
                         autoResume: true,
                         showPrompt: true,
                         minSeconds: 30,

@@ -22,7 +22,7 @@
             this._options = Object.assign({
                 userId: null,              // 👈 المستخدم
                 videoId: null,             // 👈 الفيديو
-                apiUrl: 'https://my.elbatal-app.com/users/api/continue_watching.php',
+                apiUrl: 'https://new.elbatal-app.com/users/api/continue_watching.php',
                 autoResume: true,
                 showPrompt: false,
                 minSeconds: 30,

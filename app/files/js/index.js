@@ -235,7 +235,7 @@ function open_settings() {
 function open_app_info() {
     $("#app_info").openpopup();
 
-    config_file_link = "https://mou.elbatal-app.com/users/app_config.php";
+    config_file_link = "https://new.elbatal-app.com/users/app_config.php";
     $.ajax({
         type: "GET",
         url: config_file_link,
@@ -870,7 +870,7 @@ function get_share_qery(callback) {
         }
         $.ajax({
             type: "POST",
-            url: "https://mou.elbatal-app.com/app/share.php",
+            url: "https://new.elbatal-app.com/app/share.php",
             data: {
                 action: "get_share_id",
                 share_id: share_id,

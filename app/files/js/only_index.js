@@ -132,7 +132,7 @@ if (typeof mouscripts !== "undefined") {
     mouscripts.change_custom_var("e_f_v_m", e_f_v_m);
     mouscripts.change_custom_var("e_v_m", e_v_m);
     mouscripts.change_custom_var("f_v_m", f_v_m);
-    mouscripts.change_custom_var("AD_TAG_URI", "https://mou.elbatal-app.com/users/video/dev_video_loader.php");
+    mouscripts.change_custom_var("AD_TAG_URI", "https://new.elbatal-app.com/users/video/dev_video_loader.php");
 
 }
 var loader_test = false;

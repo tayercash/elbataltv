@@ -1,6 +1,6 @@
 // mouscripts.play_vid("https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8", "TEST", "", "{}", false, false);
 // mouscripts.play_vid("http://192.168.1.2/api/videoserver/m3u8/test.m3u8", "TEST", "", "{}", false, false);
-var elbatal_api = "https://mou.elbatal-app.com/users";
+var elbatal_api = "https://new.elbatal-app.com/users";
 // var elbatal_api = "http://192.168.1.6";
 
 var api_link = elbatal_api + "/accounts/accounts.php";

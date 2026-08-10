@@ -3,32 +3,32 @@
   "short_name": "البطل",
   "icons": [
     {
-      "src": "https://my.elbatal-app.com/app/icon.png",
+      "src": "https://new.elbatal-app.com/app/icon.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "https://my.elbatal-app.com/app/icon.png",
+      "src": "https://new.elbatal-app.com/app/icon.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "https://my.elbatal-app.com/app/icon.png",
+      "src": "https://new.elbatal-app.com/app/icon.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "https://my.elbatal-app.com/app/icon.png",
+      "src": "https://new.elbatal-app.com/app/icon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://my.elbatal-app.com/app/icon.png",
+      "src": "https://new.elbatal-app.com/app/icon.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "https://my.elbatal-app.com/app/icon.png",
+      "src": "https://new.elbatal-app.com/app/icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
@@ -42,7 +42,7 @@
     {
       "platform": "play",
       "id": "com.mouscripts.elbatal",
-      "url": "https://my.elbatal-app.com"
+      "url": "https://new.elbatal-app.com"
     }
   ]
 }
