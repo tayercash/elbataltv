@@ -1,0 +1,2 @@
+RewriteEngine On    # Turn on the rewriting engine
+RewriteRule ^d/(.*)$ downloads/$1 [NC,L]
