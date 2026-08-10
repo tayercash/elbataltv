@@ -1,0 +1,254 @@
+[28-Mar-2025 11:58:04 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 11:58:04 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 12:24:09 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 12:24:09 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 12:27:14 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 12:27:14 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 13:09:43 UTC] PHP Warning:  include_once(config.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:09:43 UTC] PHP Warning:  include_once(): Failed opening 'config.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:09:43 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:09:55 UTC] PHP Warning:  include_once(../../config.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:09:55 UTC] PHP Warning:  include_once(): Failed opening '../../config.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:09:55 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:09:57 UTC] PHP Warning:  include_once(../../config.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:09:57 UTC] PHP Warning:  include_once(): Failed opening '../../config.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:09:57 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:10:17 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:17 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:17 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:10:26 UTC] PHP Warning:  include_once(../../db_config.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:26 UTC] PHP Warning:  include_once(): Failed opening '../../db_config.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:26 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:10:43 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:43 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:43 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:10:58 UTC] PHP Warning:  include_once(../../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:58 UTC] PHP Warning:  include_once(): Failed opening '../../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:58 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:10:59 UTC] PHP Warning:  include_once(../../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:59 UTC] PHP Warning:  include_once(): Failed opening '../../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:10:59 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:11:09 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:11:31 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:11:42 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:12:24 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:12:26 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:13:09 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:13:44 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:14:29 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:15:18 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:15:23 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:15:33 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:15:41 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:15:57 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:17:15 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:46:48 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:46:48 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 3
+[28-Mar-2025 13:46:48 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:46:57 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:47:33 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:48:03 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:48:46 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 13:49:03 UTC] PHP Fatal error:  Uncaught ArgumentCountError: date() expects at least 1 argument, 0 given in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php:67
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/success.php(67): date()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 67
+[28-Mar-2025 13:49:09 UTC] PHP Fatal error:  Uncaught ArgumentCountError: date() expects at least 1 argument, 0 given in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php:67
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/success.php(67): date()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 67
+[28-Mar-2025 13:49:22 UTC] PHP Fatal error:  Uncaught ArgumentCountError: date() expects at least 1 argument, 0 given in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php:67
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/success.php(67): date()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 67
+[28-Mar-2025 13:49:24 UTC] PHP Fatal error:  Uncaught ArgumentCountError: date() expects at least 1 argument, 0 given in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php:67
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/success.php(67): date()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 67
+[28-Mar-2025 13:49:31 UTC] PHP Fatal error:  Uncaught ArgumentCountError: date() expects at least 1 argument, 0 given in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php:67
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/success.php(67): date()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 67
+[28-Mar-2025 13:49:36 UTC] PHP Fatal error:  Uncaught ArgumentCountError: date() expects at least 1 argument, 0 given in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php:67
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/success.php(67): date()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 67
+[28-Mar-2025 13:49:48 UTC] PHP Warning:  Undefined variable $redirect_url in /home/elbarymo/my.elbatal-app.com/users/crypto/success.php on line 90
+[28-Mar-2025 16:52:39 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 16:52:39 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 16:53:04 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 16:53:04 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 17:00:03 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 17:00:03 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 17:00:28 UTC] PHP Warning:  include_once(../../config_db.php): Failed to open stream: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 17:00:28 UTC] PHP Warning:  include_once(): Failed opening '../../config_db.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 2
+[28-Mar-2025 17:02:52 UTC] PHP Warning:  Undefined array key "ipn_mode" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 42
+[28-Mar-2025 17:03:21 UTC] PHP Warning:  Undefined array key "ipn_mode" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 42
+[28-Mar-2025 17:03:21 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 46
+[28-Mar-2025 17:03:21 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:21 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:39 UTC] PHP Warning:  Undefined array key "ipn_mode" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 42
+[28-Mar-2025 17:03:39 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 46
+[28-Mar-2025 17:03:39 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:39 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:46 UTC] PHP Warning:  Undefined array key "ipn_mode" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 42
+[28-Mar-2025 17:03:46 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 46
+[28-Mar-2025 17:03:46 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:46 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:52 UTC] PHP Warning:  Undefined array key "ipn_mode" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 42
+[28-Mar-2025 17:03:52 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 46
+[28-Mar-2025 17:03:52 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:52 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:53 UTC] PHP Warning:  Undefined array key "ipn_mode" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 42
+[28-Mar-2025 17:03:53 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 46
+[28-Mar-2025 17:03:53 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:03:53 UTC] PHP Warning:  Undefined array key "status" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 47
+[28-Mar-2025 17:07:21 UTC] PHP Warning:  Undefined array key "amount" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 54
+[28-Mar-2025 17:07:21 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CPJC28FNBJIIBNUUUFGAPDSSQI''' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php:66
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php(66): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 66
+[28-Mar-2025 17:08:22 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CPJC28FNBJIIBNUUUFGAPDSSQI''' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php:66
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php(66): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 66
+[28-Mar-2025 17:08:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CPJC28FNBJIIBNUUUFGAPDSSQI''' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php:66
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php(66): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 66
+[28-Mar-2025 17:10:16 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '0.98021'', done_at='2025-03-28 17:10:16' WHERE id='1'' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php:78
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php(78): mysqli_query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 78
+[28-Mar-2025 17:11:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'SET' in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php:78
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php(78): mysqli_query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 78
+[28-Mar-2025 17:12:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'SET' in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php:78
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php(78): mysqli_query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 78
+[28-Mar-2025 17:13:39 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "IPN_LOG_FILE" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php:103
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 103
+[28-Mar-2025 17:15:05 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "now_payments_log" in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/ipn.php on line 33
+[10-Jun-2025 03:38:57 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[10-Jun-2025 03:38:57 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[10-Jun-2025 03:38:57 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[10-Jun-2025 03:38:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[26-Sep-2025 12:24:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[26-Sep-2025 12:24:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[26-Sep-2025 12:24:15 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[26-Sep-2025 12:24:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[04-Oct-2025 20:26:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[04-Oct-2025 20:26:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[04-Oct-2025 20:26:34 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[04-Oct-2025 20:26:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[17-Oct-2025 22:05:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[17-Oct-2025 22:05:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[17-Oct-2025 22:05:59 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[17-Oct-2025 22:05:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[13-Nov-2025 03:00:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[13-Nov-2025 03:00:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "uid" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 14
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "item_name" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 15
+[13-Nov-2025 03:00:17 UTC] PHP Warning:  Undefined array key "item_number" in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 16
+[13-Nov-2025 03:00:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php:18
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php(18): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/crypto/process_payment.php on line 18

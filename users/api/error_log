@@ -1,0 +1,1616 @@
+[06-Sep-2025 00:35:33 UTC] PHP Warning:  Undefined variable $dbname in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 4
+[06-Sep-2025 00:39:56 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elbarymo_elbataltv.continue_watching' doesn't exist in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:45
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(45): PDOStatement->execute()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 45
+[06-Sep-2025 00:40:35 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'video_id' in 'WHERE' in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:45
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(45): PDOStatement->execute()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 45
+[06-Sep-2025 00:42:00 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elbarymo_elbataltv.Elbatal_continue_watching' doesn't exist in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:45
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(45): PDOStatement->execute()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 45
+[06-Sep-2025 11:40:42 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:40:42 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:40:47 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:40:47 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:40:52 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:40:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:40:57 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:40:57 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:02 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:07 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:07 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:12 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:12 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:17 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:17 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:22 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:27 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:27 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:33 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:33 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:38 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:43 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:48 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:53 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:53 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:58 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:41:58 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:03 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:03 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:08 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:08 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:13 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:13 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:18 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:18 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:23 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:23 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:28 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:28 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:33 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:33 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:38 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:43 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:48 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:53 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:53 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:58 UTC] PHP Warning:  Undefined variable $mysqli in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 11:42:58 UTC] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 20
+[06-Sep-2025 12:24:59 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'elbarymo_elbataltv.Elbatal_continue_watching' doesn't exist in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php:62
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(62): PDOStatement->execute()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 62
+[15-Sep-2025 18:38:16 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[15-Sep-2025 22:16:41 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:19:41 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:27:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:27:33 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:27:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:27:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:27:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:27:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:27:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:28:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:20 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:29:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:30:07 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:30:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:30:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:30:22 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:30:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:30:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:30:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:31:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:31:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:31:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:31:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:31:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:31:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:31:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:31:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:20 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:32:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:08 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:33 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:43 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:48:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:49:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:50:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:51:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:51:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:51:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:51:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:51:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:51:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:51:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:52:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:52:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:52:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:52:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:53:16 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Sep-2025 08:53:20 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Sep-2025 16:36:52 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Sep-2025 16:36:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[06-Oct-2025 17:32:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Oct-2025 03:06:26 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Oct-2025 03:06:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Oct-2025 03:06:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Oct-2025 03:09:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Oct-2025 03:09:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Oct-2025 03:09:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[12-Oct-2025 16:23:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 06:34:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 20:46:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 20:46:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 20:46:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 20:46:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 20:46:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 20:47:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 20:47:08 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Oct-2025 20:47:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Oct-2025 03:17:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Resource temporarily unavailable in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Oct-2025 03:18:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[31-Oct-2025 21:54:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[31-Oct-2025 21:54:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Nov-2025 15:34:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Nov-2025 15:34:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Nov-2025 15:34:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Nov-2025 20:11:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Resource temporarily unavailable in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[10-Nov-2025 20:11:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[16-Nov-2025 20:15:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[19-Nov-2025 10:01:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[24-Nov-2025 19:38:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[24-Nov-2025 19:38:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[25-Nov-2025 13:36:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[25-Nov-2025 13:36:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[25-Nov-2025 13:36:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Nov-2025 18:44:51 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Nov-2025 18:45:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Nov-2025 18:46:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Nov-2025 16:41:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Nov-2025 16:41:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Nov-2025 16:41:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Nov-2025 16:41:16 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Nov-2025 16:41:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Nov-2025 16:41:22 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[28-Nov-2025 05:17:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[29-Nov-2025 17:49:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[29-Nov-2025 17:49:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[29-Nov-2025 17:49:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[04-Dec-2025 16:26:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[06-Dec-2025 22:06:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[07-Dec-2025 08:45:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[07-Dec-2025 08:46:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[07-Dec-2025 08:46:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[08-Dec-2025 13:14:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[12-Dec-2025 22:15:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[12-Dec-2025 22:15:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[12-Dec-2025 22:15:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[12-Dec-2025 22:15:42 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Dec-2025 22:03:42 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Dec-2025 22:03:42 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Dec-2025 22:03:46 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Dec-2025 22:03:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Dec-2025 22:03:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Dec-2025 21:26:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Dec-2025 21:26:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Dec-2025 21:26:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Dec-2025 20:40:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Resource temporarily unavailable in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Dec-2025 20:40:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Resource temporarily unavailable in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Dec-2025 20:40:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[27-Dec-2025 20:40:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[31-Dec-2025 00:53:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[31-Dec-2025 00:54:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[03-Jan-2026 20:13:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[03-Jan-2026 20:13:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[04-Jan-2026 19:40:08 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[07-Jan-2026 23:16:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[11-Jan-2026 22:49:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[13-Jan-2026 19:52:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[13-Jan-2026 19:52:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[13-Jan-2026 19:52:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[13-Jan-2026 19:52:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:28:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:28:20 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:28:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:28:41 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:28:51 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:29:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:29:41 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:29:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:29:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[18-Jan-2026 20:30:02 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:12:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:12:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:13:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:14:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:14:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:14:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Resource temporarily unavailable in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:15:16 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:15:22 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:15:46 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:16:06 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 01:16:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 16:40:22 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[20-Jan-2026 16:40:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[21-Jan-2026 22:10:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[21-Jan-2026 22:11:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[21-Jan-2026 22:11:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[21-Jan-2026 22:12:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[21-Jan-2026 22:12:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[22-Jan-2026 09:27:07 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[24-Jan-2026 07:33:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: No such file or directory in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:52:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:54:06 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:54:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:56:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:56:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:57:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:57:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:58:14 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:58:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:59:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:59:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:59:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[26-Jan-2026 19:59:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[05-Feb-2026 12:35:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[05-Feb-2026 12:35:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[05-Feb-2026 12:35:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[02-Mar-2026 01:47:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[02-Mar-2026 17:49:02 UTC] PHP Warning:  Undefined variable $db_name in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 4
+[02-Mar-2026 17:49:02 UTC] PHP Warning:  Undefined variable $db_username in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 5
+[02-Mar-2026 17:49:02 UTC] PHP Warning:  Undefined variable $db_password in /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php on line 6
+[11-Mar-2026 00:36:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[11-Mar-2026 00:37:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Mar-2026 00:48:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Mar-2026 00:48:08 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Mar-2026 00:48:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Mar-2026 00:48:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[17-Mar-2026 00:48:24 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[05-May-2026 21:23:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[05-May-2026 21:24:07 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[24-May-2026 23:06:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[24-May-2026 23:06:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[24-May-2026 23:07:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8
+[24-May-2026 23:07:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Too many connections in /home/elbarymo/my.elbatal-app.com/users/config_db.php:8
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(8): mysqli->__construct()
+#1 /home/elbarymo/my.elbatal-app.com/users/api/continue_watching.php(2): include_once('/home/elbarymo/...')
+#2 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 8

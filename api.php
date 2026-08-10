@@ -97,6 +97,91 @@ function requireActiveStatus($pdo, $userId) {
     }
 }
 
+function mou_custom_encode($txt, $num = 1) {
+    $default = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    $custom = "ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba9876543210+/";
+    if (is_null($txt)) $txt = '';
+    $encoded = urlencode($txt);
+    $encoded = base64_encode($encoded);
+    $encoded = strtr($encoded, $custom, $default);
+    return $encoded;
+}
+
+function mou_custom_decode($txt, $num = 1) {
+    $default = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    $custom = "ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba9876543210+/";
+    $decoded = $txt;
+    for ($i = 1; $i <= $num; $i++) {
+        $decoded = base64_decode(strtr($decoded, $custom, $default));
+    }
+    return urldecode($decoded);
+}
+
+function syncToElbatal($pdo, $userId, $data) {
+    try {
+        $stmt = $pdo->prepare("SELECT id, username, email, avatar, password, role, google_id FROM users WHERE id = ?");
+        $stmt->execute([$userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$user) return;
+
+        $username = $user['username'];
+        $email = $user['email'] ?: '';
+        if ($email === '') $email = 'user' . $userId . '@elbatal.local';
+        $hash = $user['password'];
+        $avatar = $user['avatar'];
+        $role = $user['role'] ?: 'user';
+        $googleId = $user['google_id'];
+
+        $userIcon = $username;
+        $gIcon = null;
+        $avatarOrGIcon = 1;
+        if (!empty($avatar)) {
+            if (preg_match('#^https?://#i', $avatar)) {
+                $gIcon = $avatar;
+                $avatarOrGIcon = 2;
+            } elseif (preg_match('/seed=([^&]+)/', $avatar, $m)) {
+                $userIcon = rawurldecode($m[1]);
+            } else {
+                $path = parse_url($avatar, PHP_URL_PATH);
+                if ($path && ($base = basename($path)) && $base !== '') {
+                    $userIcon = $base;
+                }
+            }
+        }
+
+        $stmt = $pdo->prepare("SELECT id FROM Elbatal_Users WHERE id = ?");
+        $stmt->execute([$userId]);
+        if (!$stmt->fetch()) {
+            $actvcode = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 8);
+            $stmt = $pdo->prepare("INSERT INTO Elbatal_Users (id, username, email, password, user_icon, g_icon, avatar_or_g_icon, google_linked, google_linked_email, google_linked_id, role, active, status, created_at, type, actvcode, has_pro, pro_until) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 'working', NOW(), 'user', ?, '0', NOW())");
+            $stmt->execute([$userId, $username, $email, $hash, $userIcon, $gIcon, $avatarOrGIcon, $googleId ? 1 : 0, $googleId ? $email : null, $googleId, $role, $actvcode]);
+        } else {
+            $stmt = $pdo->prepare("UPDATE Elbatal_Users SET username = ?, email = ?, user_icon = ?, g_icon = ?, avatar_or_g_icon = ?, google_linked = ?, google_linked_email = ?, google_linked_id = ? WHERE id = ?");
+            $stmt->execute([$username, $email, $userIcon, $gIcon, $avatarOrGIcon, $googleId ? 1 : 0, $googleId ? $email : null, $googleId, $userId]);
+        }
+
+        $hwid = $data['device_info']['hwid'] ?? ($data['device_info']['androidId'] ?? ($data['device_info']['platform'] ?? ''));
+        if ($hwid !== '') {
+            $devName = $data['device_info']['device_name'] ?? ($data['device_info']['dev_name'] ?? '');
+            $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+            if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip = trim(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
+            }
+            $stmt = $pdo->prepare("SELECT id FROM Elbatal_logins WHERE user_id = ? AND dev_id = ?");
+            $stmt->execute([$userId, $hwid]);
+            if ($stmt->fetch()) {
+                $stmt = $pdo->prepare("UPDATE Elbatal_logins SET dev_ip = ?, dev_name = ?, last_login_at = NOW() WHERE user_id = ? AND dev_id = ?");
+                $stmt->execute([$ip, $devName, $userId, $hwid]);
+            } else {
+                $stmt = $pdo->prepare("INSERT INTO Elbatal_logins (user_id, dev_id, dev_name, dev_ip, last_login_at) VALUES (?, ?, ?, ?, NOW())");
+                $stmt->execute([$userId, $hwid, $devName, $ip]);
+            }
+        }
+    } catch (PDOException $e) {
+        error_log('syncToElbatal: ' . $e->getMessage());
+    }
+}
+
 function createPngFromImage($sourcePath, $targetPath, $size) {
     if (!function_exists('imagecreatetruecolor')) {
         return copy($sourcePath, $targetPath);
@@ -556,6 +641,8 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO user_devices (user_id, hwid, device_info, token, last_login) VALUES (?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE device_info = VALUES(device_info), token = VALUES(token), last_login = NOW()");
         $stmt->execute([$userId, $hwid, $infoJson, $token]);
 
+        syncToElbatal($pdo, $userId, $data);
+
         echo json_encode([
             'success' => true,
             'user' => [
@@ -672,6 +759,8 @@ switch ($action) {
 
         $pdo->prepare("INSERT INTO login_logs (user_id, email, method, ip_address, user_agent, location_country, location_city, location_isp, location_ip, success, failure_reason) VALUES (?, ?, 'password', ?, ?, ?, ?, ?, ?, 1, NULL)")->execute([$user['id'], $user['email'], $ip, $ua, $loc['country'], $loc['city'], $loc['isp'], $loc['ip']]);
 
+        syncToElbatal($pdo, $user['id'], $data);
+
         echo json_encode([
             'success' => true,
             'user' => [
@@ -698,26 +787,37 @@ switch ($action) {
         $loc = getLocationData();
 
         if (!$credential) {
-            echo json_encode(['success' => false, 'error' => 'Missing credential']);
-            break;
+            // Profile-based sign-in (native app / electron): OS already verified the Google account
+            $profileId = trim(mou_custom_decode($data['gid'] ?? ''));
+            $profileEmail = trim(mou_custom_decode($data['email'] ?? ''));
+            if (!$profileId || !$profileEmail) {
+                echo json_encode(['success' => false, 'error' => 'Missing credential']);
+                break;
+            }
+            $payload = [
+                'sub' => $profileId,
+                'email' => $profileEmail,
+                'name' => trim($data['username'] ?? ''),
+                'picture' => $data['g_icon'] ?? ($data['picture'] ?? ''),
+            ];
+        } else {
+            // Verify token with Google
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://oauth2.googleapis.com/tokeninfo?id_token=" . urlencode($credential));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($httpCode !== 200) {
+                echo json_encode(['success' => false, 'error' => 'Google token verification failed']);
+                break;
+            }
+
+            $payload = json_decode($response, true);
         }
-
-        // Verify token with Google
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://oauth2.googleapis.com/tokeninfo?id_token=" . urlencode($credential));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($httpCode !== 200) {
-            echo json_encode(['success' => false, 'error' => 'Google token verification failed']);
-            break;
-        }
-
-        $payload = json_decode($response, true);
         $googleId = $payload['sub'] ?? '';
         $email = $payload['email'] ?? '';
         $name = $payload['name'] ?? $email;
@@ -770,7 +870,7 @@ switch ($action) {
             $stmt = $pdo->prepare("INSERT INTO users (username, email, google_id, avatar, password, role, status, email_verified) VALUES (?, ?, ?, ?, ?, 'user', 1, 1)");
             $stmt->execute([$username, $email, $googleId, $picture, $hash]);
             $userId = $pdo->lastInsertId();
-            $user = ['id' => $userId, 'username' => $username, 'role' => 'user', 'status' => 1, 'avatar' => $picture];
+            $user = ['id' => $userId, 'username' => $username, 'role' => 'user', 'status' => 1, 'avatar' => $picture, 'email' => $email];
         }
 
         // Update avatar if Google picture changed
@@ -840,6 +940,8 @@ switch ($action) {
         }
 
         $pdo->prepare("INSERT INTO login_logs (user_id, email, method, ip_address, user_agent, location_country, location_city, location_isp, location_ip, success, failure_reason) VALUES (?, ?, 'google', ?, ?, ?, ?, ?, ?, 1, NULL)")->execute([$user['id'], $user['email'], $ip, $ua, $loc['country'], $loc['city'], $loc['isp'], $loc['ip']]);
+
+        syncToElbatal($pdo, $user['id'], $data);
 
         echo json_encode([
             'success' => true,
@@ -1405,6 +1507,8 @@ switch ($action) {
         $token = bin2hex(random_bytes(32));
         $stmt = $pdo->prepare("INSERT INTO user_devices (user_id, hwid, device_info, token, last_login) VALUES (?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE device_info = VALUES(device_info), token = VALUES(token), last_login = NOW()");
         $stmt->execute([$userId, $hwid, $infoJson, $token]);
+
+        syncToElbatal($pdo, $userId, $data);
 
         echo json_encode([
             'success' => true,

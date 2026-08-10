@@ -1,0 +1,36 @@
+[19-Nov-2024 22:56:01 UTC] PHP Warning:  Undefined array key "message" in /home/elbarymo/my.elbatal-app.com/users/telegram.php on line 58
+[19-Nov-2024 22:56:01 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/elbarymo/my.elbatal-app.com/users/telegram.php on line 58
+[16-Mar-2025 15:19:05 UTC] PHP Warning:  Undefined array key "t" in /home/elbarymo/my.elbatal-app.com/users/app_config_editor.php on line 23
+[16-Mar-2025 15:20:17 UTC] PHP Warning:  Undefined array key "t" in /home/elbarymo/my.elbatal-app.com/users/app_config_editor.php on line 15
+[16-Mar-2025 15:56:08 UTC] PHP Warning:  Undefined array key "t" in /home/elbarymo/my.elbatal-app.com/users/app_config_editor.php on line 14
+[21-Apr-2025 10:20:07 UTC] PHP Warning:  Array to string conversion in /home/elbarymo/my.elbatal-app.com/users/admob_verify.php on line 7
+[06-Sep-2025 00:29:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(`user_id`,`vid_id`),
+    FOREIGN KEY (user_id) REFERENCES Elbatal_Users(id) ...' at line 6 in /home/elbarymo/my.elbatal-app.com/users/config_db.php:175
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 175
+[06-Sep-2025 00:29:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(`user_id`),
+    FOREIGN KEY (user_id) REFERENCES Elbatal_Users(id) ON DELETE...' at line 6 in /home/elbarymo/my.elbatal-app.com/users/config_db.php:175
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 175
+[06-Sep-2025 00:30:05 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FOREIGN KEY (user_id) REFERENCES Elbatal_Users(id) ON DELETE CASCADE
+) ENGINE...' at line 6 in /home/elbarymo/my.elbatal-app.com/users/config_db.php:175
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 175
+[06-Sep-2025 00:30:31 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+    FOREIGN KEY (user_id) REFERENCES Elbatal_Users(id) ON DELETE CASCADE
+) E...' at line 6 in /home/elbarymo/my.elbatal-app.com/users/config_db.php:175
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 175
+[06-Sep-2025 00:41:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Key column 'vid_code' doesn't exist in table in /home/elbarymo/my.elbatal-app.com/users/config_db.php:175
+Stack trace:
+#0 /home/elbarymo/my.elbatal-app.com/users/config_db.php(175): mysqli->query()
+#1 {main}
+  thrown in /home/elbarymo/my.elbatal-app.com/users/config_db.php on line 175

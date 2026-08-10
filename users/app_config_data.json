@@ -1,0 +1,15 @@
+{
+    "app_version": "2.08.05",
+    "Latest_exe_version": "1.8.0",
+    "Latest_Apk_version": "3.1",
+    "apk_link": "https://new.elbatal-app.com/d/Elbatal-TV.v3.1.apk",
+    "Latest_exe_dl_Link": "https://new.elbatal-app.com/d/Elbatal-TV-Setup-1.8.0.exe",
+    "assets": [
+        "https://www.dropbox.com/scl/fi/ik2lxm0r4o8zevuj4zenx/assets_1776520926.zip?rlkey=q7g4hixsf8dbi4rdmlp30bgda&dl=1",
+        "https://files.catbox.moe/xeglyh.zip"
+    ],
+    "loader_show": true,
+    "app_mainpage": "https://new.elbatal-app.com",
+    "Latest_ios_version": "1.0",
+    "ios_dl_link": "https://elbatal-app.com/"
+}

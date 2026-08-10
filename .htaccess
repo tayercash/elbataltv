@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Serve the Elbatal TV app (index.html) at the domain root
+DirectoryIndex index.html index.php
+
 # Admin assets (JS/CSS/images/pages from AJAX context)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^admin/assets/(.*)$ assets/$1 [L,QSA]
