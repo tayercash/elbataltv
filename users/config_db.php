@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set("UTC");
 $servername = "localhost";
-$db_username = "elbarymo_mouscripts";
+$db_username = "Z2etHrLTbas8daAA";
 $db_password = "OUVF+TP(FFqH";
-$db_name = "elbarymo_elbataltv";
+$db_name = "elbataltv";
 
 $conn = new mysqli($servername, $db_username, $db_password, $db_name);
 if ($conn->connect_error) {
