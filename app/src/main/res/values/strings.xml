@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">New Batal</string>
+
+    <string name="default_notification_channel_id" translatable="false">elbatal_app</string>
+    <string name="default_notification_channel_name" translatable="false">elbatal_Notify</string>
+    <string name="asset_statements">
+[
+  {
+    \"relation\": [\"delegate_permission/common.handle_all_urls\"],
+    \"target\": {
+      \"namespace\": \"web\",
+      \"site\": \"https://my.elbatal-app.com\"
+    }
+  },
+  {
+    \"relation\": [\"delegate_permission/common.handle_all_urls\"],
+    \"target\": {
+      \"namespace\": \"web\",
+      \"site\": \"https://mou.elbatal-app.com\"
+    }
+  }
+]
+</string>
+    <string name="pref_decoder_priority_prefer_device">Prefer device decoders</string>
+    <string name="pref_decoder_priority_prefer_app">Prefer app decoders</string>
+    <string name="pref_decoder_priority_only_device">Device decoders only</string>
+    <string name="pref_file_access_auto">Auto</string>
+    <string name="track_selection_title">إختيار الجودة</string>
+
+</resources>

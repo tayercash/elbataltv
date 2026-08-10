@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ElbatalTvLite" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:navigationBarColor">@color/ui_controls_background</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">true</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:statusBarColor">@color/ui_controls_background</item>
+
+    </style>
+</resources>

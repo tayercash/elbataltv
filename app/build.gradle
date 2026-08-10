@@ -1,0 +1,94 @@
+plugins {
+    alias(libs.plugins.android.application) apply false
+    id 'com.google.gms.google-services'
+}
+apply plugin: 'com.android.application'
+
+android {
+    namespace 'com.mouscripts.elbatal'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.mouscripts.elbatal"
+        minSdk 21
+        targetSdk 34
+        versionCode 3
+        versionName "3.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\Admin\\Documents\\mykeystore\\elbataltv.jks')
+            storePassword 'ProMido@Nabil'
+            keyPassword 'ProMido@Nabil'
+            keyAlias 'promido'
+        }
+        release {
+            storeFile file('C:\\Users\\Admin\\Documents\\mykeystore\\elbataltv.jks')
+            storePassword 'ProMido@Nabil'
+            keyAlias 'promido'
+            keyPassword 'ProMido@Nabil'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            jniDebuggable = true
+        }
+    }
+
+    lintOptions {
+        // The demo app isn't indexed, doesn't have translations, and has a
+        // banner for AndroidTV that's only in xhdpi density.
+        disable 'GoogleAppIndexingWarning','MissingTranslation','IconDensities'
+    }
+
+    flavorDimensions = ["decoderExtensions"]
+
+    buildFeatures.buildConfig true
+
+    productFlavors {
+        noDecoderExtensions {
+            dimension "decoderExtensions"
+            buildConfigField "boolean", "USE_DECODER_EXTENSIONS", "false"
+        }
+        withDecoderExtensions {
+            dimension "decoderExtensions"
+            buildConfigField "boolean", "USE_DECODER_EXTENSIONS", "true"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    implementation libs.webkit
+    implementation libs.cronet.embedded
+
+    implementation 'com.google.android.gms:play-services-auth:21.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'commons-io:commons-io:2.11.0'
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation 'com.google.firebase:firebase-messaging-directboot:20.2.0'
+    implementation "com.unity3d.ads:unity-ads:4.12.3" // latest stable
+
+}
