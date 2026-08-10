@@ -1,0 +1,5 @@
+{
+    "require": {
+        "sokil/php-vast": "^2.2"
+    }
+}

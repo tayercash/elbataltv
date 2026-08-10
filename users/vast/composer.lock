@@ -1,0 +1,68 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "05ed2877f37243ec167bb76f5a57517a",
+    "packages": [
+        {
+            "name": "sokil/php-vast",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sokil/php-vast.git",
+                "reference": "de8e445a499e1d55415de1285148af924baad67c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sokil/php-vast/zipball/de8e445a499e1d55415de1285148af924baad67c",
+                "reference": "de8e445a499e1d55415de1285148af924baad67c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": ">=7.5.20",
+                "squizlabs/php_codesniffer": "^3.4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sokil\\Vast\\": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmytro Sokil",
+                    "email": "dmytro.sokil@gmail.com"
+                }
+            ],
+            "description": "Generator and parser for VAST documents",
+            "support": {
+                "issues": "https://github.com/sokil/php-vast/issues",
+                "source": "https://github.com/sokil/php-vast/tree/2.2.1"
+            },
+            "time": "2023-02-03T12:04:04+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}

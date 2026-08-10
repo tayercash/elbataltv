@@ -1,0 +1,3 @@
+[08-Jan-2026 12:40:15 UTC] PHP Warning:  Undefined variable $username in /home/elbarymo/my.elbatal-app.com/users/admen/fetchData.php on line 13
+[08-Jan-2026 12:40:15 UTC] PHP Warning:  Undefined variable $password in /home/elbarymo/my.elbatal-app.com/users/admen/fetchData.php on line 14
+[08-Jan-2026 12:40:15 UTC] PHP Warning:  Undefined variable $dbname in /home/elbarymo/my.elbatal-app.com/users/admen/fetchData.php on line 15
