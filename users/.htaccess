@@ -1,3 +1,0 @@
-RewriteEngine On    # Turn on the rewriting engine
-RewriteRule ^manifest.json manifest.php [NC,L]
-RewriteRule ^app_config1.json app_config.php [NC,L]
