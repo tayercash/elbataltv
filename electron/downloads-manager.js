@@ -1,29 +1,39 @@
 // ============================================================
 // ElbatalTV Local Downloads Manager — Electron Main Process
 // نظام تحميل لوكال بالكامل بدون أي سيرفر
-// التخزين: SQLite (better-sqlite3) داخل مجلد userData
+// التخزين: SQLite داخل مجلد userData (node:sqlite المدمج / better-sqlite3)
 // الملفات: مجلد ElbatalTV داخل Downloads
 // ============================================================
 //
 // التثبيت والربط:
-//   1) داخل مشروع الإلكترون: npm install better-sqlite3
-//      (لو حصلت مشكلة native module: npx electron-rebuild -f -w better-sqlite3)
+//   1) مفيش تبعية نيتف إجبارية — بيستخدم node:sqlite المدمج (Node 22.5+)
+//      وبيقع على better-sqlite3 لو كان متثبت.
 //   2) في الـ main process:
 //        const DownloadsManager = require('./downloads-manager');
 //        const downloadsManager = new DownloadsManager();
 //        app.whenReady().then(() => downloadsManager.init());
 //
-// ملاحظة preload: لازم يكون exposed للـ ipcRenderer كامل
-//   (contextBridge.exposeInMainWorld('electron', { ipcRenderer }) أو
-//    window.what_window = { electron: true, ipcRenderer })
-//   حتى يعمل ipcRenderer.invoke من الواجهة.
+// ملاحظة preload: لازم يكون exposed للـ ipcRenderer كامل مع invoke
+//   (contextBridge.exposeInMainWorld('ipcRenderer', { send, on, invoke }))
 // ============================================================
 
 const { app, ipcMain, webContents } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
-const Database = require('better-sqlite3');
+
+// SQLite: node:sqlite المدمج (مفيش build) مع fallback لـ better-sqlite3 لو متثبت
+let Database;
+try {
+    Database = require('better-sqlite3');
+} catch (e) {
+    const { DatabaseSync } = require('node:sqlite');
+    Database = function (file) {
+        const db = new DatabaseSync(file);
+        db.pragma = function (s) { try { db.exec('PRAGMA ' + s); } catch (e2) { } };
+        return db;
+    };
+}
 
 const DEFAULT_SETTINGS = {
     max_concurrent: '3',
