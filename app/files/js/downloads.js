@@ -2,11 +2,13 @@
 // ElbatalTV Local Downloads Manager
 // نظام تحميل لوكال بالكامل — بدون أي اتصال بالسيرفر
 // - Electron: SQLite عبر الـ main process (electron/downloads-manager.js)
-// - Android/Web: مخزن محلي (in-memory + localStorage)
+// - Android: bridge نيتف جافا (android/ElbatalDownloadsBridge.java) + SQLite
+// - Web: مخزن محلي (in-memory + localStorage)
 // ============================================================
 var ElDownloads = (function () {
     var isElectron = typeof what_window !== "undefined" && typeof what_window.electron !== "undefined";
     var useIPC = isElectron && typeof what_window.ipcRenderer !== "undefined" && typeof what_window.ipcRenderer.invoke === "function";
+    var useNativeAndroid = typeof elDownloadsNative !== "undefined";
 
     var running = {};
     var statusCallback = null;
@@ -72,6 +74,71 @@ var ElDownloads = (function () {
         });
     }
 
+    // ---------- bridge أندرويد النيتف (elDownloadsNative) ----------
+
+    function nativeCallAsync(method, callbackName) {
+        // للدوال اللي بتاخد اسم callback واحد (getDownloads / getSettings)
+        return new Promise(function (resolve) {
+            var done = false;
+            window[callbackName] = function (res) {
+                if (done) return;
+                done = true;
+                clearTimeout(timer);
+                resolve(res);
+            };
+            var timer = setTimeout(function () {
+                if (done) return;
+                done = true;
+                resolve(null);
+            }, 5000);
+            try {
+                elDownloadsNative[method](callbackName);
+            } catch (e) {
+                done = true;
+                clearTimeout(timer);
+                resolve(null);
+            }
+        });
+    }
+
+    function nativeFire(method, arg) {
+        try { elDownloadsNative[method](arg); } catch (e) { }
+    }
+
+    function normalizeJob(job) {
+        if (!job) return null;
+        return {
+            job_token: job.job_token,
+            file_title: job.file_title || "download",
+            file_ext: job.file_ext || "",
+            file_link: job.file_link || "",
+            file_dir: job.file_dir || "",
+            custom_headers: job.custom_headers || "{}",
+            status: job.status || "queued",
+            total_size: parseInt(job.total_size, 10) || 0,
+            downloaded_size: parseInt(job.downloaded_size, 10) || 0,
+            speed: parseFloat(job.speed) || 0,
+            progress: parseFloat(job.progress) || 0,
+            error_msg: job.error_msg || "",
+            file_path: job.file_path || "",
+            created_at: job.created_at || "",
+            started_at: job.started_at || "",
+            completed_at: job.completed_at || ""
+        };
+    }
+
+    function onNativeProgress(job) {
+        var j = normalizeJob(job);
+        if (!j) return;
+        running[j.job_token] = j;
+        persistLocal(j);
+        emit("progress", j);
+        if (typeof $ !== "undefined" && $("#downloads").hasClass("show")) {
+            refresh();
+        }
+    }
+    window.elDownloadsNativeOnProgress = onNativeProgress;
+
     function getLocalHistory() {
         try {
             var h = JSON.parse(localStorage.getItem(LS_KEY) || "[]");
@@ -120,6 +187,45 @@ var ElDownloads = (function () {
             emit("queued", job);
             return job;
         });
+    }
+
+    // ---------- أندرويد النيتف (تحميل بالهيدرز الكاملة عبر الجافا) ----------
+
+    function androidNativeDownload(file) {
+        var job = {
+            job_token: randomToken(),
+            file_title: file.file_name || file.file_title || "download",
+            file_ext: file.file_ext || "mp4",
+            file_link: file.file_link,
+            file_dir: file.file_dir || "",
+            custom_headers: file.custom_headers || "{}",
+            status: "queued",
+            total_size: 0,
+            downloaded_size: 0,
+            speed: 0,
+            progress: 0,
+            error_msg: "",
+            created_at: new Date().toISOString()
+        };
+        running[job.job_token] = job;
+        persistLocal(job);
+        emit("queued", job);
+        try {
+            elDownloadsNative.startDownload(JSON.stringify({
+                job_token: job.job_token,
+                file_link: job.file_link,
+                file_title: job.file_title,
+                file_ext: job.file_ext,
+                file_dir: job.file_dir,
+                custom_headers: job.custom_headers
+            }));
+        } catch (e) {
+            job.status = "error";
+            job.error_msg = "native bridge error";
+            emit("failed", job);
+            persistLocal(job);
+        }
+        return Promise.resolve(job);
     }
 
     // ---------- تحميل محلي بالـ fetch (Android/Web) ----------
@@ -250,16 +356,19 @@ var ElDownloads = (function () {
             }
             return electronDownload(file);
         }
+        if (useNativeAndroid) return androidNativeDownload(file);
         return localDownload(file);
     }
 
     function list() {
         if (useIPC) return ipcInvoke("downloads:list", {});
+        if (useNativeAndroid) return nativeCallAsync("getDownloads", "elDownloadsNativeOnList");
         return Promise.resolve(localList());
     }
 
     function pause(job_token) {
         if (useIPC) return ipcInvoke("downloads:pause", job_token).catch(function () { });
+        if (useNativeAndroid) { nativeFire("pauseDownload", job_token); return Promise.resolve(); }
         var job = running[job_token];
         if (job && job.status === "downloading") {
             job._stop = true;
@@ -272,6 +381,7 @@ var ElDownloads = (function () {
 
     function resume(job_token) {
         if (useIPC) return ipcInvoke("downloads:resume", job_token).catch(function () { });
+        if (useNativeAndroid) { nativeFire("resumeDownload", job_token); return Promise.resolve(); }
         var job = running[job_token];
         if (job) {
             job._stop = false;
@@ -283,6 +393,7 @@ var ElDownloads = (function () {
 
     function cancelSelf(job_token) {
         if (useIPC) return ipcInvoke("downloads:cancel", job_token).then(function () { refresh(); }).catch(function () { });
+        if (useNativeAndroid) { nativeFire("cancelDownload", job_token); refresh(); return Promise.resolve(); }
         var job = running[job_token];
         if (job) {
             job._stop = true;
@@ -296,6 +407,7 @@ var ElDownloads = (function () {
 
     function deleteJob(job_token) {
         if (useIPC) return ipcInvoke("downloads:delete", job_token).then(function () { refresh(); }).catch(function () { });
+        if (useNativeAndroid) { nativeFire("deleteDownload", job_token); refresh(); return Promise.resolve(); }
         var job = running[job_token];
         if (job) { job._stop = true; delete running[job_token]; }
         var h = getLocalHistory();
@@ -313,11 +425,17 @@ var ElDownloads = (function () {
 
     function getSettings() {
         if (useIPC) return ipcInvoke("downloads:settings", "get", {});
+        if (useNativeAndroid) {
+            return nativeCallAsync("getSettings", "elDownloadsNativeOnSettings").then(function (s) {
+                return s || { max_concurrent: "1", downloads_enabled: "1", pause_all: "0", max_retries: "3" };
+            });
+        }
         return Promise.resolve({ max_concurrent: "1", downloads_enabled: "1", pause_all: "0", max_retries: "3" });
     }
 
     function setSettings(data) {
         if (useIPC) return ipcInvoke("downloads:settings", "set", data || {}).catch(function () { });
+        if (useNativeAndroid) { nativeFire("setSettings", JSON.stringify(data || {})); return Promise.resolve(data || {}); }
         return Promise.resolve({ max_concurrent: "1", downloads_enabled: "1", pause_all: "0", max_retries: "3" });
     }
 
