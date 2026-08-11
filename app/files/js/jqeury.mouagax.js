@@ -2,7 +2,7 @@
 (function () {
     if (typeof jQuery === "function" && typeof $.ajaxPrefilter === "function") {
         $.ajaxPrefilter(function (options) {
-            if (typeof mouscripts === "undefined") {
+            if (typeof mouscripts === "undefined" && typeof window.electron === "undefined") {
                 return;
             }
             var a = document.createElement("a");
