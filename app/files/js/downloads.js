@@ -565,13 +565,34 @@ var ElDownloads = (function () {
             if (typeof showToast === "function") { try { showToast("الملف غير متاح للتشغيل"); } catch (e) { } }
             return;
         }
-        var src = "file://" + String(job.file_path).replace(/\\/g, "/");
         var title = job.file_title || "download";
+        var fileUri = "file://" + String(job.file_path).replace(/\\/g, "/");
+        // على Electron: الملف بيتقدم على localhost HTTP لأن CSP بيمنع file:// في المشغل
+        if (isElectron && useIPC) {
+            ipcInvoke("downloads:serve-file", job.file_path).then(function (localUrl) {
+                try {
+                    if (typeof play_vid === "function") {
+                        play_vid(localUrl || fileUri, title, "", "{}");
+                    } else if (typeof mouscripts !== "undefined" && typeof mouscripts.play_vid === "function") {
+                        mouscripts.play_vid(localUrl || fileUri, title, "", "{}");
+                    }
+                } catch (e) { }
+            }).catch(function () {
+                try {
+                    if (typeof play_vid === "function") {
+                        play_vid(fileUri, title, "", "{}");
+                    } else if (typeof mouscripts !== "undefined" && typeof mouscripts.play_vid === "function") {
+                        mouscripts.play_vid(fileUri, title, "", "{}");
+                    }
+                } catch (e) { }
+            });
+            return;
+        }
         try {
             if (typeof play_vid === "function") {
-                play_vid(src, title, "", "{}");
+                play_vid(fileUri, title, "", "{}");
             } else if (typeof mouscripts !== "undefined" && typeof mouscripts.play_vid === "function") {
-                mouscripts.play_vid(src, title, "", "{}");
+                mouscripts.play_vid(fileUri, title, "", "{}");
             }
         } catch (e) { }
     }
