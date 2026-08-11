@@ -76,19 +76,22 @@ var ElDownloads = (function () {
 
     // ---------- bridge أندرويد النيتف (elDownloadsNative) ----------
 
-    function nativeCallAsync(method, callbackName) {
-        // للدوال اللي بتاخد اسم callback واحد (getDownloads / getSettings)
+    function nativeCallAsync(method) {
+        // اسم callback فريد لكل استدعاء — يمنع التخابط لما في أكتر من استدعاء في نفس الوقت
+        var callbackName = "elDownloadsNativeCb_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
         return new Promise(function (resolve) {
             var done = false;
             window[callbackName] = function (res) {
                 if (done) return;
                 done = true;
                 clearTimeout(timer);
+                try { delete window[callbackName]; } catch (e) { }
                 resolve(res);
             };
             var timer = setTimeout(function () {
                 if (done) return;
                 done = true;
+                try { delete window[callbackName]; } catch (e) { }
                 resolve(null);
             }, 5000);
             try {
@@ -96,6 +99,7 @@ var ElDownloads = (function () {
             } catch (e) {
                 done = true;
                 clearTimeout(timer);
+                try { delete window[callbackName]; } catch (e2) { }
                 resolve(null);
             }
         });
@@ -133,6 +137,8 @@ var ElDownloads = (function () {
         running[j.job_token] = j;
         persistLocal(j);
         emit("progress", j);
+        // تحديث مباشر للكارت من الـ broadcast (مش مستني refresh)
+        liveTick();
         if (typeof $ !== "undefined" && $("#downloads").hasClass("show")) {
             refresh();
         }
@@ -362,7 +368,7 @@ var ElDownloads = (function () {
 
     function list() {
         if (useIPC) return ipcInvoke("downloads:list", {});
-        if (useNativeAndroid) return nativeCallAsync("getDownloads", "elDownloadsNativeOnList");
+        if (useNativeAndroid) return nativeCallAsync("getDownloads");
         return Promise.resolve(localList());
     }
 
@@ -426,7 +432,7 @@ var ElDownloads = (function () {
     function getSettings() {
         if (useIPC) return ipcInvoke("downloads:settings", "get", {});
         if (useNativeAndroid) {
-            return nativeCallAsync("getSettings", "elDownloadsNativeOnSettings").then(function (s) {
+            return nativeCallAsync("getSettings").then(function (s) {
                 return s || { max_concurrent: "1", downloads_enabled: "1", pause_all: "0", max_retries: "3" };
             });
         }
@@ -624,8 +630,12 @@ var ElDownloads = (function () {
                 running[job.job_token] = job;
             }
         });
+        var hasLive = false;
+        jobs.forEach(function (job) {
+            if (job && job.status === "downloading") hasLive = true;
+        });
         var sig = listSignature(jobs);
-        if (sig === lastListSig) return;
+        if (sig === lastListSig && !hasLive) return;
         lastListSig = sig;
         var html = "";
         jobs.forEach(function (job) { html += downloadItemHtml(job); });
