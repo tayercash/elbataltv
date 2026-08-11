@@ -289,13 +289,180 @@ var ElDownloads = (function () {
         return running;
     }
 
+    // ============================================================
+    // صفحة التحميلات داخل التطبيق (نظام الواجهة العادي)
+    // ============================================================
+    var dlRefreshTimer = null;
+    var dlLiveTimer = null;
+
+    var STATUS_LABELS = {
+        queued: "في الانتظار",
+        downloading: "جاري التحميل",
+        paused: "متوقف مؤقتا",
+        completed: "اكتمل",
+        error: "خطأ",
+        cancelled: "ملغي"
+    };
+
+    function esc(str) {
+        return String(str == null ? "" : str)
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    function fmtSize(b) {
+        b = +b || 0;
+        if (b >= 1073741824) return (b / 1073741824).toFixed(2) + " GB";
+        if (b >= 1048576) return (b / 1048576).toFixed(2) + " MB";
+        if (b >= 1024) return (b / 1024).toFixed(1) + " KB";
+        return b + " B";
+    }
+
+    function downloadItemHtml(job) {
+        var total = parseInt(job.total_size, 10) || 0;
+        var down = parseInt(job.downloaded_size, 10) || 0;
+        var live = running[job.job_token];
+        if (live) {
+            down = live.downloaded || down;
+            if (!total && live.total_size) total = parseInt(live.total_size, 10) || 0;
+        }
+        var status = job.status || "queued";
+        if (live) status = live.status || status;
+        var pct = total > 0 ? Math.min(100, Math.round((down / total) * 100)) : (status === "completed" ? 100 : 0);
+        var label = STATUS_LABELS[status] || status;
+        var speedTxt = "";
+        if (status === "downloading") {
+            var sp = parseFloat(job.speed) || 0;
+            if (live && live.speed) sp = live.speed;
+            if (sp > 0) speedTxt = fmtSize(sp) + "/s";
+        }
+        var actions = "";
+        if (status === "paused") {
+            actions += '<button class="dl_btn dl_btn_resume" data-dl="resume" data-token="' + job.job_token + '"><i class="fas fa-play"></i> استئناف</button>';
+        }
+        if (status === "queued" || status === "downloading" || status === "paused") {
+            actions += '<button class="dl_btn dl_btn_cancel" data-dl="cancel" data-token="' + job.job_token + '"><i class="fas fa-times"></i> إلغاء</button>';
+        }
+        var sizeTxt = total > 0 ? fmtSize(down) + " / " + fmtSize(total) : fmtSize(down);
+        return '<div class="download_item" data-token="' + job.job_token + '">'
+            + '<div class="download_item_top">'
+            + '<span class="download_item_title">' + esc(job.file_title || "download") + '</span>'
+            + '<span class="download_item_status st_' + status + '">' + label + '</span>'
+            + '</div>'
+            + '<div class="download_item_bar"><div class="download_item_bar_fill' + (status === "completed" ? " st_done" : "") + '" style="width:' + pct + '%"></div></div>'
+            + '<div class="download_item_info">'
+            + '<span class="download_item_sizes">' + sizeTxt + '</span>'
+            + (speedTxt ? '<span class="download_item_speed">' + speedTxt + '</span>' : '')
+            + '</div>'
+            + '<div class="download_item_actions">' + actions + '</div>'
+            + '</div>';
+    }
+
+    function runningList() {
+        var out = [];
+        Object.keys(running).forEach(function (t) { out.push(running[t]); });
+        return out;
+    }
+
+    function render(jobs) {
+        var $list = $("#downloads_list");
+        if (!$list.length) return;
+        if (!jobs || !jobs.length) {
+            $list.html('<div class="empty_downloads">لا توجد تحميلات</div>');
+            return;
+        }
+        var html = "";
+        jobs.forEach(function (job) { html += downloadItemHtml(job); });
+        $list.html(html);
+    }
+
+    function refresh() {
+        post({ action: "my", device_id: getIdentity().device_id })
+            .then(function (res) {
+                if (!res.success) throw new Error(res.message || "error");
+                render(res.data || []);
+            })
+            .catch(function () {
+                render(runningList());
+            });
+    }
+
+    function liveTick() {
+        if (typeof $ === "undefined" || !$("#downloads").hasClass("show")) return;
+        Object.keys(running).forEach(function (token) {
+            var $item = $('#downloads_list .download_item[data-token="' + token + '"]');
+            if (!$item.length) return;
+            var job = running[token];
+            var total = parseInt(job.total_size, 10) || 0;
+            var down = job.downloaded || 0;
+            var pct = total > 0 ? Math.min(100, Math.round((down / total) * 100)) : 0;
+            $item.find(".download_item_bar_fill").css("width", pct + "%");
+            $item.find(".download_item_sizes").text(fmtSize(down) + (total > 0 ? " / " + fmtSize(total) : ""));
+            $item.find(".download_item_speed").text(job.speed > 0 ? fmtSize(job.speed) + "/s" : "");
+        });
+    }
+
+    function cancelSelf(job_token) {
+        post({ action: "cancel_device", job_token: job_token, device_id: getIdentity().device_id })
+            .then(function (res) {
+                if (!res.success) throw new Error(res.message || "cancel error");
+                var job = running[job_token];
+                if (job) {
+                    job._stop = true;
+                    job.status = "cancelled";
+                    job.speed = 0;
+                    emit("cancelled", job);
+                }
+                refresh();
+            })
+            .catch(function (err) {
+                if (typeof showToast === "function") {
+                    try { showToast(err.message || "تعذر إلغاء التحميل"); } catch (e) { }
+                }
+            });
+    }
+
+    function stopTimers() {
+        if (dlRefreshTimer) { clearInterval(dlRefreshTimer); dlRefreshTimer = null; }
+        if (dlLiveTimer) { clearInterval(dlLiveTimer); dlLiveTimer = null; }
+    }
+
+    function show() {
+        if (typeof $ === "undefined" || !$("#downloads").length) return;
+        if (typeof $(".sidenav").hide_side_nav === "function") {
+            $(".sidenav").hide_side_nav();
+        }
+        refresh();
+        $("#downloads").openpopup();
+        $("#downloads").on_closepopup(stopTimers);
+        if (!dlRefreshTimer) dlRefreshTimer = setInterval(refresh, 3000);
+        if (!dlLiveTimer) dlLiveTimer = setInterval(liveTick, 1000);
+    }
+
+    if (typeof $ !== "undefined" && typeof document !== "undefined") {
+        $(document).on("click", "#downloads_refresh_btn", function () { refresh(); });
+        $(document).on("click", ".download_item .dl_btn", function () {
+            var token = $(this).attr("data-token");
+            var act = $(this).attr("data-dl");
+            if (!token) return;
+            if (act === "cancel") {
+                cancelSelf(token);
+            } else if (act === "resume") {
+                resume(token).then(function () { refresh(); }).catch(function () { });
+            }
+        });
+    }
+
     return {
         download: download,
         finish: finish,
         fail: fail,
         pause: pause,
         resume: resume,
+        cancelSelf: cancelSelf,
         setStatusCallback: setStatusCallback,
-        getRunning: getRunning
+        getRunning: getRunning,
+        show: show,
+        refresh: refresh
     };
 })();

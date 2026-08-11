@@ -1520,3 +1520,133 @@ html.electron .webview_info {
 }
 
 /* end movies */
+/* ===== downloads page ===== */
+.downloads_page {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.downloads_page_header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.downloads_list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.empty_downloads {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--mou_color);
+    opacity: 0.7;
+    font-size: 1rem;
+}
+
+.download_item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: var(--elmnt_back);
+    border: 1px solid var(--mou_border_color);
+    border-radius: 12px;
+    padding: 0.75rem;
+}
+
+.download_item_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.download_item_title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--mou_color);
+    word-break: break-all;
+}
+
+.download_item_status {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.download_item_status.st_queued { background: #ffc10733; color: #ffc107; }
+.download_item_status.st_downloading { background: #0d6efd33; color: #0d6efd; }
+.download_item_status.st_paused { background: #ffc10733; color: #ffc107; }
+.download_item_status.st_completed { background: #19875433; color: #198754; }
+.download_item_status.st_error { background: #dc354533; color: #dc3545; }
+.download_item_status.st_cancelled { background: #6c757d33; color: #6c757d; }
+
+.download_item_bar {
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(128, 128, 128, 0.25);
+    overflow: hidden;
+}
+
+.download_item_bar_fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--colorAccent), #ff7b5c);
+    transition: width 0.6s ease;
+}
+
+.download_item_bar_fill.st_done {
+    background: var(--bg-success-color);
+}
+
+.download_item_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--mou_color);
+    opacity: 0.85;
+}
+
+.download_item_speed {
+    color: var(--colorAccent);
+    font-weight: 600;
+}
+
+.download_item_actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+}
+
+.dl_btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: 0.2s;
+}
+
+.dl_btn_resume {
+    background: #198754;
+    color: #fff;
+}
+
+.dl_btn_cancel {
+    background: #dc3545;
+    color: #fff;
+}

@@ -298,6 +298,28 @@
         </div>
     </div>
 
+    <div class="mou_popup full_popup" id="downloads">
+        <div class="mou_popup_container mou_box_shadow">
+            <div class="mou_popup_header">
+                <span class="mou_pop_up_title"><i class="fas fa-download"></i> التحميلات</span>
+                <span class="close_popup_btn" data-dismisspopup><i class="far fa-times fa-lg"></i></span>
+            </div>
+            <div class="mou_popup_body">
+                <div class="downloads_page">
+                    <div class="downloads_page_header">
+                        <button class="mou_btn mou_box_shadow" id="downloads_refresh_btn"><i class="fas fa-sync-alt"></i> تحديث</button>
+                    </div>
+                    <div id="downloads_list" class="downloads_list">
+                        <div class="empty_downloads">لا توجد تحميلات</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mou_popup_footer">
+                <button class="mou_btn mou_box_shadow" data-dismisspopup="true">الرجوع</button>
+            </div>
+        </div>
+    </div>
+
     <div class="mou_popup mou_bottom_pop" id="watch_trailer_popup">
         <div class="mou_popup_container mou_box_shadow">
             <div class="mou_popup_header">
@@ -527,6 +549,10 @@
                     <span class="text">البروفايل</span>
                 </button>
 
+                <button class="sidenav_btn" onclick="open_downloads()">
+                    <span class="icon"><i class="fas fa-download"></i></span>
+                    <span class="text">التنزيلات</span>
+                </button>
 
             </div>
             <div class="box" id="content" data-add_tabindex></div>

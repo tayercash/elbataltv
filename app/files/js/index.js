@@ -214,7 +214,11 @@ $(window).on("click", function (event) {
 // downloads js
 function open_downloads() {
     $(".sidenav").hide_side_nav();
-    showToast("التحميلات تُدار من لوحة إدارة التحميلات على موقع البطل");
+    if (typeof ElDownloads !== "undefined" && typeof ElDownloads.show === "function") {
+        ElDownloads.show();
+    } else {
+        showToast("التحميلات تُدار من لوحة إدارة التحميلات على موقع البطل");
+    }
 }
 function open_settings() {
     init_settings();

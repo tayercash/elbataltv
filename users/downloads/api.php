@@ -312,6 +312,37 @@ switch ($action) {
         api_response(true, null, "resumed");
         break;
 
+    case "my":
+        list($user_id, $device_id) = get_device_info();
+        $stmt = $conn->prepare("SELECT * FROM `$downloads_table` WHERE device_id = ? ORDER BY id DESC LIMIT 50");
+        $stmt->bind_param("s", $device_id);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $jobs = array();
+        while ($row = $res->fetch_assoc()) {
+            $row["id"] = intval($row["id"]);
+            $row["total_size"] = intval($row["total_size"]);
+            $row["downloaded_size"] = intval($row["downloaded_size"]);
+            $row["progress"] = floatval($row["progress"]);
+            $row["speed"] = floatval($row["speed"]);
+            $row["user_id"] = $row["user_id"] !== null ? intval($row["user_id"]) : null;
+            $jobs[] = $row;
+        }
+        api_response(true, $jobs);
+        break;
+
+    case "cancel_device":
+        $job_token = isset($_POST["job_token"]) ? trim($_POST["job_token"]) : "";
+        if ($job_token == "") {
+            api_response(false, null, "job_token is required");
+        }
+        $job = get_job_by_token($conn, $downloads_table, $job_token);
+        assert_job_owner($job);
+        $conn->prepare("UPDATE `$downloads_table` SET status = 'cancelled', speed = 0, updated_at = NOW() WHERE job_token = ?")
+            ->execute(array($job_token));
+        api_response(true, null, "cancelled");
+        break;
+
     // ============ ADMIN ACTIONS ============
 
     case "list":
