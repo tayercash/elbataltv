@@ -430,11 +430,13 @@ var ElDownloads = (function () {
     function show() {
         if (typeof $ === "undefined" || !$("#downloads").length) return;
         if (typeof $(".sidenav").hide_side_nav === "function") {
-            $(".sidenav").hide_side_nav();
+            try { $(".sidenav").hide_side_nav(); } catch (e) { }
         }
         refresh();
-        $("#downloads").openpopup();
-        $("#downloads").on_closepopup(stopTimers);
+        try {
+            $("#downloads").openpopup();
+            $("#downloads").on_closepopup(stopTimers);
+        } catch (e) { }
         if (!dlRefreshTimer) dlRefreshTimer = setInterval(refresh, 3000);
         if (!dlLiveTimer) dlLiveTimer = setInterval(liveTick, 1000);
     }

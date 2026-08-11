@@ -213,9 +213,13 @@ $(window).on("click", function (event) {
 // End dropdown
 // downloads js
 function open_downloads() {
-    $(".sidenav").hide_side_nav();
+    try { $(".sidenav").hide_side_nav(); } catch (e) { }
     if (typeof ElDownloads !== "undefined" && typeof ElDownloads.show === "function") {
-        ElDownloads.show();
+        try {
+            ElDownloads.show();
+        } catch (e) {
+            showToast("تعذر فتح صفحة التحميلات");
+        }
     } else {
         showToast("التحميلات تُدار من لوحة إدارة التحميلات على موقع البطل");
     }
