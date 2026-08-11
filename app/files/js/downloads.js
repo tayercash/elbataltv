@@ -582,13 +582,30 @@ var ElDownloads = (function () {
         return out;
     }
 
+    var lastListSig = null;
+
+    function listSignature(jobs) {
+        return (jobs || []).map(function (j) {
+            return j.job_token + "|" + (j.status || "") + "|" + (parseInt(j.downloaded_size, 10) || 0) + "|" + (parseInt(j.total_size, 10) || 0) + "|" + Math.round(parseFloat(j.speed) || 0) + "|" + Math.round(parseFloat(j.progress) || 0);
+        }).join(",");
+    }
+
     function render(jobs) {
         var $list = $("#downloads_list");
         if (!$list.length) return;
         if (!jobs || !jobs.length) {
+            lastListSig = null;
             $list.html('<div class="empty_downloads">لا توجد تحميلات</div>');
             return;
         }
+        jobs.forEach(function (job) {
+            if (job && job.job_token && !running[job.job_token]) {
+                running[job.job_token] = job;
+            }
+        });
+        var sig = listSignature(jobs);
+        if (sig === lastListSig) return;
+        lastListSig = sig;
         var html = "";
         jobs.forEach(function (job) { html += downloadItemHtml(job); });
         $list.html(html);
@@ -605,9 +622,10 @@ var ElDownloads = (function () {
     function liveTick() {
         if (typeof $ === "undefined" || !$("#downloads").hasClass("show")) return;
         Object.keys(running).forEach(function (token) {
+            var job = running[token];
+            if (!job || job.status !== "downloading") return;
             var $item = $('#downloads_list .download_item[data-token="' + token + '"]');
             if (!$item.length) return;
-            var job = running[token];
             var total = parseInt(job.total_size, 10) || 0;
             var down = parseInt(job.downloaded_size, 10) || 0;
             var pct = total > 0 ? Math.min(100, Math.round((down / total) * 100)) : 0;
