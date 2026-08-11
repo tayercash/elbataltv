@@ -1,3 +1,28 @@
+// Global: route every cross-origin ajax request through the native bridge (CORS bypass) when running inside the app
+(function () {
+    if (typeof jQuery === "function" && typeof $.ajaxPrefilter === "function") {
+        $.ajaxPrefilter(function (options) {
+            if (typeof mouscripts === "undefined") {
+                return;
+            }
+            var a = document.createElement("a");
+            a.href = options.url || "";
+            var crossOrigin = (a.host !== window.location.host || a.protocol !== window.location.protocol);
+            if (!crossOrigin) {
+                return;
+            }
+            options.headers = options.headers || {};
+            // Native shouldInterceptRequest proxies these requests (adds CORS headers + UA/Referer)
+            options.headers["MOuCustomREQUEST"] = "NICE";
+            // The browser refuses these unsafe headers anyway; the native layer sets them
+            delete options.headers["user-agent"];
+            delete options.headers["User-Agent"];
+            delete options.headers["referer"];
+            delete options.headers["Referer"];
+        });
+    }
+})();
+
 $.MouAjax = async function (params) {
     var Time_Out = (typeof params.Time_Out !== "undefined" && typeof params.Time_Out !== "number") ? params.Time_Out : (30 * 1000);
     if (typeof mouscripts !== "undefined") {
