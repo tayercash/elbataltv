@@ -1,297 +1,16 @@
 // ============================================================
-// ElbatalTV Downloads Manager
-// محرك تحميل داخلي يتكامل مع لوحة إدارة التحميلات
-// users/downloads/api.php — بدون تطبيقات خارجية (ADM/1DM)
+// ElbatalTV Local Downloads Manager
+// نظام تحميل لوكال بالكامل — بدون أي اتصال بالسيرفر
+// - Electron: SQLite عبر الـ main process (electron/downloads-manager.js)
+// - Android/Web: مخزن محلي (in-memory + localStorage)
 // ============================================================
 var ElDownloads = (function () {
-    var API_URL = (typeof elbatal_api !== "undefined" ? elbatal_api : "https://new.elbatal-app.com/users/") + "downloads/api.php";
+    var isElectron = typeof what_window !== "undefined" && typeof what_window.electron !== "undefined";
+    var useIPC = isElectron && typeof what_window.ipcRenderer !== "undefined" && typeof what_window.ipcRenderer.invoke === "function";
+
     var running = {};
     var statusCallback = null;
-
-    function randString(len) {
-        var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        var out = "";
-        for (var i = 0; i < len; i++) out += chars.charAt(Math.floor(Math.random() * chars.length));
-        return out;
-    }
-
-    function safeFixSingleQuotes(str) {
-        str = str || "";
-        if (typeof fixSingleQuotes === "function") {
-            try { return fixSingleQuotes(str); } catch (e) { }
-        }
-        return str.replace(/([{,])\s*'([^']+)'\s*:/g, '$1"$2":')
-            .replace(/:\s*'([^']*)'/g, ':"$1"');
-    }
-
-    function getIdentity() {
-        var identity = { device_id: null, user_id: null };
-        if (typeof what_window !== "undefined" && what_window.dev_id) {
-            identity.device_id = what_window.dev_id;
-        }
-        if (typeof user_data !== "undefined" && user_data.user_id) {
-            identity.user_id = user_data.user_id;
-        }
-        if (!identity.device_id) {
-            try {
-                identity.device_id = localStorage.getItem("el_downloads_dev_id");
-                if (!identity.device_id) {
-                    identity.device_id = "dev-" + randString(8) + "-" + Date.now().toString(36);
-                    localStorage.setItem("el_downloads_dev_id", identity.device_id);
-                }
-            } catch (e) {
-                identity.device_id = "dev-" + randString(10);
-            }
-        }
-        return identity;
-    }
-
-    function getPlatform() {
-        if (typeof mouscripts !== "undefined") return "android";
-        if (typeof what_window !== "undefined" && what_window.electron) return "electron";
-        return "web";
-    }
-
-    function post(data) {
-        return new Promise(function (resolve, reject) {
-            var params = {
-                type: "POST",
-                url: API_URL,
-                data: data,
-                dataType: "json",
-                success: function (res) {
-                    if (typeof res === "string") {
-                        try { res = JSON.parse(res); } catch (e) { reject(new Error("bad response")); return; }
-                    }
-                    resolve(res);
-                },
-                fail: function (code, msg) {
-                    reject(new Error(msg || "network error (" + code + ")"));
-                }
-            };
-
-            if (typeof $.MouAjax === "function") {
-                try {
-                    $.MouAjax(params);
-                    return;
-                } catch (e) { }
-            }
-            params.error = function (xhr) { reject(new Error("HTTP " + xhr.status)); };
-            delete params.fail;
-            $.ajax(params);
-        });
-    }
-
-    function emit(status, job) {
-        if (statusCallback && typeof statusCallback === "function") {
-            try { statusCallback(status, job); } catch (e) { }
-        }
-    }
-
-    function waitForSlot(job) {
-        return new Promise(function (resolve, reject) {
-            var attempts = 0;
-            var loop = setInterval(function () {
-                post({ action: "poll", job_token: job.job_token, device_id: getIdentity().device_id })
-                    .then(function (res) {
-                        if (!res.success) {
-                            clearInterval(loop);
-                            reject(new Error(res.message || "poll error"));
-                            return;
-                        }
-                        var d = res.data;
-                        if (d.go === true) {
-                            clearInterval(loop);
-                            job.status = d.status;
-                            emit("started", job);
-                            resolve(job);
-                        } else if (d.stop === true) {
-                            clearInterval(loop);
-                            emit("cancelled", job);
-                            reject(new Error("stopped: " + d.reason));
-                        }
-                        // else wait and try again
-                    })
-                    .catch(function (err) {
-                        attempts++;
-                        if (attempts > 30) {
-                            clearInterval(loop);
-                            reject(err);
-                        }
-                    });
-            }, 3000);
-        });
-    }
-
-    function reportProgress(job, downloaded, speed, total) {
-        post({
-            action: "progress",
-            job_token: job.job_token,
-            device_id: getIdentity().device_id,
-            downloaded_size: Math.round(downloaded),
-            total_size: Math.round(total || 0),
-            speed: Math.round(speed || 0)
-        }).then(function (res) {
-            if (res.success && res.data && res.data.stop === true) {
-                job._stop = true;
-                emit("cancelled", job);
-            }
-        }).catch(function () { });
-    }
-
-    function streamDownload(job, file) {
-        var headers = {};
-        try { headers = JSON.parse(safeFixSingleQuotes(file.custom_headers || "{}")); } catch (e) { }
-        headers["MOuCustomREQUEST"] = "NICE";
-
-        fetch(file.file_link, { method: "GET", headers: headers })
-            .then(function (response) {
-                if (!response.ok) throw new Error("HTTP " + response.status);
-                var total = parseInt(response.headers.get("Content-Length") || "0", 10) || 0;
-                if (!response.body) throw new Error("stream not supported");
-
-                if (total > 0) reportProgress(job, 0, 0, total);
-
-                var reader = response.body.getReader();
-                var chunks = [];
-                var received = 0;
-                var lastReport = Date.now();
-                var lastBytes = 0;
-
-                function pump() {
-                    if (job._stop) {
-                        reader.cancel();
-                        return;
-                    }
-                    return reader.read().then(function (r) {
-                        if (r.done) {
-                            var type = response.headers.get("Content-Type") || "application/octet-stream";
-                            var blob = new Blob(chunks, { type: type });
-                            var url = URL.createObjectURL(blob);
-                            var a = document.createElement("a");
-                            a.href = url;
-                            a.download = (job.file_title || "download") + "." + (job.file_ext || "mp4");
-                            document.body.appendChild(a);
-                            a.click();
-                            setTimeout(function () {
-                                document.body.removeChild(a);
-                                URL.revokeObjectURL(url);
-                            }, 4000);
-                            emit("completed", job);
-                            ElDownloads.finish(job.job_token, received);
-                            return;
-                        }
-                        chunks.push(r.value);
-                        received += r.value.byteLength;
-                        job.downloaded = received;
-                        var now = Date.now();
-                        if (now - lastReport >= 1000) {
-                            var speed = (received - lastBytes) / ((now - lastReport) / 1000);
-                            lastReport = now;
-                            lastBytes = received;
-                            reportProgress(job, received, speed, total);
-                        }
-                        return pump();
-                    });
-                }
-                return pump();
-            })
-            .catch(function (err) {
-                var message = err && err.message ? err.message : "download error";
-                if (typeof mouscripts !== "undefined" && typeof mouscripts.download_file_now === "function") {
-                    // fallback: native downloader الخاص بالتطبيق (ليس تطبيق خارجي)
-                    try {
-                        mouscripts.download_file_now(
-                            file.file_link,
-                            file.file_dir || "",
-                            (job.file_title || "download") + "." + (job.file_ext || "mp4"),
-                            job.job_token,
-                            true,
-                            file.custom_headers || "{}"
-                        );
-                        emit("native", job);
-                        return;
-                    } catch (e) { }
-                }
-                emit("failed", job);
-                ElDownloads.fail(job.job_token, message);
-            });
-    }
-
-    function download(file) {
-        var identity = getIdentity();
-        var isElectron = typeof what_window !== "undefined" && what_window.electron;
-        var ext = (file.file_ext || "").toLowerCase();
-
-        return post({
-            action: "start",
-            file_link: file.file_link,
-            file_title: file.file_name || file.file_title || "",
-            file_ext: file.file_ext || "",
-            custom_headers: file.custom_headers || "{}",
-            platform: getPlatform(),
-            device_id: identity.device_id,
-            user_id: identity.user_id || ""
-        }).then(function (res) {
-            if (!res.success) throw new Error(res.message || "register error");
-            var job = res.data;
-            job.file_title = file.file_name || file.file_title || res.data.file_title || "download";
-            job.file_ext = file.file_ext || res.data.file_ext || "mp4";
-            job._stop = false;
-            running[job.job_token] = job;
-            emit("queued", job);
-
-            return waitForSlot(job).then(function (readyJob) {
-                if (ext === "m3u8" && isElectron) {
-                    // HLS عبر محمل Electron الأصلي (مشروح النتيجة غير معروف من صفحة الويب)
-                    what_window.ipcRenderer.send("download-m3u8", [file.file_link, readyJob.file_title + "." + (readyJob.file_ext || "mp4"), JSON.parse(safeFixSingleQuotes(file.custom_headers || "{}"))]);
-                    readyJob.native = true;
-                    emit("native", readyJob);
-                    return readyJob;
-                }
-                streamDownload(readyJob, file);
-                return readyJob;
-            });
-        });
-    }
-
-    function finish(job_token, downloaded_size) {
-        return post({
-            action: "complete",
-            job_token: job_token,
-            device_id: getIdentity().device_id,
-            downloaded_size: downloaded_size || 0
-        });
-    }
-
-    function fail(job_token, message) {
-        return post({
-            action: "fail",
-            job_token: job_token,
-            device_id: getIdentity().device_id,
-            error_msg: message || "error"
-        });
-    }
-
-    function pause(job_token) {
-        return post({ action: "pause", job_token: job_token, device_id: getIdentity().device_id });
-    }
-
-    function resume(job_token) {
-        return post({ action: "resume", job_token: job_token, device_id: getIdentity().device_id });
-    }
-
-    function setStatusCallback(cb) {
-        statusCallback = cb;
-    }
-
-    function getRunning() {
-        return running;
-    }
-
-    // ============================================================
-    // صفحة التحميلات داخل التطبيق (نظام الواجهة العادي)
-    // ============================================================
+    var LS_KEY = "el_downloads_local";
     var dlRefreshTimer = null;
     var dlLiveTimer = null;
 
@@ -301,7 +20,8 @@ var ElDownloads = (function () {
         paused: "متوقف مؤقتا",
         completed: "اكتمل",
         error: "خطأ",
-        cancelled: "ملغي"
+        cancelled: "ملغي",
+        native: "مشغل داخليا"
     };
 
     function esc(str) {
@@ -318,12 +38,299 @@ var ElDownloads = (function () {
         return b + " B";
     }
 
+    function safeFixSingleQuotes(str) {
+        str = str || "";
+        if (typeof fixSingleQuotes === "function") {
+            try { return fixSingleQuotes(str); } catch (e) { }
+        }
+        return str.replace(/([{,])\s*'([^']+)'\s*:/g, '$1"$2":')
+            .replace(/:\s*'([^']*)'/g, ':"$1"');
+    }
+
+    function randomToken() {
+        return "dl-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+    }
+
+    function emit(status, job) {
+        if (statusCallback && typeof statusCallback === "function") {
+            try { statusCallback(status, job); } catch (e) { }
+        }
+    }
+
+    // ============================================================
+    // الطبقة اللوكالية العامة (بديل السيرفر)
+    // ============================================================
+
+    function ipcInvoke(channel) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        return new Promise(function (resolve, reject) {
+            try {
+                what_window.ipcRenderer.invoke.apply(what_window.ipcRenderer, [channel].concat(args)).then(resolve, function (err) {
+                    reject(new Error((err && err.message) || "ipc error"));
+                });
+            } catch (e) { reject(e); }
+        });
+    }
+
+    function getLocalHistory() {
+        try {
+            var h = JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+            return Array.isArray(h) ? h : [];
+        } catch (e) { return []; }
+    }
+
+    function saveLocalHistory(history) {
+        try { localStorage.setItem(LS_KEY, JSON.stringify(history.slice(0, 100))); } catch (e) { }
+    }
+
+    function localList() {
+        var out = [];
+        var seen = {};
+        getLocalHistory().forEach(function (j) { seen[j.job_token] = true; out.push(j); });
+        Object.keys(running).forEach(function (t) {
+            var idx = -1;
+            for (var i = 0; i < out.length; i++) { if (out[i].job_token === t) { idx = i; break; } }
+            if (idx > -1) out[idx] = running[t];
+            else if (!seen[t]) out.push(running[t]);
+        });
+        return out;
+    }
+
+    function persistLocal(job) {
+        var h = getLocalHistory();
+        var idx = -1;
+        for (var i = 0; i < h.length; i++) { if (h[i].job_token === job.job_token) { idx = i; break; } }
+        if (idx > -1) h[idx] = job; else h.unshift(job);
+        saveLocalHistory(h);
+    }
+
+    // ---------- Electron (SQLite عبر الـ main process) ----------
+
+    function electronDownload(file) {
+        return ipcInvoke("downloads:add", {
+            file_title: file.file_name || file.file_title || "",
+            file_ext: file.file_ext || "",
+            file_link: file.file_link || "",
+            file_dir: file.file_dir || "",
+            custom_headers: typeof file.custom_headers === "string" ? file.custom_headers : JSON.stringify(file.custom_headers || {})
+        }).then(function (res) {
+            if (res && res.error) throw new Error(res.error);
+            var job = res || {};
+            if (job && job.job_token) running[job.job_token] = job;
+            emit("queued", job);
+            return job;
+        });
+    }
+
+    // ---------- تحميل محلي بالـ fetch (Android/Web) ----------
+
+    function localDownload(file) {
+        var job = {
+            job_token: randomToken(),
+            file_title: file.file_name || file.file_title || "download",
+            file_ext: file.file_ext || "mp4",
+            file_link: file.file_link,
+            file_dir: file.file_dir || "",
+            custom_headers: file.custom_headers || "{}",
+            status: "queued",
+            total_size: 0,
+            downloaded_size: 0,
+            speed: 0,
+            progress: 0,
+            error_msg: "",
+            created_at: new Date().toISOString()
+        };
+        running[job.job_token] = job;
+        persistLocal(job);
+        emit("queued", job);
+        setTimeout(function () { streamLocal(job, file); }, 50);
+        return Promise.resolve(job);
+    }
+
+    function streamLocal(job, file) {
+        job.status = "downloading";
+        var headers = {};
+        try { headers = JSON.parse(safeFixSingleQuotes(file.custom_headers || "{}")); } catch (e) { }
+        headers["MOuCustomREQUEST"] = "NICE";
+
+        fetch(file.file_link, { method: "GET", headers: headers })
+            .then(function (response) {
+                if (!response.ok) throw new Error("HTTP " + response.status);
+                var total = parseInt(response.headers.get("Content-Length") || "0", 10) || 0;
+                job.total_size = total;
+                if (!response.body) throw new Error("stream not supported");
+
+                var reader = response.body.getReader();
+                var chunks = [];
+                var received = 0;
+                var lastReport = Date.now();
+                var lastBytes = 0;
+
+                function pump() {
+                    if (job._stop) { reader.cancel(); return; }
+                    return reader.read().then(function (r) {
+                        if (r.done) {
+                            var type = response.headers.get("Content-Type") || "application/octet-stream";
+                            var blob = new Blob(chunks, { type: type });
+                            var url = URL.createObjectURL(blob);
+                            var a = document.createElement("a");
+                            a.href = url;
+                            a.download = job.file_title + "." + job.file_ext;
+                            document.body.appendChild(a);
+                            a.click();
+                            setTimeout(function () {
+                                document.body.removeChild(a);
+                                URL.revokeObjectURL(url);
+                            }, 4000);
+                            job.status = "completed";
+                            job.progress = 100;
+                            job.speed = 0;
+                            job.downloaded_size = received;
+                            emit("completed", job);
+                            persistLocal(job);
+                            return;
+                        }
+                        chunks.push(r.value);
+                        received += r.value.byteLength;
+                        job.downloaded_size = received;
+                        job.progress = total > 0 ? Math.min(100, Math.round((received / total) * 100)) : 0;
+                        var now = Date.now();
+                        if (now - lastReport >= 1000) {
+                            job.speed = (received - lastBytes) / ((now - lastReport) / 1000);
+                            lastReport = now;
+                            lastBytes = received;
+                            persistLocal(job);
+                        }
+                        return pump();
+                    });
+                }
+                return pump();
+            })
+            .catch(function (err) {
+                var message = (err && err.message) || "download error";
+                if (typeof mouscripts !== "undefined" && typeof mouscripts.download_file_now === "function") {
+                    try {
+                        mouscripts.download_file_now(
+                            file.file_link,
+                            file.file_dir || "",
+                            job.file_title + "." + job.file_ext,
+                            job.job_token,
+                            true,
+                            file.custom_headers || "{}"
+                        );
+                        job.status = "native";
+                        emit("native", job);
+                        persistLocal(job);
+                        return;
+                    } catch (e) { }
+                }
+                job.status = "error";
+                job.error_msg = message;
+                job.speed = 0;
+                emit("failed", job);
+                persistLocal(job);
+            });
+    }
+
+    // ============================================================
+    // الواجهة العامة
+    // ============================================================
+
+    function download(file) {
+        if (useIPC) {
+            var ext = (file.file_ext || "").toLowerCase();
+            if (ext === "m3u8") {
+                var h = {};
+                try { h = JSON.parse(safeFixSingleQuotes(file.custom_headers || "{}")); } catch (e) { }
+                what_window.ipcRenderer.send("download-m3u8", [file.file_link, (file.file_name || "download") + ".mp4", h]);
+                var j = { job_token: randomToken(), file_title: file.file_name || "download", file_ext: "mp4", status: "native" };
+                running[j.job_token] = j;
+                emit("native", j);
+                return Promise.resolve(j);
+            }
+            return electronDownload(file);
+        }
+        return localDownload(file);
+    }
+
+    function list() {
+        if (useIPC) return ipcInvoke("downloads:list", {});
+        return Promise.resolve(localList());
+    }
+
+    function pause(job_token) {
+        if (useIPC) return ipcInvoke("downloads:pause", job_token).catch(function () { });
+        var job = running[job_token];
+        if (job && job.status === "downloading") {
+            job._stop = true;
+            job.status = "paused";
+            job.speed = 0;
+            emit("paused", job);
+        }
+        return Promise.resolve();
+    }
+
+    function resume(job_token) {
+        if (useIPC) return ipcInvoke("downloads:resume", job_token).catch(function () { });
+        var job = running[job_token];
+        if (job) {
+            job._stop = false;
+            job.status = "queued";
+            emit("queued", job);
+        }
+        return Promise.resolve();
+    }
+
+    function cancelSelf(job_token) {
+        if (useIPC) return ipcInvoke("downloads:cancel", job_token).then(function () { refresh(); }).catch(function () { });
+        var job = running[job_token];
+        if (job) {
+            job._stop = true;
+            job.status = "cancelled";
+            job.speed = 0;
+            emit("cancelled", job);
+        }
+        refresh();
+        return Promise.resolve();
+    }
+
+    function deleteJob(job_token) {
+        if (useIPC) return ipcInvoke("downloads:delete", job_token).then(function () { refresh(); }).catch(function () { });
+        var job = running[job_token];
+        if (job) { job._stop = true; delete running[job_token]; }
+        var h = getLocalHistory();
+        saveLocalHistory(h.filter(function (x) { return x.job_token !== job_token; }));
+        refresh();
+        return Promise.resolve();
+    }
+
+    function finish() { return Promise.resolve(); }
+    function fail() { return Promise.resolve(); }
+
+    function setStatusCallback(cb) { statusCallback = cb; }
+
+    function getRunning() { return running; }
+
+    function getSettings() {
+        if (useIPC) return ipcInvoke("downloads:settings", "get", {});
+        return Promise.resolve({ max_concurrent: "1", downloads_enabled: "1", pause_all: "0", max_retries: "3" });
+    }
+
+    function setSettings(data) {
+        if (useIPC) return ipcInvoke("downloads:settings", "set", data || {}).catch(function () { });
+        return Promise.resolve({ max_concurrent: "1", downloads_enabled: "1", pause_all: "0", max_retries: "3" });
+    }
+
+    // ============================================================
+    // صفحة التحميلات داخل التطبيق (نظام الواجهة العادي)
+    // ============================================================
+
     function downloadItemHtml(job) {
         var total = parseInt(job.total_size, 10) || 0;
         var down = parseInt(job.downloaded_size, 10) || 0;
         var live = running[job.job_token];
         if (live) {
-            down = live.downloaded || down;
+            down = parseInt(live.downloaded_size, 10) || down;
             if (!total && live.total_size) total = parseInt(live.total_size, 10) || 0;
         }
         var status = job.status || "queued";
@@ -342,6 +349,9 @@ var ElDownloads = (function () {
         }
         if (status === "queued" || status === "downloading" || status === "paused") {
             actions += '<button class="dl_btn dl_btn_cancel" data-dl="cancel" data-token="' + job.job_token + '"><i class="fas fa-times"></i> إلغاء</button>';
+        }
+        if (status === "completed" || status === "error" || status === "cancelled") {
+            actions += '<button class="dl_btn dl_btn_cancel" data-dl="delete" data-token="' + job.job_token + '"><i class="fas fa-trash"></i> حذف</button>';
         }
         var sizeTxt = total > 0 ? fmtSize(down) + " / " + fmtSize(total) : fmtSize(down);
         return '<div class="download_item" data-token="' + job.job_token + '">'
@@ -377,14 +387,11 @@ var ElDownloads = (function () {
     }
 
     function refresh() {
-        post({ action: "my", device_id: getIdentity().device_id })
-            .then(function (res) {
-                if (!res.success) throw new Error(res.message || "error");
-                render(res.data || []);
-            })
-            .catch(function () {
-                render(runningList());
-            });
+        return list().then(function (jobs) {
+            render(jobs);
+        }).catch(function () {
+            render(runningList());
+        });
     }
 
     function liveTick() {
@@ -394,32 +401,12 @@ var ElDownloads = (function () {
             if (!$item.length) return;
             var job = running[token];
             var total = parseInt(job.total_size, 10) || 0;
-            var down = job.downloaded || 0;
+            var down = parseInt(job.downloaded_size, 10) || 0;
             var pct = total > 0 ? Math.min(100, Math.round((down / total) * 100)) : 0;
             $item.find(".download_item_bar_fill").css("width", pct + "%");
             $item.find(".download_item_sizes").text(fmtSize(down) + (total > 0 ? " / " + fmtSize(total) : ""));
             $item.find(".download_item_speed").text(job.speed > 0 ? fmtSize(job.speed) + "/s" : "");
         });
-    }
-
-    function cancelSelf(job_token) {
-        post({ action: "cancel_device", job_token: job_token, device_id: getIdentity().device_id })
-            .then(function (res) {
-                if (!res.success) throw new Error(res.message || "cancel error");
-                var job = running[job_token];
-                if (job) {
-                    job._stop = true;
-                    job.status = "cancelled";
-                    job.speed = 0;
-                    emit("cancelled", job);
-                }
-                refresh();
-            })
-            .catch(function (err) {
-                if (typeof showToast === "function") {
-                    try { showToast(err.message || "تعذر إلغاء التحميل"); } catch (e) { }
-                }
-            });
     }
 
     function stopTimers() {
@@ -441,6 +428,21 @@ var ElDownloads = (function () {
         if (!dlLiveTimer) dlLiveTimer = setInterval(liveTick, 1000);
     }
 
+    // أحداث التقدم من الـ main process (Electron/SQLite)
+    if (useIPC) {
+        try {
+            what_window.ipcRenderer.on("downloads:progress", function (event, job) {
+                if (!job || !job.job_token) return;
+                running[job.job_token] = job;
+                emit("progress", job);
+                if (typeof $ !== "undefined" && $("#downloads").hasClass("show")) {
+                    refresh();
+                }
+            });
+        } catch (e) { }
+    }
+
+    // ربط الأزرار (تحديث / استئناف / إلغاء / حذف)
     if (typeof $ !== "undefined" && typeof document !== "undefined") {
         $(document).on("click", "#downloads_refresh_btn", function () { refresh(); });
         $(document).on("click", ".download_item .dl_btn", function () {
@@ -451,6 +453,8 @@ var ElDownloads = (function () {
                 cancelSelf(token);
             } else if (act === "resume") {
                 resume(token).then(function () { refresh(); }).catch(function () { });
+            } else if (act === "delete") {
+                deleteJob(token);
             }
         });
     }
@@ -462,8 +466,12 @@ var ElDownloads = (function () {
         pause: pause,
         resume: resume,
         cancelSelf: cancelSelf,
+        deleteJob: deleteJob,
         setStatusCallback: setStatusCallback,
         getRunning: getRunning,
+        getSettings: getSettings,
+        setSettings: setSettings,
+        list: list,
         show: show,
         refresh: refresh
     };
