@@ -202,7 +202,9 @@ if ($result->num_rows > 0) {
 </head>
 
 <body>
-    <div class="mou_bg"></div>
+    <div class="mou_bg"></div>
+
+    <a href="../downloads/index.php" style="position:fixed;top:14px;left:14px;z-index:9999;background:#2a5298;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;font-family:'Noto Sans Arabic',sans-serif;box-shadow:0 2px 10px rgba(0,0,0,0.3);"><i class="fa-solid fa-download"></i> إدارة التحميلات</a>
 
     <div class="modal fade" id="order_data_modal" tabindex="-1" role="dialog" aria-labelledby="order_data_modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

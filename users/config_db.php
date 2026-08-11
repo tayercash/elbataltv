@@ -36,6 +36,8 @@ $phone_payments_table = "Elbatal_phone_Payments";
 $codes_table = "Elbatal_code";
 $user_favs_table = "Elbatal_UsersFavs";
 $user_continue_watching_table = "Elbatal_continue_watching";
+$downloads_table = "Elbatal_downloads";
+$downloads_settings_table = "Elbatal_downloads_settings";
 
 
 // $conn->query("SET GLOBAL time_zone = '+00:00';");
@@ -181,5 +183,43 @@ if (isset($_GET["install_database"]) && $_GET["install_database"] == "true") {
     PRIMARY KEY (`user_id`, `video_id`),
     FOREIGN KEY (`user_id`) REFERENCES `Elbatal_Users`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+
+  $conn->query("CREATE TABLE IF NOT EXISTS `$downloads_table` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `job_token` varchar(64) NOT NULL,
+    `file_title` varchar(255) NOT NULL,
+    `file_ext` varchar(20) DEFAULT NULL,
+    `file_link` text NOT NULL,
+    `custom_headers` text DEFAULT NULL,
+    `platform` varchar(20) NOT NULL DEFAULT 'web',
+    `device_id` varchar(255) DEFAULT NULL,
+    `user_id` int(11) DEFAULT NULL,
+    `status` varchar(20) NOT NULL DEFAULT 'queued',
+    `total_size` bigint(20) NOT NULL DEFAULT 0,
+    `downloaded_size` bigint(20) NOT NULL DEFAULT 0,
+    `progress` double NOT NULL DEFAULT 0,
+    `speed` double NOT NULL DEFAULT 0,
+    `error_msg` text DEFAULT NULL,
+    `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `started_at` datetime DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL,
+    `completed_at` datetime DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `job_token` (`job_token`),
+    KEY `status` (`status`),
+    KEY `device_id` (`device_id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+  $conn->query("CREATE TABLE IF NOT EXISTS `$downloads_settings_table` (
+    `settings_key` varchar(50) NOT NULL,
+    `settings_value` text DEFAULT NULL,
+    PRIMARY KEY (`settings_key`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+  $conn->query("INSERT IGNORE INTO `$downloads_settings_table` (`settings_key`, `settings_value`) VALUES
+    ('max_concurrent', '3'),
+    ('downloads_enabled', '1'),
+    ('pause_all', '0'),
+    ('max_retries', '3')");
 
 }

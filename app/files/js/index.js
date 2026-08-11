@@ -214,18 +214,7 @@ $(window).on("click", function (event) {
 // downloads js
 function open_downloads() {
     $(".sidenav").hide_side_nav();
-    // $("#downloads").openpopup();
-    // what_window.back_buttons_functions.Unshift(function () {
-    //     $("#downloads").closepopup();
-    // });
-    // alert(mouscripts.is_package_installed("com.dv.adm"));
-    if (settings_vars.download_apk == "adm") {
-        mouscripts.open_adm();
-    } else if (settings_vars.download_apk == "1dm") {
-        mouscripts.open_1dm();
-    } else if (settings_vars.download_apk == "1dm+") {
-        mouscripts.open_1dm_pluse();
-    }
+    showToast("التحميلات تُدار من لوحة إدارة التحميلات على موقع البطل");
 }
 function open_settings() {
     init_settings();
@@ -478,25 +467,37 @@ function new_downlaod({
         getFinalUrlAndType(file_link, function (data) {
             file_link = data["url"];
             file_ext = data["ext"];
-            // what_window.ipcRenderer.send('check-idm');
-
             if (file_ext == "m3u8") {
-                console.log(file_ext);
+                what_window.ipcRenderer.send('download-m3u8', [file_link, file_name + "." + file_ext, JSON.parse(custom_headers)]);
+            } else if (typeof ElDownloads !== "undefined") {
+                ElDownloads.download({
+                    file_link: file_link,
+                    file_name: file_name,
+                    file_ext: file_ext,
+                    custom_headers: custom_headers
+                }).then(function (job) {
+                    showToast("تمت إضافة الملف إلى قائمة التحميلات");
+                }).catch(function (err) {
+                    showToast("حدث خطأ أثناء إضافة التحميل");
+                });
+            } else {
+                link_elmnt = $("<a/>").attr("href", file_link).attr("download", "").attr("_target", "blank").attr("style", "display:none;");
+                $("body").prepend(link_elmnt);
+                $(link_elmnt)[0].click();
+                $(link_elmnt).remove();
             }
-
-            what_window.ipcRenderer.send('download-m3u8', [file_link, file_name + "." + file_ext, JSON.parse(custom_headers)]);
-
-
-        })
-    } else if (typeof mouscripts !== "undefined") {
-        if (settings_vars.download_apk == "adm") {
-            mouscripts.download_with_adm(file_link, file_name, custom_headers);
-        } else if (settings_vars.download_apk == "1dm") {
-            mouscripts.download_with_1dm(file_link, file_name, custom_headers);
-        } else if (settings_vars.download_apk == "1dm+") {
-            mouscripts.download_with_1dm_pluse(file_link, file_name, custom_headers);
-        }
-
+        });
+    } else if (typeof ElDownloads !== "undefined") {
+        ElDownloads.download({
+            file_link: file_link,
+            file_name: file_name,
+            file_ext: file_ext,
+            custom_headers: custom_headers
+        }).then(function (job) {
+            showToast("تمت إضافة الملف إلى قائمة التحميلات");
+        }).catch(function (err) {
+            showToast("حدث خطأ أثناء إضافة التحميل");
+        });
     } else {
         link_elmnt = $("<a/>").attr("href", file_link).attr("download", "").attr("_target", "blank").attr("style", "display:none;");
         $("body").prepend(link_elmnt);
