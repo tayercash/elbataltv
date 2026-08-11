@@ -1650,3 +1650,88 @@ html.electron .webview_info {
     background: #dc3545;
     color: #fff;
 }
+
+.download_item_top_actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+
+.dl_more_btn {
+    border: none;
+    cursor: pointer;
+    background: rgba(128, 128, 128, 0.2);
+    color: var(--mou_color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    transition: 0.2s;
+}
+
+.dl_more_btn:hover {
+    background: rgba(128, 128, 128, 0.4);
+}
+
+.dl_btn_play {
+    background: #198754;
+    color: #fff;
+}
+
+.dl_btn_play:hover {
+    filter: brightness(1.15);
+}
+
+.dl_delete_text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--mou_color);
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.dl_menu_list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dl_menu_btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    border: 1px solid var(--mou_border_color);
+    background: var(--elmnt_back);
+    color: var(--mou_color);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.65rem 0.9rem;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: right;
+    transition: 0.2s;
+}
+
+.dl_menu_btn:hover {
+    background: var(--mou_border_color2);
+}
+
+.dl_menu_btn i {
+    width: 20px;
+    text-align: center;
+}
+
+.dl_menu_danger {
+    color: #dc3545;
+    border-color: #dc354580;
+}
+
+.dl_menu_danger:hover {
+    background: #dc354522;
+}

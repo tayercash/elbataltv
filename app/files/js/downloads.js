@@ -462,28 +462,118 @@ var ElDownloads = (function () {
             if (sp > 0) speedTxt = fmtSize(sp) + "/s";
         }
         var actions = "";
-        if (status === "paused") {
-            actions += '<button class="dl_btn dl_btn_resume" data-dl="resume" data-token="' + job.job_token + '"><i class="fas fa-play"></i> استئناف</button>';
-        }
-        if (status === "queued" || status === "downloading" || status === "paused") {
-            actions += '<button class="dl_btn dl_btn_cancel" data-dl="cancel" data-token="' + job.job_token + '"><i class="fas fa-times"></i> إلغاء</button>';
-        }
-        if (status === "completed" || status === "error" || status === "cancelled") {
-            actions += '<button class="dl_btn dl_btn_cancel" data-dl="delete" data-token="' + job.job_token + '"><i class="fas fa-trash"></i> حذف</button>';
+        if (status === "completed" && job.file_path) {
+            actions += '<button class="dl_btn dl_btn_play" data-dl="play" data-token="' + job.job_token + '"><i class="fas fa-play"></i> تشغيل</button>';
         }
         var sizeTxt = total > 0 ? fmtSize(down) + " / " + fmtSize(total) : fmtSize(down);
         return '<div class="download_item" data-token="' + job.job_token + '">'
             + '<div class="download_item_top">'
             + '<span class="download_item_title">' + esc(job.file_title || "download") + '</span>'
+            + '<div class="download_item_top_actions">'
             + '<span class="download_item_status st_' + status + '">' + label + '</span>'
+            + '<button class="dl_more_btn" data-dl="menu" data-token="' + job.job_token + '"><i class="fas fa-ellipsis-v"></i></button>'
+            + '</div>'
             + '</div>'
             + '<div class="download_item_bar"><div class="download_item_bar_fill' + (status === "completed" ? " st_done" : "") + '" style="width:' + pct + '%"></div></div>'
             + '<div class="download_item_info">'
             + '<span class="download_item_sizes">' + sizeTxt + '</span>'
             + (speedTxt ? '<span class="download_item_speed">' + speedTxt + '</span>' : '')
             + '</div>'
-            + '<div class="download_item_actions">' + actions + '</div>'
+            + (actions ? '<div class="download_item_actions">' + actions + '</div>' : '')
             + '</div>';
+    }
+
+    // ============================================================
+    // قائمة الإدارة (زرار 3 نقاط) + بوب أب الحذف + التشغيل
+    // ============================================================
+
+    var dlMenuToken = null;
+
+    function openDownloadMenu(token) {
+        dlMenuToken = token;
+        var job = running[token];
+        if (!job || typeof $ === "undefined" || !$("#dl_menu_popup").length) return;
+        var status = job.status || "queued";
+        var html = "";
+        if (status === "queued" || status === "downloading") {
+            html += '<button class="dl_menu_btn" data-dl-menu="pause"><i class="fas fa-pause"></i> إيقاف مؤقت</button>';
+        }
+        if (status === "paused") {
+            html += '<button class="dl_menu_btn" data-dl-menu="resume"><i class="fas fa-play"></i> استئناف</button>';
+        }
+        if (status === "completed" && job.file_path) {
+            html += '<button class="dl_menu_btn" data-dl-menu="play"><i class="fas fa-play"></i> تشغيل الملف</button>';
+        }
+        html += '<button class="dl_menu_btn dl_menu_danger" data-dl-menu="delete"><i class="fas fa-trash"></i> حذف العملية</button>';
+        $("#dl_menu_list").html(html);
+        $("#dl_menu_popup").openpopup();
+    }
+
+    function dlMenuAction(act) {
+        if (!dlMenuToken) return;
+        var token = dlMenuToken;
+        if (typeof $ !== "undefined" && $("#dl_menu_popup").length) {
+            $("#dl_menu_popup").closepopup();
+        }
+        if (act === "pause") {
+            pause(token).then(function () { refresh(); });
+        } else if (act === "resume") {
+            resume(token).then(function () { refresh(); });
+        } else if (act === "play") {
+            playFile(token);
+        } else if (act === "delete") {
+            if (typeof $ !== "undefined" && $("#dl_delete_popup").length) {
+                $("#dl_delete_popup").openpopup();
+            }
+        }
+    }
+
+    function openDeletePopup() {
+        if (typeof $ !== "undefined" && $("#dl_delete_popup").length) {
+            $("#dl_delete_popup").openpopup();
+        }
+    }
+
+    function dlDeleteAction(mode) {
+        var token = dlMenuToken;
+        dlMenuToken = null;
+        if (typeof $ !== "undefined" && $("#dl_delete_popup").length) {
+            $("#dl_delete_popup").closepopup();
+        }
+        if (!token) return;
+        if (mode === "file") {
+            deleteJob(token);
+        } else if (mode === "record") {
+            deleteRecord(token);
+        }
+    }
+
+    function deleteRecord(job_token) {
+        if (useIPC) return ipcInvoke("downloads:delete-record", job_token).then(function () { refresh(); }).catch(function () { });
+        if (useNativeAndroid) { nativeFire("deleteRecordDownload", job_token); refresh(); return Promise.resolve(); }
+        var job = running[job_token];
+        if (job) { job._stop = true; delete running[job_token]; }
+        var h = getLocalHistory();
+        saveLocalHistory(h.filter(function (x) { return x.job_token !== job_token; }));
+        refresh();
+        return Promise.resolve();
+    }
+
+    function playFile(token) {
+        var job = running[token];
+        if (!job || !job.file_path) {
+            if (typeof showToast === "function") { try { showToast("الملف غير متاح للتشغيل"); } catch (e) { } }
+            return;
+        }
+        var src = "file://" + String(job.file_path).replace(/\\/g, "/");
+        var title = job.file_title || "download";
+        try {
+            if (typeof play_vid === "function") {
+                play_vid(src, title, "", "{}");
+            } else if (typeof mouscripts !== "undefined" && typeof mouscripts.play_vid === "function") {
+                mouscripts.play_vid(src, title, "", "{}");
+            }
+        } catch (e) { }
     }
 
     function runningList() {
@@ -560,20 +650,20 @@ var ElDownloads = (function () {
         } catch (e) { }
     }
 
-    // ربط الأزرار (تحديث / استئناف / إلغاء / حذف)
+    // ربط الأزرار (تحديث / قائمة إدارة / تشغيل / بوب أب الحذف)
     if (typeof $ !== "undefined" && typeof document !== "undefined") {
         $(document).on("click", "#downloads_refresh_btn", function () { refresh(); });
-        $(document).on("click", ".download_item .dl_btn", function () {
-            var token = $(this).attr("data-token");
-            var act = $(this).attr("data-dl");
-            if (!token) return;
-            if (act === "cancel") {
-                cancelSelf(token);
-            } else if (act === "resume") {
-                resume(token).then(function () { refresh(); }).catch(function () { });
-            } else if (act === "delete") {
-                deleteJob(token);
-            }
+        $(document).on("click", ".download_item [data-dl='menu']", function () {
+            openDownloadMenu($(this).attr("data-token"));
+        });
+        $(document).on("click", ".download_item [data-dl='play']", function () {
+            playFile($(this).attr("data-token"));
+        });
+        $(document).on("click", "#dl_menu_list .dl_menu_btn", function () {
+            dlMenuAction($(this).attr("data-dl-menu"));
+        });
+        $(document).on("click", "#dl_delete_popup [data-dl-del]", function () {
+            dlDeleteAction($(this).attr("data-dl-del"));
         });
     }
 
@@ -585,6 +675,8 @@ var ElDownloads = (function () {
         resume: resume,
         cancelSelf: cancelSelf,
         deleteJob: deleteJob,
+        deleteRecord: deleteRecord,
+        playFile: playFile,
         setStatusCallback: setStatusCallback,
         getRunning: getRunning,
         getSettings: getSettings,
