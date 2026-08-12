@@ -682,48 +682,73 @@ obj = {
             }
         });
 
-    }, get_direct_watch_link: function (res, callback) {
+    }, get_direct_watch_link = function (res, callback) {
         try {
-            // 1. استخراج أسماء المتغيرات الديناميكية (Ptr و Map)
-            // نستخدم RegExp مرن جداً للتعامل مع أي تغيير في المسافات أو التنسيق
-            const ptrMatch = res.match(/window\.(ptr_[a-z0-9]+)\s*=\s*['"]([^'"]+)['"]/i);
-            const mapMatch = res.match(/window\.(map_[a-z0-9]+)\s*=\s*({[\s\S]*?});/i);
-
-            if (!ptrMatch || !mapMatch) {
-                throw new Error("فشل العثور على هيكل البيانات الديناميكي (V6.1)");
-            }
-
-            const ptrName = ptrMatch[1]; // مثل ptr_228453
-            const ptrValue = ptrMatch[2]; // مثل ctx_72f73a1c
-            const mapContent = mapMatch[2]; // محتوى كائن الخريطة
-
-            // 2. استخراج كائن الـ Context الفعلي
-            const ctxRegex = new RegExp(`window\\['${ptrValue}'\\]\\s*=\\s*({[\\s\\S]*?});`, 'i');
-            const ctxMatch = res.match(ctxRegex);
-
-            if (!ctxMatch) {
-                throw new Error("فشل استخراج كائن السياق (Context)");
-            }
-
-            // تحويل النصوص المستخرجة إلى كائنات JSON حقيقية بشكل آمن
-            const safeEval = (str) => {
-                return JSON.parse(str.replace(/'/g, '"').replace(/([{,])\s*([a-z0-9_]+)\s*:/ig, '$1"$2":'));
+            const extract = (regex) => {
+                const match = res.match(regex);
+                return match ? match[1] : "";
             };
 
-            const ctx = safeEval(ctxMatch[1]);
-            const map = safeEval(mapContent);
-
-            // 3. استخراج القيم النهائية بناءً على الخريطة
-            const ch = ctx[map.ch];
-            const rid = ctx[map.ri];
-            const encodedKey = ctx[map.ke];
-            const salt = ctx[map.se];
-
-            if (!rid || !ch || !encodedKey || !salt) {
-                throw new Error("بيانات التشفير المستخرجة غير مكتملة");
+            // 0. فك الطبقة الخارجية لو الصفحة مشفرة (data-8t4w8 + _v8521e)
+            const encNum = res.match(/data-8t4w8="(\d+)"/);
+            if (encNum) {
+                const keyStr = String(parseInt(encNum[1], 10) + 70000 + 31721);
+                const blob = extract(/var _v8521e = new Array\(([\s\S]*?)\);[\s\S]*?eval/);
+                const chunks = [];
+                const nameRe = /"([A-Za-z0-9+/=]+)"/g;
+                let cm;
+                while ((cm = nameRe.exec(blob))) chunks.push(cm[1]);
+                const b64 = chunks.join("");
+                const dec = atob(b64);
+                const bytes = new Uint8Array(dec.length);
+                for (let i = 0; i < dec.length; i++) {
+                    bytes[i] = dec.charCodeAt(i) ^ keyStr.charCodeAt(i % keyStr.length);
+                }
+                res = new TextDecoder("utf-8").decode(bytes);
             }
 
-            // 4. منطق فك التشفير (XOR)
+            // 1. استخراج أسماء المتغيرات العشوائية من كائن الإعدادات _0x_cfg
+            const cfgBody = extract(/window\._0x_cfg\s*=\s*\{(.*?)\};/s);
+            const config = {};
+            if (cfgBody) {
+                const cg = /([crks])\s*:\s*['"]([^'"]+)['"]/g;
+                let gm;
+                while ((gm = cg.exec(cfgBody))) if (!(gm[1] in config)) config[gm[1]] = gm[2];
+            }
+            const cKey = config.c || "";
+            const rKey = config.r || "";
+            const kKey = config.k || "";
+            let salt = config.s || "";
+
+            // 2. استخراج القيم الفعلية من الـ HTML بناءً على الأسماء المستخرجة
+            let ch = extract(new RegExp(`window\\.${cKey}\\s*=\\s*['"]([^'"]+)['"]`));
+            let rid = extract(new RegExp(`window\\.${rKey}\\s*=\\s*['"]([^'"]+)['"]`));
+            let encodedKey = extract(new RegExp(`window\\.${kKey}\\s*=\\s*['"]([^'"]+)['"]`));
+
+            // 2b. البنية الفعلية لهذه الصفحة: ptr_* -> ctx_* + map_* (ch/ri/ke/se)
+            if (!rid || !ch || !encodedKey || !salt) {
+                const ptr = extract(/ptr_[0-9a-zA-Z]+\s*=\s*['"]([^'"]+)['"]/);
+                const mapBody = ptr ? extract(new RegExp(`map_[0-9a-zA-Z]+\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
+                const ctxBody = ptr ? extract(new RegExp(`window\\.?\\[?['"]?${ptr}['"]?\\]?\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
+                const vars = {};
+                const varRe = /(['"]?)v_([0-9A-Za-z]+)\1\s*:\s*['"]([^'"]+)['"]/g;
+                let vm;
+                while ((vm = varRe.exec(ctxBody))) vars["v_" + vm[2]] = vm[3];
+                const roleKey = {};
+                const mg = /\b(ch|ri|ke|se)\b\s*:\s*['"]([^'"]+)['"]/g;
+                let mm;
+                while ((mm = mg.exec(mapBody))) roleKey[mm[1]] = mm[2];
+                ch = ch || vars[roleKey["ch"]] || "";
+                rid = rid || vars[roleKey["ri"]] || "";
+                encodedKey = encodedKey || vars[roleKey["ke"]] || "";
+                salt = vars[roleKey["se"]] || salt;
+            }
+
+            if (!rid || !ch || !encodedKey || !salt) {
+                throw new Error("فشل استخراج بيانات التشفير الديناميكية (V5)");
+            }
+
+            // 3. فك تشفير المفتاح السري (XOR Logic)
             const decodeSecret = (str, s) => {
                 let k = atob(str), resStr = "";
                 for (let i = 0; i < k.length; i++) {
@@ -733,12 +758,12 @@ obj = {
             };
             const secretKey = decodeSecret(encodedKey, salt);
 
-            // 5. إنشاء التوقيع الرقمي HMAC-SHA256
+            // 4. إعداد التوقيع الرقمي (استخدام محمي لـ Crypto API)
             const encoder = new TextEncoder();
-            const cryptoLib = (window.crypto && window.crypto.subtle) || window.crypto.subtle;
+            const cryptoLib = (globalThis.crypto && globalThis.crypto.subtle) || undefined;
 
             if (!cryptoLib) {
-                throw new Error("المتصفح لا يدعم Crypto API");
+                throw new Error("مكتبة Crypto غير متاحة في هذا المتصفح أو تم حظرها");
             }
 
             cryptoLib.importKey(
@@ -748,22 +773,25 @@ obj = {
                 false,
                 ["sign"]
             )
-                .then(key => {
-                    const fp = "TW96aWxsYS81LjIw"; // ثابت البصمة
+                .then((key) => {
+                    // القيمة الثابتة للبصمة المعتمدة
+                    const fp = "TW96aWxsYS81LjIw";
+                    // الترتيب الذي رصده سكربت الصيد: RID + CH + FP
                     const dataToSign = encoder.encode(rid + ch + fp);
                     return cryptoLib.sign("HMAC", key, dataToSign);
                 })
-                .then(signature => {
+                .then((signature) => {
+                    // تحويل التوقيع (ArrayBuffer) إلى Base64
                     const hashArray = Array.from(new Uint8Array(signature));
                     const b64Token = btoa(String.fromCharCode.apply(null, hashArray));
                     const fp = "TW96aWxsYS81LjIw";
 
                     // تجميع الرابط النهائي
-                    const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${rid}&hmac_token=${encodeURIComponent(b64Token)}&ch=${ch}&fp=${fp}`;
+                    const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${encodeURIComponent(rid)}&hmac_token=${encodeURIComponent(b64Token)}&ch=${encodeURIComponent(ch)}&fp=${fp}`;
 
                     if (typeof callback === "function") callback(null, finalUrl);
                 })
-                .catch(err => {
+                .catch((err) => {
                     if (typeof callback === "function") callback(err, null);
                 });
 
