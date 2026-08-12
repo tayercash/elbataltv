@@ -1,7 +1,7 @@
 obj = {
     "server_name": "yacin",
     "server_title": "سيرفر 1",
-    "server_domain": "https://def.yacinelive.com/",
+    "server_domain": "https://def.yacinelive.com",
     "working_state": true,
     "icon": `<i class="fas fa-tv"></i>`,
     "get_res": function (url = false, cat_load_type = "cats", from_action = "channels_page", callback) {
