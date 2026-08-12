@@ -689,16 +689,60 @@ obj = {
                 return match ? match[1] : "";
             };
 
+            // 0. فك الطبقة الخارجية لو الصفحة مشفرة (data-8t4w8 + _v8521e)
+            const encNum = res.match(/data-8t4w8="(\d+)"/);
+            if (encNum) {
+                const keyStr = String(parseInt(encNum[1], 10) + 70000 + 31721);
+                const blob = extract(/var _v8521e = new Array\(([\s\S]*?)\);[\s\S]*?eval/);
+                const chunks = [];
+                const nameRe = /"([A-Za-z0-9+/=]+)"/g;
+                let cm;
+                while ((cm = nameRe.exec(blob))) chunks.push(cm[1]);
+                const b64 = chunks.join("");
+                const dec = atob(b64);
+                const bytes = new Uint8Array(dec.length);
+                for (let i = 0; i < dec.length; i++) {
+                    bytes[i] = dec.charCodeAt(i) ^ keyStr.charCodeAt(i % keyStr.length);
+                }
+                res = new TextDecoder("utf-8").decode(bytes);
+            }
+
             // 1. استخراج أسماء المتغيرات العشوائية من كائن الإعدادات _0x_cfg
-            const cKey = extract(/c\s*:\s*['"]([^'"]+)['"]/); // اسم متغير الـ ch
-            const rKey = extract(/r\s*:\s*['"]([^'"]+)['"]/); // اسم متغير الـ rid
-            const kKey = extract(/k\s*:\s*['"]([^'"]+)['"]/); // اسم متغير المفتاح المشفر
-            const salt = extract(/s\s*:\s*['"]([^'"]+)['"]/); // قيمة الـ salt
+            const cfgBody = extract(/window\._0x_cfg\s*=\s*\{(.*?)\};/s);
+            const config = {};
+            if (cfgBody) {
+                const cg = /([crks])\s*:\s*['"]([^'"]+)['"]/g;
+                let gm;
+                while ((gm = cg.exec(cfgBody))) if (!(gm[1] in config)) config[gm[1]] = gm[2];
+            }
+            const cKey = config.c || "";
+            const rKey = config.r || "";
+            const kKey = config.k || "";
+            let salt = config.s || "";
 
             // 2. استخراج القيم الفعلية من الـ HTML بناءً على الأسماء المستخرجة
-            const ch = extract(new RegExp(`window\\.${cKey}\\s*=\\s*['"]([^'"]+)['"]`));
-            const rid = extract(new RegExp(`window\\.${rKey}\\s*=\\s*['"]([^'"]+)['"]`));
-            const encodedKey = extract(new RegExp(`window\\.${kKey}\\s*=\\s*['"]([^'"]+)['"]`));
+            let ch = extract(new RegExp(`window\\.${cKey}\\s*=\\s*['"]([^'"]+)['"]`));
+            let rid = extract(new RegExp(`window\\.${rKey}\\s*=\\s*['"]([^'"]+)['"]`));
+            let encodedKey = extract(new RegExp(`window\\.${kKey}\\s*=\\s*['"]([^'"]+)['"]`));
+
+            // 2b. البنية الفعلية لهذه الصفحة: ptr_* -> ctx_* + map_* (ch/ri/ke/se)
+            if (!rid || !ch || !encodedKey || !salt) {
+                const ptr = extract(/ptr_[0-9a-zA-Z]+\s*=\s*['"]([^'"]+)['"]/);
+                const mapBody = ptr ? extract(new RegExp(`map_[0-9a-zA-Z]+\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
+                const ctxBody = ptr ? extract(new RegExp(`window\\.?\\[?['"]?${ptr}['"]?\\]?\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
+                const vars = {};
+                const varRe = /(['"]?)v_([0-9A-Za-z]+)\1\s*:\s*['"]([^'"]+)['"]/g;
+                let vm;
+                while ((vm = varRe.exec(ctxBody))) vars["v_" + vm[2]] = vm[3];
+                const roleKey = {};
+                const mg = /\b(ch|ri|ke|se)\b\s*:\s*['"]([^'"]+)['"]/g;
+                let mm;
+                while ((mm = mg.exec(mapBody))) roleKey[mm[1]] = mm[2];
+                ch = ch || vars[roleKey["ch"]] || "";
+                rid = rid || vars[roleKey["ri"]] || "";
+                encodedKey = encodedKey || vars[roleKey["ke"]] || "";
+                salt = vars[roleKey["se"]] || salt;
+            }
 
             if (!rid || !ch || !encodedKey || !salt) {
                 throw new Error("فشل استخراج بيانات التشفير الديناميكية (V5)");
@@ -716,9 +760,7 @@ obj = {
 
             // 4. إعداد التوقيع الرقمي (استخدام محمي لـ Crypto API)
             const encoder = new TextEncoder();
-
-            // محاولة الوصول لـ crypto.subtle بشكل آمن لتجنب مشكلة الـ undefined
-            const cryptoLib = (window.crypto && window.crypto.subtle) || window.crypto.subtle;
+            const cryptoLib = (window.crypto && window.crypto.subtle) || undefined;
 
             if (!cryptoLib) {
                 throw new Error("مكتبة Crypto غير متاحة في هذا المتصفح أو تم حظرها");
@@ -731,29 +773,27 @@ obj = {
                 false,
                 ["sign"]
             )
-                .then(key => {
+                .then((key) => {
                     // القيمة الثابتة للبصمة المعتمدة
                     const fp = "TW96aWxsYS81LjIw";
-
                     // الترتيب الذي رصده سكربت الصيد: RID + CH + FP
                     const dataToSign = encoder.encode(rid + ch + fp);
-
                     return cryptoLib.sign("HMAC", key, dataToSign);
                 })
-                .then(signature => {
+                .then((signature) => {
                     // تحويل التوقيع (ArrayBuffer) إلى Base64
                     const hashArray = Array.from(new Uint8Array(signature));
                     const b64Token = btoa(String.fromCharCode.apply(null, hashArray));
                     const fp = "TW96aWxsYS81LjIw";
 
                     // تجميع الرابط النهائي
-                    const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${rid}&hmac_token=${encodeURIComponent(b64Token)}&ch=${ch}&fp=${fp}`;
+                    const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${encodeURIComponent(rid)}&hmac_token=${encodeURIComponent(b64Token)}&ch=${encodeURIComponent(ch)}&fp=${fp}`;
 
                     if (typeof callback === "function") {
                         callback(null, finalUrl);
                     }
                 })
-                .catch(err => {
+                .catch((err) => {
                     if (typeof callback === "function") callback(err, null);
                 });
 
