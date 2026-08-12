@@ -461,19 +461,25 @@ obj = {
 
                     watching_domain = what_window.extractDomainWithProtocol(link + "watching/");
 
+                    watching_page_url = decodeURIComponent(decodeURI(watching_url));
+                    core_token = (watching_res.match(/var\s+tk\s*=\s*['"]([a-f0-9]{64})['"]/) || [])[1] || "";
+                    console.log("%c[CimaNow Debug] core_token: " + (core_token || "(غير موجود)") + " | referer: " + watching_page_url, "color: orange; font-weight: bold;");
+
                     $(watching_doc).find("#watch").find("[data-id]").each(function () {
 
                         server_data_id = $(this).attr("data-id");
                         server_data_index = $(this).attr("data-index");
 
-                        watching_core = watching_domain + `/wp-content/themes/Cima%20Now%20New/core.php?action=switch&index=${server_data_index}&id=${server_data_id}`;
+                        watching_core = watching_domain + `/wp-content/themes/Cima%20Now%20New/core.php?token=${core_token}&action=switch&index=${server_data_index}&id=${server_data_id}`;
+                        console.log("%c[CimaNow Debug] watching_core: " + watching_core, "color: cyan;");
 
                         $.ajax({
                             "type": "GET",
                             "url": watching_core,
                             headers: {
                                 "User-Agent": what_window.Main_USER_AGENT,
-                                "Referer": watching_domain
+                                "Referer": watching_page_url,
+                                "X-Requested-With": "XMLHttpRequest"
                             },
                             success: function (server_res) {
                                 watching_source = $(server_res).attr("src");
