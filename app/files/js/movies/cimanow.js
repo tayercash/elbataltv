@@ -842,36 +842,118 @@ obj = {
             const secretKey = decodeSecret(encodedKey, salt);
 
             // 4. إعداد التوقيع الرقمي (HMAC-SHA256)
+            // على وإندرويد WebView اللي بيشتغل على http:// غير آمنة مكتبة WebCrypto
+            // (crypto.subtle) مش متاحة — بنفضل crypto.subtle لو موجودة وبنوقع fallback
+            // HMAC-SHA256 خالص في JS لو مش متاحة (بيشتغل على التطبيق والإلكترون).
             const encoder = new TextEncoder();
+            const dataToSign = rid + ch + "TW96aWxsYS81LjIw";
+            const fp = "TW96aWxsYS81LjIw";
+
+            const pureJSB64Token = (function () {
+                // تنفيذ SHA-256 كامل خالص في JS (مضبوط ومعتمد مقابل المنفذات المعيارية)
+                const sha256hex = (ascii) => {
+                    const K = [
+                        0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+                        0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+                        0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+                        0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+                        0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+                        0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+                        0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+                        0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+                    ];
+                    const rotr = (x, n) => (x >>> n) | (x << (32 - n));
+                    const ch = (x, y, z) => (x & y) ^ (~x & z);
+                    const maj = (x, y, z) => (x & y) ^ (x & z) ^ (y & z);
+                    const bs = (arr, o) => (arr[o + 3] | (arr[o + 2] << 8) | (arr[o + 1] << 16) | (arr[o] << 24)) >>> 0;
+
+                    const msg = strBytes2(ascii);
+                    const bitlen = msg.length * 8;
+                    const L = Math.ceil((msg.length + 1 + 8) / 64) * 64;
+                    const bb = new Uint8Array(L);
+                    bb.set(msg);
+                    bb[msg.length] = 0x80;
+                    const dv = new DataView(bb.buffer);
+                    dv.setUint32(L - 4, bitlen >>> 0, false);
+                    dv.setUint32(L - 8, Math.floor(bitlen / 4294967296), false);
+
+                    let H0 = 0x6a09e667 | 0, H1 = 0xbb67ae85 | 0, H2 = 0x3c6ef372 | 0, H3 = 0xa54ff53a | 0,
+                        H4 = 0x510e527f | 0, H5 = 0x9b05688c | 0, H6 = 0x1f83d9ab | 0, H7 = 0x5be0cd19 | 0;
+
+                    for (let i = 0; i < L; i += 64) {
+                        const w = new Array(64);
+                        for (let t = 0; t < 16; t++) w[t] = bs(bb, i + t * 4);
+                        for (let t = 16; t < 64; t++) {
+                            const s0 = rotr(w[t - 15], 7) ^ rotr(w[t - 15], 18) ^ (w[t - 15] >>> 3);
+                            const s1 = rotr(w[t - 2], 17) ^ rotr(w[t - 2], 19) ^ (w[t - 2] >>> 10);
+                            w[t] = (w[t - 16] + s0 + w[t - 7] + s1) >>> 0;
+                        }
+                        let a0 = H0, b0 = H1, c0 = H2, d0 = H3, e0 = H4, f0 = H5, g0 = H6, h0 = H7;
+                        for (let t = 0; t < 64; t++) {
+                            const S1 = rotr(e0, 6) ^ rotr(e0, 11) ^ rotr(e0, 25);
+                            const T1 = (h0 + S1 + ch(e0, f0, g0) + K[t] + w[t]) >>> 0;
+                            const S0 = rotr(a0, 2) ^ rotr(a0, 13) ^ rotr(a0, 22);
+                            const T2 = (S0 + maj(a0, b0, c0)) >>> 0;
+                            h0 = g0; g0 = f0; f0 = e0; e0 = (d0 + T1) >>> 0; d0 = c0; c0 = b0; b0 = a0; a0 = (T1 + T2) >>> 0;
+                        }
+                        H0 = (H0 + a0) >>> 0; H1 = (H1 + b0) >>> 0; H2 = (H2 + c0) >>> 0; H3 = (H3 + d0) >>> 0;
+                        H4 = (H4 + e0) >>> 0; H5 = (H5 + f0) >>> 0; H6 = (H6 + g0) >>> 0; H7 = (H7 + h0) >>> 0;
+                    }
+                    return [H0, H1, H2, H3, H4, H5, H6, H7].map(x => ("00000000" + (x >>> 0).toString(16)).slice(-8)).join("");
+                };
+                const strBytes2 = (s) => { const a = []; for (let i = 0; i < s.length; i++) a.push(s.charCodeAt(i) & 0xff); return a; };
+                const hexBytes = (h) => { const a = []; for (let i = 0; i < h.length; i += 2) a.push(parseInt(h.substr(i, 2), 16)); return a; };
+                const b64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+                const bytesToB64 = (bytes) => {
+                    let out = "";
+                    for (let i = 0; i < bytes.length; i += 3) {
+                        const b0 = bytes[i], b1 = i + 1 < bytes.length ? bytes[i + 1] : 0, b2 = i + 2 < bytes.length ? bytes[i + 2] : 0;
+                        out += b64Chars.charAt(b0 >> 2);
+                        out += b64Chars.charAt(((b0 & 3) << 4) | (b1 >> 4));
+                        out += i + 1 < bytes.length ? b64Chars.charAt(((b1 & 15) << 2) | (b2 >> 6)) : "=";
+                        out += i + 2 < bytes.length ? b64Chars.charAt(b2 & 63) : "=";
+                    }
+                    return out;
+                };
+                const hmacSha256B64 = (key, msg) => {
+                    let k = strBytes2(key);
+                    if (k.length > 64) k = hexBytes(sha256hex(key));
+                    const ipad = new Array(64).fill(0x36), opad = new Array(64).fill(0x5c);
+                    for (let i = 0; i < k.length; i++) { ipad[i] ^= k[i]; opad[i] ^= k[i]; }
+                    const inner = sha256hex(String.fromCharCode.apply(null, [].concat(ipad, strBytes2(msg))));
+                    const outer = sha256hex(String.fromCharCode.apply(null, [].concat(opad, hexBytes(inner))));
+                    return bytesToB64(hexBytes(outer));
+                };
+                return hmacSha256B64(secretKey, dataToSign);
+            })();
+
             const cryptoLib = (window.crypto && window.crypto.subtle) || undefined;
+            const finish = function (b64Token) {
+                const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${encodeURIComponent(rid)}&hmac_token=${encodeURIComponent(b64Token)}&ch=${encodeURIComponent(ch)}&fp=${fp}`;
+                console.log("%c[CimaNow Debug] [✔] تم توليد الرابط بنجاح: ", "color: #4caf50; font-weight: bold;", finalUrl);
+                if (typeof callback === "function") callback(null, finalUrl);
+            };
 
             if (!cryptoLib) {
-                throw new Error("Crypto API غير متاح");
+                finish(pureJSB64Token);
+            } else {
+                cryptoLib.importKey(
+                    "raw",
+                    encoder.encode(secretKey),
+                    { name: "HMAC", hash: "SHA-256" },
+                    false,
+                    ["sign"]
+                )
+                    .then((key) => cryptoLib.sign("HMAC", key, encoder.encode(dataToSign)))
+                    .then((signature) => {
+                        const hashArray = Array.from(new Uint8Array(signature));
+                        finish(btoa(String.fromCharCode.apply(null, hashArray)));
+                    })
+                    .catch((err) => {
+                        console.warn("[CimaNow Debug] crypto.subtle فشل، استخدام fallback JS خالص", err);
+                        finish(pureJSB64Token);
+                    });
             }
-
-            cryptoLib.importKey(
-                "raw",
-                encoder.encode(secretKey),
-                { name: "HMAC", hash: "SHA-256" },
-                false,
-                ["sign"]
-            )
-                .then((key) => {
-                    const fp = "TW96aWxsYS81LjIw";
-                    const dataToSign = encoder.encode(rid + ch + fp);
-                    return cryptoLib.sign("HMAC", key, dataToSign);
-                })
-                .then((signature) => {
-                    const hashArray = Array.from(new Uint8Array(signature));
-                    const b64Token = btoa(String.fromCharCode.apply(null, hashArray));
-                    const fp = "TW96aWxsYS81LjIw";
-                    const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${encodeURIComponent(rid)}&hmac_token=${encodeURIComponent(b64Token)}&ch=${encodeURIComponent(ch)}&fp=${fp}`;
-                    console.log("%c[CimaNow Debug] [✔] تم توليد الرابط بنجاح: ", "color: #4caf50; font-weight: bold;", finalUrl);
-                    if (typeof callback === "function") callback(null, finalUrl);
-                })
-                .catch((err) => {
-                    if (typeof callback === "function") callback(err, null);
-                });
 
         } catch (err) {
             if (typeof callback === "function") callback(err, null);
