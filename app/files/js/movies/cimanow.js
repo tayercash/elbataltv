@@ -711,7 +711,7 @@ obj = {
             if (encNum) {
                 const keyStr = String(parseInt(encNum[1], 10) + 70000 + 31721);
                 dbg("decode key", keyStr);
-                const blob = extract(/var _v8521e = new Array\(([\s\S]*?)\);[\s\S]*?eval/);
+                const blob = extract(/\bvar\s+\w+\s*=\s*new\s*Array\(\s*([\s\S]*?)\);[\s\S]*?eval/);
                 dbg("blob len", (blob || "").length);
                 const chunks = [];
                 const nameRe = /"([A-Za-z0-9+/=]+)"/g;
