@@ -442,7 +442,7 @@ obj = {
 
         console.log(watch_btn_link);
 
-        mou_aflam_server.get_wathing_url(watch_btn_link, function (watching_url) {
+mou_aflam_server.get_wathing_url(watch_btn_link, function (watching_url) {
 
             // لو get-link رجّع بوابة إعلانات (pig/watching)، نستخدم رابط المشاهدة الحقيقي من رابط العمل/الحلقة
             var watching_fetch_url = decodeURIComponent(decodeURI(watching_url));
@@ -507,13 +507,6 @@ obj = {
 
                                         $(`<span class="mou_btn watch_btn" data-full_title="${full_title}" data-continue_watch_code="${continue_watch_code}" onclick="what_window.play_dl_mou_cust_server('${mou_cust_server}','${full_title}','${watching_source}',false,this,\`{'Referer':'${mou_aflam_server.server_domain}'}\`)">${mou_cust_server}</span>`).appendTo(".dl_srces_btns");
                                     }
-
-                                    // what_window.cust_servers[mou_cust_server]["get_srcs"](this_server_url, function (srcs) {
-                                    //     srcs.forEach(src => {
-
-                                    //         mou_aflam_server.add_watch_dl_src(src);
-                                    //     });
-                                    // })
                                 }
 
 
