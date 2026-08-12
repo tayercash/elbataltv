@@ -657,14 +657,19 @@ obj = {
 
                                 setTimeout(function () {
 
+                                    var baseUrl = finalUrl.split("?")[0];
+                                    var postBody = finalUrl.split("?")[1] || "";
+
                                     $.ajax({
-                                        "type": "GET",
-                                        "url": finalUrl,
+                                        "type": "POST",
+                                        "url": baseUrl,
                                         "headers": {
                                             "User-Agent": what_window.Main_USER_AGENT,
                                             "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
                                             "Cookie": mou_aflam_server.phpSessId ? `PHPSESSID=${mou_aflam_server.phpSessId}` : ""
                                         },
+                                        "contentType": "application/x-www-form-urlencoded",
+                                        "data": postBody,
                                         success: function (redrict_res, textStatus, xhr) {
                                             callback(decodeURIComponent(decodeURI(redrict_res)));
                                         }
