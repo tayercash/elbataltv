@@ -684,43 +684,46 @@ obj = {
 
     }, get_direct_watch_link: function (res, callback) {
         try {
-            const extract = (regex) => {
-                const match = res.match(regex);
-                return match ? match[1] : "";
+            // 1. استخراج أسماء المتغيرات الديناميكية (Ptr و Map)
+            // نستخدم RegExp مرن جداً للتعامل مع أي تغيير في المسافات أو التنسيق
+            const ptrMatch = res.match(/window\.(ptr_[a-z0-9]+)\s*=\s*['"]([^'"]+)['"]/i);
+            const mapMatch = res.match(/window\.(map_[a-z0-9]+)\s*=\s*({[\s\S]*?});/i);
+
+            if (!ptrMatch || !mapMatch) {
+                throw new Error("فشل العثور على هيكل البيانات الديناميكي (V6.1)");
+            }
+
+            const ptrName = ptrMatch[1]; // مثل ptr_228453
+            const ptrValue = ptrMatch[2]; // مثل ctx_72f73a1c
+            const mapContent = mapMatch[2]; // محتوى كائن الخريطة
+
+            // 2. استخراج كائن الـ Context الفعلي
+            const ctxRegex = new RegExp(`window\\['${ptrValue}'\\]\\s*=\\s*({[\\s\\S]*?});`, 'i');
+            const ctxMatch = res.match(ctxRegex);
+
+            if (!ctxMatch) {
+                throw new Error("فشل استخراج كائن السياق (Context)");
+            }
+
+            // تحويل النصوص المستخرجة إلى كائنات JSON حقيقية بشكل آمن
+            const safeEval = (str) => {
+                return JSON.parse(str.replace(/'/g, '"').replace(/([{,])\s*([a-z0-9_]+)\s*:/ig, '$1"$2":'));
             };
 
-            // 1. استخراج أسماء كائنات الإعدادات والخريطة الديناميكية
-            const ptrKey = extract(/window\.(ptr_[a-z0-9]+)\s*=/); // اسم مؤشر الكائن
-            const mapKey = extract(/window\.(map_[a-z0-9]+)\s*=/); // اسم كائن الخريطة
+            const ctx = safeEval(ctxMatch[1]);
+            const map = safeEval(mapContent);
 
-            if (!ptrKey || !mapKey) {
-                throw new Error("فشل العثور على هيكل البيانات الديناميكي (V6)");
-            }
-
-            // 2. استخراج كائن الـ Context والـ Map من الـ HTML
-            const ptrValue = extract(new RegExp(`window\\.${ptrKey}\\s*=\\s*['"]([^'"]+)['"]`));
-            const ctxMatch = res.match(new RegExp(`window\\['${ptrValue}'\\]\\s*=\\s*({[\\s\\S]*?});`));
-            const mapMatch = res.match(new RegExp(`window\\.${mapKey}\\s*=\\s*({[\\s\\S]*?});`));
-
-            if (!ctxMatch || !mapMatch) {
-                throw new Error("فشل استخراج كائنات التشفير");
-            }
-
-            // تحويل النصوص إلى كائنات JS
-            const ctx = JSON.parse(ctxMatch[1].replace(/'/g, '"'));
-            const map = JSON.parse(mapMatch[1].replace(/'/g, '"'));
-
-            // 3. استخراج القيم الفعلية باستخدام الخريطة
+            // 3. استخراج القيم النهائية بناءً على الخريطة
             const ch = ctx[map.ch];
             const rid = ctx[map.ri];
             const encodedKey = ctx[map.ke];
             const salt = ctx[map.se];
 
             if (!rid || !ch || !encodedKey || !salt) {
-                throw new Error("بيانات التشفير غير مكتملة");
+                throw new Error("بيانات التشفير المستخرجة غير مكتملة");
             }
 
-            // 4. فك تشفير المفتاح السري (XOR Logic) - كما هو
+            // 4. منطق فك التشفير (XOR)
             const decodeSecret = (str, s) => {
                 let k = atob(str), resStr = "";
                 for (let i = 0; i < k.length; i++) {
@@ -730,12 +733,12 @@ obj = {
             };
             const secretKey = decodeSecret(encodedKey, salt);
 
-            // 5. إعداد التوقيع الرقمي (HMAC-SHA256)
+            // 5. إنشاء التوقيع الرقمي HMAC-SHA256
             const encoder = new TextEncoder();
             const cryptoLib = (window.crypto && window.crypto.subtle) || window.crypto.subtle;
 
             if (!cryptoLib) {
-                throw new Error("Crypto API غير متاح");
+                throw new Error("المتصفح لا يدعم Crypto API");
             }
 
             cryptoLib.importKey(
@@ -746,7 +749,7 @@ obj = {
                 ["sign"]
             )
                 .then(key => {
-                    const fp = "TW96aWxsYS81LjIw"; // قيمة البصمة الثابتة
+                    const fp = "TW96aWxsYS81LjIw"; // ثابت البصمة
                     const dataToSign = encoder.encode(rid + ch + fp);
                     return cryptoLib.sign("HMAC", key, dataToSign);
                 })
