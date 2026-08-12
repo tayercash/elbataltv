@@ -465,7 +465,9 @@ obj = {
                     core_token = (watching_res.match(/var\s+tk\s*=\s*['"]([a-f0-9]{64})['"]/) || [])[1] || "";
                     console.log("%c[CimaNow Debug] core_token: " + (core_token || "(غير موجود)") + " | referer: " + watching_page_url, "color: orange; font-weight: bold;");
 
-                    $(watching_doc).find("#watch").find("[data-id]").each(function () {
+                    watch_servers_list = $(watching_doc).find("#watch").find("[data-id]");
+                    console.log("%c[CimaNow Debug] عدد السيرفرات المكتشفة في #watch: " + watch_servers_list.length, "color: orange; font-weight: bold;");
+                    watch_servers_list.each(function () {
 
                         server_data_id = $(this).attr("data-id");
                         server_data_index = $(this).attr("data-index");
@@ -482,7 +484,10 @@ obj = {
                                 "X-Requested-With": "XMLHttpRequest"
                             },
                             success: function (server_res) {
+                                console.log("%c[CimaNow Debug] core.php رد (index=" + server_data_index + ") len=" + (server_res ? server_res.length : 0) + " head=" + (server_res ? server_res.slice(0, 120) : ""), "color: cyan;");
                                 watching_source = $(server_res).attr("src");
+                                if (!watching_source) watching_source = $(server_res).attr("data-src");
+                                console.log("%c[CimaNow Debug] watching_source (index=" + server_data_index + "): " + watching_source, "color: green;");
 
                                 mou_cust_server = what_window.is_in_mou_servers(watching_source);
                                 if (mou_cust_server !== false) {
@@ -513,6 +518,9 @@ obj = {
                                 }
 
 
+                            },
+                            error: function (xhr, textStatus, errorThrown) {
+                                console.error("%c[CimaNow Debug] core.php فشل (index=" + server_data_index + ") status:" + xhr.status + " text:" + textStatus + " :" + errorThrown, "color: red; font-weight: bold;");
                             }
                         });
 
