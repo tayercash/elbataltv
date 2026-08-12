@@ -57,28 +57,6 @@ obj = {
         });
     },
     "get_prop_domains": function (callback) {
-        // var g_searsh_key = "cimanow";
-        // $.ajax({
-        //     "type": "GET",
-        //     "url": "https://www.google.com/search?q=" + g_searsh_key,
-        //     timeout: time_out_for_domain_searching * 1000,
-        //     success: function (res) {
-        //         doc = new DOMParser().parseFromString(res, "text/html");
-        //         prop_domains = [];
-        //         $(doc).find(".MjjYud").each(function () {
-        //             url = $(this).find("a[href]").attr("href");
-        //             if (isValidUrl(url)) {
-        //                 domain = new URL(url);
-        //                 domain = domain.protocol + "//" + domain.hostname;
-        //                 if (domain.includes(".cimanow.")) {
-        //                     prop_domains.push(domain);
-        //                 }
-        //             }
-
-        //         });
-        //         callback(prop_domains);
-        //     }
-        // })
         prop_domains = [];
         $.ajax({
             type: "GET",
@@ -91,8 +69,6 @@ obj = {
         });
     },
     start_website: function () {
-
-
 
         if (getQueryVariable("film_url")) {
             qurey_data = get_Queries();
@@ -713,22 +689,38 @@ obj = {
                 return match ? match[1] : "";
             };
 
-            // 1. استخراج أسماء المتغيرات العشوائية من كائن الإعدادات _0x_cfg
-            const cKey = extract(/c\s*:\s*['"]([^'"]+)['"]/); // اسم متغير الـ ch
-            const rKey = extract(/r\s*:\s*['"]([^'"]+)['"]/); // اسم متغير الـ rid
-            const kKey = extract(/k\s*:\s*['"]([^'"]+)['"]/); // اسم متغير المفتاح المشفر
-            const salt = extract(/s\s*:\s*['"]([^'"]+)['"]/); // قيمة الـ salt
+            // 1. استخراج أسماء كائنات الإعدادات والخريطة الديناميكية
+            const ptrKey = extract(/window\.(ptr_[a-z0-9]+)\s*=/); // اسم مؤشر الكائن
+            const mapKey = extract(/window\.(map_[a-z0-9]+)\s*=/); // اسم كائن الخريطة
 
-            // 2. استخراج القيم الفعلية من الـ HTML بناءً على الأسماء المستخرجة
-            const ch = extract(new RegExp(`window\\.${cKey}\\s*=\\s*['"]([^'"]+)['"]`));
-            const rid = extract(new RegExp(`window\\.${rKey}\\s*=\\s*['"]([^'"]+)['"]`));
-            const encodedKey = extract(new RegExp(`window\\.${kKey}\\s*=\\s*['"]([^'"]+)['"]`));
-
-            if (!rid || !ch || !encodedKey || !salt) {
-                throw new Error("فشل استخراج بيانات التشفير الديناميكية (V5)");
+            if (!ptrKey || !mapKey) {
+                throw new Error("فشل العثور على هيكل البيانات الديناميكي (V6)");
             }
 
-            // 3. فك تشفير المفتاح السري (XOR Logic)
+            // 2. استخراج كائن الـ Context والـ Map من الـ HTML
+            const ptrValue = extract(new RegExp(`window\\.${ptrKey}\\s*=\\s*['"]([^'"]+)['"]`));
+            const ctxMatch = res.match(new RegExp(`window\\['${ptrValue}'\\]\\s*=\\s*({[\\s\\S]*?});`));
+            const mapMatch = res.match(new RegExp(`window\\.${mapKey}\\s*=\\s*({[\\s\\S]*?});`));
+
+            if (!ctxMatch || !mapMatch) {
+                throw new Error("فشل استخراج كائنات التشفير");
+            }
+
+            // تحويل النصوص إلى كائنات JS
+            const ctx = JSON.parse(ctxMatch[1].replace(/'/g, '"'));
+            const map = JSON.parse(mapMatch[1].replace(/'/g, '"'));
+
+            // 3. استخراج القيم الفعلية باستخدام الخريطة
+            const ch = ctx[map.ch];
+            const rid = ctx[map.ri];
+            const encodedKey = ctx[map.ke];
+            const salt = ctx[map.se];
+
+            if (!rid || !ch || !encodedKey || !salt) {
+                throw new Error("بيانات التشفير غير مكتملة");
+            }
+
+            // 4. فك تشفير المفتاح السري (XOR Logic) - كما هو
             const decodeSecret = (str, s) => {
                 let k = atob(str), resStr = "";
                 for (let i = 0; i < k.length; i++) {
@@ -738,14 +730,12 @@ obj = {
             };
             const secretKey = decodeSecret(encodedKey, salt);
 
-            // 4. إعداد التوقيع الرقمي (استخدام محمي لـ Crypto API)
+            // 5. إعداد التوقيع الرقمي (HMAC-SHA256)
             const encoder = new TextEncoder();
-
-            // محاولة الوصول لـ crypto.subtle بشكل آمن لتجنب مشكلة الـ undefined
             const cryptoLib = (window.crypto && window.crypto.subtle) || window.crypto.subtle;
 
             if (!cryptoLib) {
-                throw new Error("مكتبة Crypto غير متاحة في هذا المتصفح أو تم حظرها");
+                throw new Error("Crypto API غير متاح");
             }
 
             cryptoLib.importKey(
@@ -756,16 +746,11 @@ obj = {
                 ["sign"]
             )
                 .then(key => {
-                    // القيمة الثابتة للبصمة المعتمدة
-                    const fp = "TW96aWxsYS81LjIw";
-
-                    // الترتيب الذي رصده سكربت الصيد: RID + CH + FP
+                    const fp = "TW96aWxsYS81LjIw"; // قيمة البصمة الثابتة
                     const dataToSign = encoder.encode(rid + ch + fp);
-
                     return cryptoLib.sign("HMAC", key, dataToSign);
                 })
                 .then(signature => {
-                    // تحويل التوقيع (ArrayBuffer) إلى Base64
                     const hashArray = Array.from(new Uint8Array(signature));
                     const b64Token = btoa(String.fromCharCode.apply(null, hashArray));
                     const fp = "TW96aWxsYS81LjIw";
@@ -773,9 +758,7 @@ obj = {
                     // تجميع الرابط النهائي
                     const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${rid}&hmac_token=${encodeURIComponent(b64Token)}&ch=${ch}&fp=${fp}`;
 
-                    if (typeof callback === "function") {
-                        callback(null, finalUrl);
-                    }
+                    if (typeof callback === "function") callback(null, finalUrl);
                 })
                 .catch(err => {
                     if (typeof callback === "function") callback(err, null);
