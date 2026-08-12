@@ -1,7 +1,7 @@
 obj = {
     "server_name": "yacin",
     "server_title": "سيرفر 1",
-    "server_domain": "http://a2.apk-api.com",
+    "server_domain": "https://def.yacinelive.com/",
     "working_state": true,
     "icon": `<i class="fas fa-tv"></i>`,
     "get_res": function (url = false, cat_load_type = "cats", from_action = "channels_page", callback) {
@@ -197,7 +197,7 @@ obj = {
             source_drm = data["drm"];
             play_vid(source_link, source_name, user_agent, JSON.stringify(source_headers), "", false, "Elbatal", false, "", "", "clearkey", source_drm, "localWebPlayer")
         } else {
-         
+
             play_vid(source_link, source_name, user_agent, JSON.stringify(source_headers));
 
         }
