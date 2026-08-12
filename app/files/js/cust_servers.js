@@ -282,7 +282,7 @@ var cust_servers = {
                 "url": link,
                 "headers": {
                     "User-Agent": what_window.Main_USER_AGENT,
-                    "referer": "https://cimanow.cc/",
+                    "Referer": "https://cimanow.cc/",
                     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
                     "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
                     "Pragma": "no-cache"
@@ -298,7 +298,7 @@ var cust_servers = {
                         src["name"] = match[1];
                         // src["url"] = extractDomainWithProtocol(link) + encodeURI(match[2].trim());
                         src["url"] = extractDomainWithProtocol(link) + match[2].trim();
-                        src["headers"] = { "referer": "https://cimanow.cc/" };
+                        src["headers"] = { "Referer": "https://cimanow.cc/" };
                         srces.push(src);
                     }
 
