@@ -14,11 +14,11 @@
             options.headers = options.headers || {};
             // Native shouldInterceptRequest proxies these requests (adds CORS headers + UA/Referer)
             options.headers["MOuCustomREQUEST"] = "NICE";
-            // The browser refuses these unsafe headers anyway; the native layer sets them
-            delete options.headers["user-agent"];
-            delete options.headers["User-Agent"];
-            delete options.headers["referer"];
-            delete options.headers["Referer"];
+            // DON'T delete referer/user-agent here: they must stay so the
+            // beforeSend in mouscripts.js collects them into unsafeHeadersBypass
+            // and forwards them via updateHeaders to the native proxy.
+            // Deleting them here forces the WebView's default page referer
+            // (https://new.elbatal-app.com/app/) on every AJAX request.
         });
     }
 })();
