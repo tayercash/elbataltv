@@ -517,8 +517,49 @@ obj = {
                 }
             })
         });
+    }, decode_enc_html: function (html) {
+        try {
+            const valMatch = html.match(/data-[a-z0-9]+\s*=\s*['"](\d+)['"]/);
+            const loaderMatch = html.match(/eval\s*\(\s*atob\s*\(\s*'([^']+)'\s*\)\s*\)/);
+            if (!valMatch || !loaderMatch) return null;
+
+            const loader = atob(loaderMatch[1]);
+            const cMatch = loader.match(/\+\s*(\d{4,})\s*\+\s*(\d{4,})/);
+            if (!cMatch) return null;
+
+            const key = String(parseInt(valMatch[1], 10) + parseInt(cMatch[1], 10) + parseInt(cMatch[2], 10));
+
+            const blobMatch = html.match(/\bvar\s+\w+\s*=\s*new\s*Array\(\s*([\s\S]*?)\);[\s\S]*?eval/);
+            if (!blobMatch) return null;
+
+            const chunks = [];
+            const nameRe = /"([A-Za-z0-9+/=]+)"/g;
+            let cm;
+            while ((cm = nameRe.exec(blobMatch[1]))) chunks.push(cm[1]);
+
+            const dec = atob(chunks.join(""));
+            const bytes = new Uint8Array(dec.length);
+            for (let i = 0; i < dec.length; i++) {
+                bytes[i] = dec.charCodeAt(i) ^ key.charCodeAt(i % key.length);
+            }
+            const out = new TextDecoder("utf-8").decode(bytes);
+            return out.length > 1000 ? out : null;
+        } catch (e) {
+            return null;
+        }
     }, get_cima_now_res: function (res) {
         console.log("%c[CimaNow Debug] فحص كتل البيانات الضخمة المجمعة...", "color: cyan; font-weight: bold;");
+
+        // 0. فك تنسيق البيانات المشفّر (data-<عشوائي> + new Array + eval) مثل blog-post.html
+        try {
+            const decRes = mou_aflam_server.decode_enc_html(res);
+            if (decRes) {
+                console.log("%c[CimaNow Debug] تم فك صفحة مشفرة بنجاح. الطول: " + decRes.length, "color: white; background: green;");
+                return decRes;
+            }
+        } catch (err) {
+            console.error("[CimaNow Debug] فشل فك الصفحة المشفرة:", err);
+        }
 
         try {
             let encodedData = "";
@@ -705,36 +746,23 @@ obj = {
             dbg("res head (1200)", (res || "").slice(0, 1200));
             dbg("res tail (600)", (res || "").slice(-600));
 
-            // 0. فك الطبقة الخارجية لو الصفحة مشفرة (data-8t4w8 + _v8521e)
-            dbg("has data-8t4w8", has(/data-8t4w8\s*=\s*['"]\d+['"]/));
-            dbg("has _v8521e", has(/_v8521e/));
+            // 0. فك الطبقة الخارجية لو الصفحة مشفرة (بأي مفتاح بيانات data-<عشوائي>)
+            dbg("has data-<random>", has(/data-[a-z0-9]+\s*=\s*['"]\d+['"]/));
+            dbg("has new Array", has(/new\s*Array\(/));
             dbg("has _0x_cfg (raw)", has(/window\._0x_cfg/));
             dbg("has ptr_ (raw)", has(/ptr_[0-9a-zA-Z]+\s*=\s*['"]/));
             dbg("has eval(atob", has(/eval\s*\(\s*atob/));
 
-            const encNum = res.match(/data-8t4w8\s*=\s*['"](\d+)['"]/);
-            if (encNum) {
-                const keyStr = String(parseInt(encNum[1], 10) + 70000 + 31721);
-                dbg("decode key", keyStr);
-                const blob = extract(/\bvar\s+\w+\s*=\s*new\s*Array\(\s*([\s\S]*?)\);[\s\S]*?eval/);
-                dbg("blob len", (blob || "").length);
-                const chunks = [];
-                const nameRe = /"([A-Za-z0-9+/=]+)"/g;
-                let cm;
-                while ((cm = nameRe.exec(blob))) chunks.push(cm[1]);
-                const b64 = chunks.join("");
-                dbg("total b64 len", b64.length);
-                const dec = atob(b64);
-                const bytes = new Uint8Array(dec.length);
-                for (let i = 0; i < dec.length; i++) {
-                    bytes[i] = dec.charCodeAt(i) ^ keyStr.charCodeAt(i % keyStr.length);
-                }
-                res = new TextDecoder("utf-8").decode(bytes);
+            const decRes = mou_aflam_server.decode_enc_html(res);
+            if (decRes) {
+                res = decRes;
                 window.__cn_dbg.decoded = res;
                 dbg("decoded res length", res.length);
                 dbg("decoded has _0x_cfg", has(/window\._0x_cfg/));
                 dbg("decoded has ptr_", has(/ptr_[0-9a-zA-Z]+\s*=\s*['"]/));
                 dbg("decoded head (800)", res.slice(0, 800));
+            } else {
+                dbg("no encoded page detected (تخطي الفك)", "");
             }
 
             // 1. استخراج أسماء المتغيرات العشوائية من كائن الإعدادات _0x_cfg
