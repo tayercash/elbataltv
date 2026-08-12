@@ -284,7 +284,7 @@ var cust_servers = {
                     "User-Agent": what_window.Main_USER_AGENT,
                     "Referer": "https://cimanow.cc/",
                     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-                    "Cache-Control": "no-cache",
+                    "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
                     "Pragma": "no-cache"
                 },
                 success: function (res) {
