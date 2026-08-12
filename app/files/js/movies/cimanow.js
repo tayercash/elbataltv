@@ -683,121 +683,167 @@ obj = {
         });
 
     }, get_direct_watch_link: function (res, callback) {
+        window.__cn_dbg = { stages: [] };
+        const dbg = (lbl, val) => {
+            window.__cn_dbg.stages.push({ lbl: lbl, val: val });
+            console.log("%c[CimaNow Debug] " + lbl + ":", "color: orange; font-weight: bold;", val);
+        };
         try {
             const extract = (regex) => {
                 const match = res.match(regex);
                 return match ? match[1] : "";
             };
+            const has = (re) => re.test(res);
+
+            dbg("res type", typeof res);
+            dbg("res length", (res || "").length);
+            dbg("res head (1200)", (res || "").slice(0, 1200));
+            dbg("res tail (600)", (res || "").slice(-600));
 
             // 0. فك الطبقة الخارجية لو الصفحة مشفرة (data-8t4w8 + _v8521e)
-            const encNum = res.match(/data-8t4w8="(\d+)"/);
+            dbg("has data-8t4w8", has(/data-8t4w8\s*=\s*['"]\d+['"]/));
+            dbg("has _v8521e", has(/_v8521e/));
+            dbg("has _0x_cfg (raw)", has(/window\._0x_cfg/));
+            dbg("has ptr_ (raw)", has(/ptr_[0-9a-zA-Z]+\s*=\s*['"]/));
+            dbg("has eval(atob", has(/eval\s*\(\s*atob/));
+
+            const encNum = res.match(/data-8t4w8\s*=\s*['"](\d+)['"]/);
             if (encNum) {
                 const keyStr = String(parseInt(encNum[1], 10) + 70000 + 31721);
+                dbg("decode key", keyStr);
                 const blob = extract(/var _v8521e = new Array\(([\s\S]*?)\);[\s\S]*?eval/);
+                dbg("blob len", (blob || "").length);
                 const chunks = [];
                 const nameRe = /"([A-Za-z0-9+/=]+)"/g;
                 let cm;
                 while ((cm = nameRe.exec(blob))) chunks.push(cm[1]);
                 const b64 = chunks.join("");
+                dbg("total b64 len", b64.length);
                 const dec = atob(b64);
                 const bytes = new Uint8Array(dec.length);
                 for (let i = 0; i < dec.length; i++) {
                     bytes[i] = dec.charCodeAt(i) ^ keyStr.charCodeAt(i % keyStr.length);
                 }
                 res = new TextDecoder("utf-8").decode(bytes);
+                window.__cn_dbg.decoded = res;
+                dbg("decoded res length", res.length);
+                dbg("decoded has _0x_cfg", has(/window\._0x_cfg/));
+                dbg("decoded has ptr_", has(/ptr_[0-9a-zA-Z]+\s*=\s*['"]/));
+                dbg("decoded head (800)", res.slice(0, 800));
             }
 
             // 1. استخراج أسماء المتغيرات العشوائية من كائن الإعدادات _0x_cfg
             const cfgBody = extract(/window\._0x_cfg\s*=\s*\{(.*?)\};/s);
-            const config = {};
             if (cfgBody) {
                 const cg = /([crks])\s*:\s*['"]([^'"]+)['"]/g;
                 let gm;
+                const config = {};
                 while ((gm = cg.exec(cfgBody))) if (!(gm[1] in config)) config[gm[1]] = gm[2];
-            }
-            const cKey = config.c || "";
-            const rKey = config.r || "";
-            const kKey = config.k || "";
-            let salt = config.s || "";
+                window.__cn_dbg.cfg = config;
+                dbg("_0x_cfg", config);
 
-            // 2. استخراج القيم الفعلية من الـ HTML بناءً على الأسماء المستخرجة
-            let ch = extract(new RegExp(`window\\.${cKey}\\s*=\\s*['"]([^'"]+)['"]`));
-            let rid = extract(new RegExp(`window\\.${rKey}\\s*=\\s*['"]([^'"]+)['"]`));
-            let encodedKey = extract(new RegExp(`window\\.${kKey}\\s*=\\s*['"]([^'"]+)['"]`));
+                const cKey = config.c || "";
+                const rKey = config.r || "";
+                const kKey = config.k || "";
+                let salt = config.s || "";
 
-            // 2b. البنية الفعلية لهذه الصفحة: ptr_* -> ctx_* + map_* (ch/ri/ke/se)
-            if (!rid || !ch || !encodedKey || !salt) {
-                const ptr = extract(/ptr_[0-9a-zA-Z]+\s*=\s*['"]([^'"]+)['"]/);
-                const mapBody = ptr ? extract(new RegExp(`map_[0-9a-zA-Z]+\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
-                const ctxBody = ptr ? extract(new RegExp(`window\\.?\\[?['"]?${ptr}['"]?\\]?\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
-                const vars = {};
-                const varRe = /(['"]?)v_([0-9A-Za-z]+)\1\s*:\s*['"]([^'"]+)['"]/g;
-                let vm;
-                while ((vm = varRe.exec(ctxBody))) vars["v_" + vm[2]] = vm[3];
-                const roleKey = {};
-                const mg = /\b(ch|ri|ke|se)\b\s*:\s*['"]([^'"]+)['"]/g;
-                let mm;
-                while ((mm = mg.exec(mapBody))) roleKey[mm[1]] = mm[2];
-                ch = ch || vars[roleKey["ch"]] || "";
-                rid = rid || vars[roleKey["ri"]] || "";
-                encodedKey = encodedKey || vars[roleKey["ke"]] || "";
-                salt = vars[roleKey["se"]] || salt;
-            }
+                // 2. استخراج القيم الفعلية من الـ HTML بناءً على الأسماء المستخرجة
+                let ch = extract(new RegExp(`window\\.${cKey}\\s*=\\s*['"]([^'"]+)['"]`));
+                let rid = extract(new RegExp(`window\\.${rKey}\\s*=\\s*['"]([^'"]+)['"]`));
+                let encodedKey = extract(new RegExp(`window\\.${kKey}\\s*=\\s*['"]([^'"]+)['"]`));
+                dbg("window.<name> ch/rid/key", [ch, rid, encodedKey]);
 
-            if (!rid || !ch || !encodedKey || !salt) {
-                throw new Error("فشل استخراج بيانات التشفير الديناميكية (V5)");
-            }
-
-            // 3. فك تشفير المفتاح السري (XOR Logic)
-            const decodeSecret = (str, s) => {
-                let k = atob(str), resStr = "";
-                for (let i = 0; i < k.length; i++) {
-                    resStr += String.fromCharCode(k.charCodeAt(i) ^ s.charCodeAt(i % s.length));
+                // 2b. البنية الفعلية لهذه الصفحة: ptr_* -> ctx_* + map_* (ch/ri/ke/se)
+                if (!rid || !ch || !encodedKey || !salt) {
+                    const ptr = extract(/ptr_[0-9a-zA-Z]+\s*=\s*['"]([^'"]+)['"]/);
+                    dbg("ptr container name", ptr || "");
+                    const mapBody = ptr ? extract(new RegExp(`map_[0-9a-zA-Z]+\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
+                    const ctxBody = ptr ? extract(new RegExp(`window\\.?\\[?['"]?${ptr}['"]?\\]?\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
+                    const vars = {};
+                    const varRe = /(['"]?)v_([0-9A-Za-z]+)\1\s*:\s*['"]([^'"]+)['"]/g;
+                    let vm;
+                    while ((vm = varRe.exec(ctxBody))) vars["v_" + vm[2]] = vm[3];
+                    const roleKey = {};
+                    const mg = /\b(ch|ri|ke|se)\b\s*:\s*['"]([^'"]+)['"]/g;
+                    let mm;
+                    while ((mm = mg.exec(mapBody))) roleKey[mm[1]] = mm[2];
+                    dbg("ctx vars", vars);
+                    dbg("map roles", roleKey);
+                    ch = ch || vars[roleKey["ch"]] || "";
+                    rid = rid || vars[roleKey["ri"]] || "";
+                    encodedKey = encodedKey || vars[roleKey["ke"]] || "";
+                    salt = vars[roleKey["se"]] || salt;
                 }
-                return resStr;
-            };
-            const secretKey = decodeSecret(encodedKey, salt);
 
-            // 4. إعداد التوقيع الرقمي (استخدام محمي لـ Crypto API)
-            const encoder = new TextEncoder();
-            const cryptoLib = (window.crypto && window.crypto.subtle) || undefined;
+                window.__cn_dbg.final = { ch, rid, encodedKey: (encodedKey || "").slice(0, 40) + "...", salt };
+                dbg("FINAL extracted", { ch, rid, encodedKey: (encodedKey || "").slice(0, 40) + "...", salt });
 
-            if (!cryptoLib) {
-                throw new Error("مكتبة Crypto غير متاحة في هذا المتصفح أو تم حظرها");
-            }
+                if (!rid || !ch || !encodedKey || !salt) {
+                    throw new Error("فشل استخراج بيانات التشفير الديناميكية (V5)");
+                }
 
-            cryptoLib.importKey(
-                "raw",
-                encoder.encode(secretKey),
-                { name: "HMAC", hash: "SHA-256" },
-                false,
-                ["sign"]
-            )
-                .then((key) => {
-                    // القيمة الثابتة للبصمة المعتمدة
-                    const fp = "TW96aWxsYS81LjIw";
-                    // الترتيب الذي رصده سكربت الصيد: RID + CH + FP
-                    const dataToSign = encoder.encode(rid + ch + fp);
-                    return cryptoLib.sign("HMAC", key, dataToSign);
-                })
-                .then((signature) => {
-                    // تحويل التوقيع (ArrayBuffer) إلى Base64
-                    const hashArray = Array.from(new Uint8Array(signature));
-                    const b64Token = btoa(String.fromCharCode.apply(null, hashArray));
-                    const fp = "TW96aWxsYS81LjIw";
-
-                    // تجميع الرابط النهائي
-                    const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${encodeURIComponent(rid)}&hmac_token=${encodeURIComponent(b64Token)}&ch=${encodeURIComponent(ch)}&fp=${fp}`;
-
-                    if (typeof callback === "function") {
-                        callback(null, finalUrl);
+                // 3. فك تشفير المفتاح السري (XOR Logic)
+                const decodeSecret = (str, s) => {
+                    let k = atob(str), resStr = "";
+                    for (let i = 0; i < k.length; i++) {
+                        resStr += String.fromCharCode(k.charCodeAt(i) ^ s.charCodeAt(i % s.length));
                     }
-                })
-                .catch((err) => {
-                    if (typeof callback === "function") callback(err, null);
-                });
+                    return resStr;
+                };
+                const secretKey = decodeSecret(encodedKey, salt);
+                window.__cn_dbg.secretKey = secretKey.slice(0, 40) + "...";
+                dbg("secretKey", secretKey.slice(0, 40) + "...");
+
+                // 4. إعداد التوقيع الرقمي (استخدام محمي لـ Crypto API)
+                const encoder = new TextEncoder();
+                const cryptoLib = (window.crypto && window.crypto.subtle) || undefined;
+
+                if (!cryptoLib) {
+                    throw new Error("مكتبة Crypto غير متاحة في هذا المتصفح أو تم حظرها");
+                }
+
+                cryptoLib.importKey(
+                    "raw",
+                    encoder.encode(secretKey),
+                    { name: "HMAC", hash: "SHA-256" },
+                    false,
+                    ["sign"]
+                )
+                    .then((key) => {
+                        // القيمة الثابتة للبصمة المعتمدة
+                        const fp = "TW96aWxsYS81LjIw";
+                        // الترتيب الذي رصده سكربت الصيد: RID + CH + FP
+                        const dataToSign = encoder.encode(rid + ch + fp);
+                        return cryptoLib.sign("HMAC", key, dataToSign);
+                    })
+                    .then((signature) => {
+                        // تحويل التوقيع (ArrayBuffer) إلى Base64
+                        const hashArray = Array.from(new Uint8Array(signature));
+                        const b64Token = btoa(String.fromCharCode.apply(null, hashArray));
+                        const fp = "TW96aWxsYS81LjIw";
+
+                        // تجميع الرابط النهائي
+                        const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${encodeURIComponent(rid)}&hmac_token=${encodeURIComponent(b64Token)}&ch=${encodeURIComponent(ch)}&fp=${fp}`;
+
+                        window.__cn_dbg.finalUrl = finalUrl;
+                        dbg("FINAL URL", finalUrl);
+
+                        if (typeof callback === "function") {
+                            callback(null, finalUrl);
+                        }
+                    })
+                    .catch((err) => {
+                        if (typeof callback === "function") callback(err, null);
+                    });
+
+            } else {
+                window.__cn_dbg.noCfg = true;
+                dbg("no _0x_cfg found — response is not the encoded page", "");
+            }
 
         } catch (err) {
+            window.__cn_dbg.error = err && err.stack ? err.stack : String(err);
+            console.error("[CimaNow Debug] get_direct_watch_link error:", err);
             if (typeof callback === "function") callback(err, null);
         }
     }
