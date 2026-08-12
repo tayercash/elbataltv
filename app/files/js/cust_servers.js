@@ -282,7 +282,10 @@ var cust_servers = {
                 "url": link,
                 "headers": {
                     "User-Agent": what_window.Main_USER_AGENT,
-                    "Referer": "https://bs.cimanow.cc/"
+                    "Referer": "https://cimanow.cc/",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                    "Cache-Control": "no-cache",
+                    "Pragma": "no-cache"
                 },
                 success: function (res) {
                     doc = new DOMParser().parseFromString(res, "text/html");
@@ -295,8 +298,24 @@ var cust_servers = {
                         src["name"] = match[1];
                         // src["url"] = extractDomainWithProtocol(link) + encodeURI(match[2].trim());
                         src["url"] = extractDomainWithProtocol(link) + match[2].trim();
-                        src["headers"] = { "Referer": "https://bs.cimanow.cc/" };
+                        src["headers"] = { "Referer": "https://cimanow.cc/" };
                         srces.push(src);
+                    }
+
+                    // fallback: لو الريجيكس ملقاش، جرب وسوم <source>/<video>
+                    if (srces.length === 0) {
+                        $(doc).find("video source, video source[data-src], video[src]").each(function () {
+                            src = {};
+                            src["name"] = ($(this).attr("size") ? $(this).attr("size") + "p" : "source");
+                            src["url"] = $(this).attr("src") || $(this).attr("data-src");
+                            if (src["url"] && src["url"].indexOf("//") === 0) {
+                                src["url"] = location.protocol + src["url"];
+                            } else if (src["url"] && src["url"].indexOf("/") === 0) {
+                                src["url"] = extractDomainWithProtocol(link) + src["url"];
+                            }
+                            src["headers"] = { "Referer": "https://cimanow.cc/" };
+                            srces.push(src);
+                        });
                     }
 
 
