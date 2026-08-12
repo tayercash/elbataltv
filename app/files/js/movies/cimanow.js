@@ -463,17 +463,13 @@ obj = {
 
                     watching_page_url = decodeURIComponent(decodeURI(watching_url));
                     core_token = (watching_res.match(/var\s+tk\s*=\s*['"]([a-f0-9]{64})['"]/) || [])[1] || "";
-                    console.log("%c[CimaNow Debug] core_token: " + (core_token || "(غير موجود)") + " | referer: " + watching_page_url, "color: orange; font-weight: bold;");
 
-                    watch_servers_list = $(watching_doc).find("#watch").find("[data-id]");
-                    console.log("%c[CimaNow Debug] عدد السيرفرات المكتشفة في #watch: " + watch_servers_list.length, "color: orange; font-weight: bold;");
-                    watch_servers_list.each(function () {
+                    $(watching_doc).find("#watch").find("[data-id]").each(function () {
 
                         server_data_id = $(this).attr("data-id");
                         server_data_index = $(this).attr("data-index");
 
                         watching_core = watching_domain + `/wp-content/themes/Cima%20Now%20New/core.php?token=${core_token}&action=switch&index=${server_data_index}&id=${server_data_id}`;
-                        console.log("%c[CimaNow Debug] watching_core: " + watching_core, "color: cyan;");
 
                         $.ajax({
                             "type": "GET",
@@ -484,10 +480,7 @@ obj = {
                                 "X-Requested-With": "XMLHttpRequest"
                             },
                             success: function (server_res) {
-                                console.log("%c[CimaNow Debug] core.php رد (index=" + server_data_index + ") len=" + (server_res ? server_res.length : 0) + " head=" + (server_res ? server_res.slice(0, 120) : ""), "color: cyan;");
                                 watching_source = $(server_res).attr("src");
-                                if (!watching_source) watching_source = $(server_res).attr("data-src");
-                                console.log("%c[CimaNow Debug] watching_source (index=" + server_data_index + "): " + watching_source, "color: green;");
 
                                 mou_cust_server = what_window.is_in_mou_servers(watching_source);
                                 if (mou_cust_server !== false) {
@@ -518,9 +511,6 @@ obj = {
                                 }
 
 
-                            },
-                            error: function (xhr, textStatus, errorThrown) {
-                                console.error("%c[CimaNow Debug] core.php فشل (index=" + server_data_index + ") status:" + xhr.status + " text:" + textStatus + " :" + errorThrown, "color: red; font-weight: bold;");
                             }
                         });
 
@@ -531,45 +521,36 @@ obj = {
                 }
             })
         });
-    }, decode_enc_html: function (html) {
-        try {
-            const valMatch = html.match(/data-[a-z0-9]+\s*=\s*['"](\d+)['"]/);
-            const loaderMatch = html.match(/eval\s*\(\s*atob\s*\(\s*'([^']+)'\s*\)\s*\)/);
-            if (!valMatch || !loaderMatch) return null;
-
-            const loader = atob(loaderMatch[1]);
-            const cMatch = loader.match(/\+\s*(\d{4,})\s*\+\s*(\d{4,})/);
-            if (!cMatch) return null;
-
-            const key = String(parseInt(valMatch[1], 10) + parseInt(cMatch[1], 10) + parseInt(cMatch[2], 10));
-
-            const blobMatch = html.match(/\bvar\s+\w+\s*=\s*new\s*Array\(\s*([\s\S]*?)\);[\s\S]*?eval/);
-            if (!blobMatch) return null;
-
-            const chunks = [];
-            const nameRe = /"([A-Za-z0-9+/=]+)"/g;
-            let cm;
-            while ((cm = nameRe.exec(blobMatch[1]))) chunks.push(cm[1]);
-
-            const dec = atob(chunks.join(""));
-            const bytes = new Uint8Array(dec.length);
-            for (let i = 0; i < dec.length; i++) {
-                bytes[i] = dec.charCodeAt(i) ^ key.charCodeAt(i % key.length);
-            }
-            const out = new TextDecoder("utf-8").decode(bytes);
-            return out.length > 1000 ? out : null;
-        } catch (e) {
-            return null;
-        }
     }, get_cima_now_res: function (res) {
         console.log("%c[CimaNow Debug] فحص كتل البيانات الضخمة المجمعة...", "color: cyan; font-weight: bold;");
 
-        // 0. فك تنسيق البيانات المشفّر (data-<عشوائي> + new Array + eval) مثل blog-post.html
+        // 0. فك الطبقة الخارجية المشفرة (data-<عشوائي> + new Array + eval)
         try {
-            const decRes = mou_aflam_server.decode_enc_html(res);
-            if (decRes) {
-                console.log("%c[CimaNow Debug] تم فك صفحة مشفرة بنجاح. الطول: " + decRes.length, "color: white; background: green;");
-                return decRes;
+            const encV = res.match(/data-[a-z0-9]+\s*=\s*['"](\d+)['"]/);
+            const encL = res.match(/eval\s*\(\s*atob\s*\(\s*'([^']+)'\s*\)\s*\)/);
+            if (encV && encL) {
+                const encLS = atob(encL[1]);
+                const encC = encLS.match(/\+\s*(\d{4,})\s*\+\s*(\d{4,})/);
+                if (encC) {
+                    const encKey = String(parseInt(encV[1], 10) + parseInt(encC[1], 10) + parseInt(encC[2], 10));
+                    const encB = res.match(/\bvar\s+\w+\s*=\s*new\s*Array\(\s*([\s\S]*?)\);[\s\S]*?eval/);
+                    if (encB) {
+                        const encCh = [];
+                        const encRe = /"([A-Za-z0-9+/=]+)"/g;
+                        let ec;
+                        while ((ec = encRe.exec(encB[1]))) encCh.push(ec[1]);
+                        const encD = atob(encCh.join(""));
+                        const encBy = new Uint8Array(encD.length);
+                        for (let ei = 0; ei < encD.length; ei++) {
+                            encBy[ei] = encD.charCodeAt(ei) ^ encKey.charCodeAt(ei % encKey.length);
+                        }
+                        const decRes0 = new TextDecoder("utf-8").decode(encBy);
+                        if (decRes0.length > 1000) {
+                            console.log("%c[CimaNow Debug] تم فك صفحة مشفرة بنجاح. الطول: " + decRes0.length, "color: white; background: green;");
+                            return decRes0;
+                        }
+                    }
+                }
             }
         } catch (err) {
             console.error("[CimaNow Debug] فشل فك الصفحة المشفرة:", err);
@@ -743,154 +724,132 @@ obj = {
         });
 
     }, get_direct_watch_link: function (res, callback) {
-        window.__cn_dbg = { stages: [] };
-        const dbg = (lbl, val) => {
-            window.__cn_dbg.stages.push({ lbl: lbl, val: val });
-            console.log("%c[CimaNow Debug] " + lbl + ":", "color: orange; font-weight: bold;", val);
-        };
         try {
             const extract = (regex) => {
                 const match = res.match(regex);
                 return match ? match[1] : "";
             };
-            const has = (re) => re.test(res);
 
-            dbg("res type", typeof res);
-            dbg("res length", (res || "").length);
-            dbg("res head (1200)", (res || "").slice(0, 1200));
-            dbg("res tail (600)", (res || "").slice(-600));
+            // 0. فك الطبقة الخارجية المشفرة (data-<عشوائي> + new Array + eval) — لازم لو الرد مش مفكوك
+            try {
+                const dVal = res.match(/data-[a-z0-9]+\s*=\s*['"](\d+)['"]/);
+                const dLoad = res.match(/eval\s*\(\s*atob\s*\(\s*'([^']+)'\s*\)\s*\)/);
+                if (dVal && dLoad) {
+                    const dLS = atob(dLoad[1]);
+                    const dC = dLS.match(/\+\s*(\d{4,})\s*\+\s*(\d{4,})/);
+                    if (dC) {
+                        const dKey = String(parseInt(dVal[1], 10) + parseInt(dC[1], 10) + parseInt(dC[2], 10));
+                        const dB = res.match(/\bvar\s+\w+\s*=\s*new\s*Array\(\s*([\s\S]*?)\);[\s\S]*?eval/);
+                        if (dB) {
+                            const dch = [];
+                            const dr = /"([A-Za-z0-9+/=]+)"/g;
+                            let dc;
+                            while ((dc = dr.exec(dB[1]))) dch.push(dc[1]);
+                            const dd = atob(dch.join(""));
+                            const dby = new Uint8Array(dd.length);
+                            for (let di = 0; di < dd.length; di++) {
+                                dby[di] = dd.charCodeAt(di) ^ dKey.charCodeAt(di % dKey.length);
+                            }
+                            res = new TextDecoder("utf-8").decode(dby);
+                            console.log("%c[CimaNow Debug] get_direct_watch_link: تم فك الطبقة، الطول = " + res.length, "color: cyan; font-weight: bold;");
+                        }
+                    }
+                }
+            } catch (e) {}
 
-            // 0. فك الطبقة الخارجية لو الصفحة مشفرة (بأي مفتاح بيانات data-<عشوائي>)
-            dbg("has data-<random>", has(/data-[a-z0-9]+\s*=\s*['"]\d+['"]/));
-            dbg("has new Array", has(/new\s*Array\(/));
-            dbg("has _0x_cfg (raw)", has(/window\._0x_cfg/));
-            dbg("has ptr_ (raw)", has(/ptr_[0-9a-zA-Z]+\s*=\s*['"]/));
-            dbg("has eval(atob", has(/eval\s*\(\s*atob/));
+            // 1. بنية ptr_/map_/ctx_
+            const ptrKey = extract(/window\.(ptr_[a-z0-9]+)\s*=/);
+            const mapKey = extract(/window\.(map_[a-z0-9]+)\s*=/);
+            let ch = "", rid = "", encodedKey = "", salt = "", cKey = "", rKey = "", kKey = "", cfgS = "";
 
-            const decRes = mou_aflam_server.decode_enc_html(res);
-            if (decRes) {
-                res = decRes;
-                window.__cn_dbg.decoded = res;
-                dbg("decoded res length", res.length);
-                dbg("decoded has _0x_cfg", has(/window\._0x_cfg/));
-                dbg("decoded has ptr_", has(/ptr_[0-9a-zA-Z]+\s*=\s*['"]/));
-                dbg("decoded head (800)", res.slice(0, 800));
-            } else {
-                dbg("no encoded page detected (تخطي الفك)", "");
+            if (ptrKey && mapKey) {
+                const ptrValue = extract(new RegExp(`window\\.${ptrKey}\\s*=\\s*['"]([^'"]+)['"]`));
+                const ctxBody = ptrValue ? extract(new RegExp(`window\\.?\\[?['"]?${ptrValue}['"]?\\]?\\s*=\\s*\\{([\\s\\S]*?)\\};`, "s")) : "";
+                const mapBody = extract(new RegExp(`window\\.${mapKey}\\s*=\\s*\\{([\\s\\S]*?)\\};`, "s"));
+
+                const vars = {};
+                const varRe = /(['"]?)v_([0-9A-Za-z]+)\1\s*:\s*['"]([^'"]+)['"]/g;
+                let vm;
+                while ((vm = varRe.exec(ctxBody))) vars["v_" + vm[2]] = vm[3];
+
+                const roleKey = {};
+                const mg = /\b(ch|ri|ke|se)\b\s*:\s*['"]([^'"]+)['"]/g;
+                let mm;
+                while ((mm = mg.exec(mapBody))) roleKey[mm[1]] = mm[2];
+
+                ch = vars[roleKey["ch"]] || "";
+                rid = vars[roleKey["ri"]] || "";
+                encodedKey = vars[roleKey["ke"]] || "";
+                salt = vars[roleKey["se"]] || "";
             }
 
-            // 1. استخراج أسماء المتغيرات العشوائية من كائن الإعدادات _0x_cfg
-            const cfgBody = extract(/window\._0x_cfg\s*=\s*\{(.*?)\};/s);
+            // 2. بنية _0x_cfg + window.<name> (fallback)
+            let cfgBody = extract(/window\._0x_cfg\s*=\s*\{(.*?)\};/s);
             if (cfgBody) {
+                const config = {};
                 const cg = /([crks])\s*:\s*['"]([^'"]+)['"]/g;
                 let gm;
-                const config = {};
                 while ((gm = cg.exec(cfgBody))) if (!(gm[1] in config)) config[gm[1]] = gm[2];
-                window.__cn_dbg.cfg = config;
-                dbg("_0x_cfg", config);
-
-                const cKey = config.c || "";
-                const rKey = config.r || "";
-                const kKey = config.k || "";
-                let salt = config.s || "";
-
-                // 2. استخراج القيم الفعلية من الـ HTML بناءً على الأسماء المستخرجة
-                let ch = extract(new RegExp(`window\\.${cKey}\\s*=\\s*['"]([^'"]+)['"]`));
-                let rid = extract(new RegExp(`window\\.${rKey}\\s*=\\s*['"]([^'"]+)['"]`));
-                let encodedKey = extract(new RegExp(`window\\.${kKey}\\s*=\\s*['"]([^'"]+)['"]`));
-                dbg("window.<name> ch/rid/key", [ch, rid, encodedKey]);
-
-                // 2b. البنية الفعلية لهذه الصفحة: ptr_* -> ctx_* + map_* (ch/ri/ke/se)
-                if (!rid || !ch || !encodedKey || !salt) {
-                    const ptr = extract(/ptr_[0-9a-zA-Z]+\s*=\s*['"]([^'"]+)['"]/);
-                    dbg("ptr container name", ptr || "");
-                    const mapBody = ptr ? extract(new RegExp(`map_[0-9a-zA-Z]+\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
-                    const ctxBody = ptr ? extract(new RegExp(`window\\.?\\[?['"]?${ptr}['"]?\\]?\\s*=\\s*\\{(.*?)\\};`, "s")) : "";
-                    const vars = {};
-                    const varRe = /(['"]?)v_([0-9A-Za-z]+)\1\s*:\s*['"]([^'"]+)['"]/g;
-                    let vm;
-                    while ((vm = varRe.exec(ctxBody))) vars["v_" + vm[2]] = vm[3];
-                    const roleKey = {};
-                    const mg = /\b(ch|ri|ke|se)\b\s*:\s*['"]([^'"]+)['"]/g;
-                    let mm;
-                    while ((mm = mg.exec(mapBody))) roleKey[mm[1]] = mm[2];
-                    dbg("ctx vars", vars);
-                    dbg("map roles", roleKey);
-                    ch = ch || vars[roleKey["ch"]] || "";
-                    rid = rid || vars[roleKey["ri"]] || "";
-                    encodedKey = encodedKey || vars[roleKey["ke"]] || "";
-                    salt = vars[roleKey["se"]] || salt;
-                }
-
-                window.__cn_dbg.final = { ch, rid, encodedKey: (encodedKey || "").slice(0, 40) + "...", salt };
-                dbg("FINAL extracted", { ch, rid, encodedKey: (encodedKey || "").slice(0, 40) + "...", salt });
-
-                if (!rid || !ch || !encodedKey || !salt) {
-                    throw new Error("فشل استخراج بيانات التشفير الديناميكية (V5)");
-                }
-
-                // 3. فك تشفير المفتاح السري (XOR Logic)
-                const decodeSecret = (str, s) => {
-                    let k = atob(str), resStr = "";
-                    for (let i = 0; i < k.length; i++) {
-                        resStr += String.fromCharCode(k.charCodeAt(i) ^ s.charCodeAt(i % s.length));
-                    }
-                    return resStr;
-                };
-                const secretKey = decodeSecret(encodedKey, salt);
-                window.__cn_dbg.secretKey = secretKey.slice(0, 40) + "...";
-                dbg("secretKey", secretKey.slice(0, 40) + "...");
-
-                // 4. إعداد التوقيع الرقمي (استخدام محمي لـ Crypto API)
-                const encoder = new TextEncoder();
-                const cryptoLib = (window.crypto && window.crypto.subtle) || undefined;
-
-                if (!cryptoLib) {
-                    throw new Error("مكتبة Crypto غير متاحة في هذا المتصفح أو تم حظرها");
-                }
-
-                cryptoLib.importKey(
-                    "raw",
-                    encoder.encode(secretKey),
-                    { name: "HMAC", hash: "SHA-256" },
-                    false,
-                    ["sign"]
-                )
-                    .then((key) => {
-                        // القيمة الثابتة للبصمة المعتمدة
-                        const fp = "TW96aWxsYS81LjIw";
-                        // الترتيب الذي رصده سكربت الصيد: RID + CH + FP
-                        const dataToSign = encoder.encode(rid + ch + fp);
-                        return cryptoLib.sign("HMAC", key, dataToSign);
-                    })
-                    .then((signature) => {
-                        // تحويل التوقيع (ArrayBuffer) إلى Base64
-                        const hashArray = Array.from(new Uint8Array(signature));
-                        const b64Token = btoa(String.fromCharCode.apply(null, hashArray));
-                        const fp = "TW96aWxsYS81LjIw";
-
-                        // تجميع الرابط النهائي
-                        const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${encodeURIComponent(rid)}&hmac_token=${encodeURIComponent(b64Token)}&ch=${encodeURIComponent(ch)}&fp=${fp}`;
-
-                        window.__cn_dbg.finalUrl = finalUrl;
-                        dbg("FINAL URL", finalUrl);
-
-                        if (typeof callback === "function") {
-                            callback(null, finalUrl);
-                        }
-                    })
-                    .catch((err) => {
-                        if (typeof callback === "function") callback(err, null);
-                    });
-
-            } else {
-                window.__cn_dbg.noCfg = true;
-                dbg("no _0x_cfg found — response is not the encoded page", "");
+                cKey = config.c || "";
+                rKey = config.r || "";
+                kKey = config.k || "";
+                cfgS = config.s || "";
+            }
+            if (!rid || !ch || !encodedKey || !salt) {
+                const winVal = (name) => extract(res, new RegExp(`window\\.?\\[?['"]?${name}['"]?\\]?\\s*=\\s*['"]([^'"]+)['"]`));
+                ch = ch || winVal(cKey);
+                rid = rid || winVal(rKey);
+                encodedKey = encodedKey || winVal(kKey);
+                salt = salt || cfgS;
             }
 
+            if (!rid || !ch || !encodedKey || !salt) {
+                throw new Error("فشل العثور على هيكل البيانات الديناميكي (V6)");
+            }
+
+            // 3. فك تشفير المفتاح السري (XOR Logic)
+            const decodeSecret = (str, s) => {
+                let k = atob(str), resStr = "";
+                for (let i = 0; i < k.length; i++) {
+                    resStr += String.fromCharCode(k.charCodeAt(i) ^ s.charCodeAt(i % s.length));
+                }
+                return resStr;
+            };
+            const secretKey = decodeSecret(encodedKey, salt);
+
+            // 4. إعداد التوقيع الرقمي (HMAC-SHA256)
+            const encoder = new TextEncoder();
+            const cryptoLib = (window.crypto && window.crypto.subtle) || undefined;
+
+            if (!cryptoLib) {
+                throw new Error("Crypto API غير متاح");
+            }
+
+            cryptoLib.importKey(
+                "raw",
+                encoder.encode(secretKey),
+                { name: "HMAC", hash: "SHA-256" },
+                false,
+                ["sign"]
+            )
+                .then((key) => {
+                    const fp = "TW96aWxsYS81LjIw";
+                    const dataToSign = encoder.encode(rid + ch + fp);
+                    return cryptoLib.sign("HMAC", key, dataToSign);
+                })
+                .then((signature) => {
+                    const hashArray = Array.from(new Uint8Array(signature));
+                    const b64Token = btoa(String.fromCharCode.apply(null, hashArray));
+                    const fp = "TW96aWxsYS81LjIw";
+                    const finalUrl = `https://rm.freex2line.online/2020/02/blog-post.html/get-link.php?request_id=${encodeURIComponent(rid)}&hmac_token=${encodeURIComponent(b64Token)}&ch=${encodeURIComponent(ch)}&fp=${fp}`;
+                    console.log("%c[CimaNow Debug] [✔] تم توليد الرابط بنجاح: ", "color: #4caf50; font-weight: bold;", finalUrl);
+                    if (typeof callback === "function") callback(null, finalUrl);
+                })
+                .catch((err) => {
+                    if (typeof callback === "function") callback(err, null);
+                });
+
         } catch (err) {
-            window.__cn_dbg.error = err && err.stack ? err.stack : String(err);
-            console.error("[CimaNow Debug] get_direct_watch_link error:", err);
             if (typeof callback === "function") callback(err, null);
         }
     }
