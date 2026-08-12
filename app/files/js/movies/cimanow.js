@@ -480,7 +480,7 @@ obj = {
                             "url": watching_core,
                             headers: {
                                 "User-Agent": what_window.Main_USER_AGENT,
-                                "Referer": watching_page_url,
+                                "Referer": encodeURI(watching_page_url),
                                 "X-Requested-With": "XMLHttpRequest"
                             },
                             success: function (server_res) {
