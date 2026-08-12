@@ -444,10 +444,16 @@ obj = {
 
         mou_aflam_server.get_wathing_url(watch_btn_link, function (watching_url) {
 
+            // لو get-link رجّع بوابة إعلانات (pig/watching)، نستخدم رابط المشاهدة الحقيقي من رابط العمل/الحلقة
+            var watching_fetch_url = decodeURIComponent(decodeURI(watching_url));
+            if (String(watching_fetch_url).indexOf("/pig/") !== -1) {
+                watching_fetch_url = String(link).split("?")[0].split("#")[0].replace(/\/+$/, "") + "/watching/";
+                console.log("%c[CimaNow Debug] استخدام رابط المشاهدة الحقيقي بدل بوابة الإعلانات: " + watching_fetch_url, "color: cyan; font-weight: bold;");
+            }
 
             loading_msadr_ajax = $.ajax({
                 "type": "GET",
-                "url": decodeURIComponent(decodeURI(watching_url)),
+                "url": watching_fetch_url,
                 "headers": {
                     "User-Agent": what_window.Main_USER_AGENT,
                     "Referer": watch_btn_link
