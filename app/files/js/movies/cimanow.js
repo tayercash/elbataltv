@@ -521,36 +521,75 @@ obj = {
                 }
             })
         });
-    }, get_cima_now_res: function (res) {
-        console.log("%c[CimaNow Debug] فحص كتل البيانات الضخمة المجمعة...", "color: cyan; font-weight: bold;");
+    }, decode_page_smart: function (html) {
+        if (typeof html !== "string" || !html) return null;
 
-        // 0. فك الطبقة الخارجية المشفرة (data-<عشوائي> + new Array + eval)
+        // (أ) تنسيق blog-post: data-<عشوائي> + array (new Array أو []) + eval(atob) — مفتاح ذاتي التكيّف
         try {
-            const encV = res.match(/data-[a-z0-9]+\s*=\s*['"](\d+)['"]/);
-            const encL = res.match(/eval\s*\(\s*atob\s*\(\s*'([^']+)'\s*\)\s*\)/);
-            if (encV && encL) {
-                const encLS = atob(encL[1]);
-                const encC = encLS.match(/\+\s*(\d{4,})\s*\+\s*(\d{4,})/);
-                if (encC) {
-                    const encKey = String(parseInt(encV[1], 10) + parseInt(encC[1], 10) + parseInt(encC[2], 10));
-                    const encB = res.match(/\bvar\s+\w+\s*=\s*new\s*Array\(\s*([\s\S]*?)\);[\s\S]*?eval/);
-                    if (encB) {
-                        const encCh = [];
-                        const encRe = /"([A-Za-z0-9+/=]+)"/g;
-                        let ec;
-                        while ((ec = encRe.exec(encB[1]))) encCh.push(ec[1]);
-                        const encD = atob(encCh.join(""));
-                        const encBy = new Uint8Array(encD.length);
-                        for (let ei = 0; ei < encD.length; ei++) {
-                            encBy[ei] = encD.charCodeAt(ei) ^ encKey.charCodeAt(ei % encKey.length);
-                        }
-                        const decRes0 = new TextDecoder("utf-8").decode(encBy);
-                        if (decRes0.length > 1000) {
-                            console.log("%c[CimaNow Debug] تم فك صفحة مشفرة بنجاح. الطول: " + decRes0.length, "color: white; background: green;");
-                            return decRes0;
+            const v = html.match(/data-[a-z0-9]+\s*=\s*['"](\d+)['"]/);
+            const l = html.match(/eval\s*\(\s*atob\s*\(\s*'([^']+)'\s*\)\s*\)/);
+            if (v && l) {
+                const ls = atob(l[1]);
+                const c = ls.match(/\+\s*(\d{4,})\s*\+\s*(\d{4,})/);
+                if (c) {
+                    const key = String(parseInt(v[1], 10) + parseInt(c[1], 10) + parseInt(c[2], 10));
+                    const b = html.match(/\b\w+\s*=\s*(?:new\s*Array\(\s*|\[)([\s\S]*?)(?:\)|\])\s*;[\s\S]*?eval/);
+                    if (b) {
+                        const chunks = [];
+                        const re = /['"]([A-Za-z0-9+/=]+)['"]/g;
+                        let m;
+                        while ((m = re.exec(b[1]))) chunks.push(m[1]);
+                        if (chunks.length > 0) {
+                            const dec = atob(chunks.join(""));
+                            const bytes = new Uint8Array(dec.length);
+                            for (let i = 0; i < dec.length; i++) {
+                                bytes[i] = dec.charCodeAt(i) ^ key.charCodeAt(i % key.length);
+                            }
+                            const out = new TextDecoder("utf-8").decode(bytes);
+                            if (out.length > 500) return out;
                         }
                     }
                 }
+            }
+        } catch (e) {}
+
+        // (ب) البيانات كلها داخل eval(atob('...')) مباشرة
+        try {
+            const l = html.match(/eval\s*\(\s*atob\s*\(\s*'([A-Za-z0-9+/=]{300,})'\s*\)\s*\)/);
+            if (l) {
+                const out = atob(l[1]);
+                if (out.length > 500 && (out.indexOf("<") !== -1 || out.indexOf("window.") !== -1 || out.indexOf("<html") !== -1)) return out;
+            }
+        } catch (e) {}
+
+        // (ج) أطول تجميع لسلاسل base64 داخل الصفحة
+        try {
+            const chunks = [];
+            const re = /['"]([A-Za-z0-9+/=]{200,})['"]/g;
+            let m;
+            while ((m = re.exec(html))) chunks.push(m[1]);
+            if (chunks.length > 0) {
+                const joined = chunks.join("");
+                const out = atob(joined);
+                if (out.length > 500 && (out.indexOf("<") !== -1 || out.indexOf("window.") !== -1 || out.indexOf("<html") !== -1)) return out;
+            }
+        } catch (e) {}
+
+        return null;
+    }, get_cima_now_res: function (res) {
+        if (typeof res !== "string" || !res) return res;
+
+        console.log("%c[CimaNow Debug] فحص كتل البيانات الضخمة المجمعة...", "color: cyan; font-weight: bold;");
+
+        // 0. فك كل الطبقات المشفرة (blog-post وكل الأشكال) حتى نصيفها
+        try {
+            let guard = 0;
+            while (guard < 3) {
+                const dec = mou_aflam_server.decode_page_smart(res);
+                if (!dec || dec === res) break;
+                console.log("%c[CimaNow Debug] تم فك صفحة مشفرة بنجاح. الطول: " + dec.length, "color: white; background: green;");
+                res = dec;
+                guard++;
             }
         } catch (err) {
             console.error("[CimaNow Debug] فشل فك الصفحة المشفرة:", err);
@@ -730,30 +769,15 @@ obj = {
                 return match ? match[1] : "";
             };
 
-            // 0. فك الطبقة الخارجية المشفرة (data-<عشوائي> + new Array + eval) — لازم لو الرد مش مفكوك
+            // 0. فك كل الطبقات المشفرة (blog-post وكل الأشكال) — لازم قبل استخراج ptr/map
             try {
-                const dVal = res.match(/data-[a-z0-9]+\s*=\s*['"](\d+)['"]/);
-                const dLoad = res.match(/eval\s*\(\s*atob\s*\(\s*'([^']+)'\s*\)\s*\)/);
-                if (dVal && dLoad) {
-                    const dLS = atob(dLoad[1]);
-                    const dC = dLS.match(/\+\s*(\d{4,})\s*\+\s*(\d{4,})/);
-                    if (dC) {
-                        const dKey = String(parseInt(dVal[1], 10) + parseInt(dC[1], 10) + parseInt(dC[2], 10));
-                        const dB = res.match(/\bvar\s+\w+\s*=\s*new\s*Array\(\s*([\s\S]*?)\);[\s\S]*?eval/);
-                        if (dB) {
-                            const dch = [];
-                            const dr = /"([A-Za-z0-9+/=]+)"/g;
-                            let dc;
-                            while ((dc = dr.exec(dB[1]))) dch.push(dc[1]);
-                            const dd = atob(dch.join(""));
-                            const dby = new Uint8Array(dd.length);
-                            for (let di = 0; di < dd.length; di++) {
-                                dby[di] = dd.charCodeAt(di) ^ dKey.charCodeAt(di % dKey.length);
-                            }
-                            res = new TextDecoder("utf-8").decode(dby);
-                            console.log("%c[CimaNow Debug] get_direct_watch_link: تم فك الطبقة، الطول = " + res.length, "color: cyan; font-weight: bold;");
-                        }
-                    }
+                let guard = 0;
+                while (guard < 3) {
+                    const dec = mou_aflam_server.decode_page_smart(res);
+                    if (!dec || dec === res) break;
+                    console.log("%c[CimaNow Debug] get_direct_watch_link: تم فك الطبقة، الطول = " + dec.length, "color: cyan; font-weight: bold;");
+                    res = dec;
+                    guard++;
                 }
             } catch (e) {}
 
