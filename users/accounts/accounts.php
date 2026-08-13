@@ -1693,6 +1693,8 @@ function issue_auth_token($user_id, $user_device_id)
 
     global $conn, $auth_tokens_table;
 
+    ensure_auth_tokens_table();
+
     $token = bin2hex(random_bytes(32));
 
     $expires_at = date("Y-m-d H:i:s", time() + (365 * 24 * 60 * 60));
@@ -1716,6 +1718,8 @@ function verify_auth_token($token)
 {
 
     global $conn, $auth_tokens_table;
+
+    ensure_auth_tokens_table();
 
     if ($token === "" || $token === null) {
         return false;

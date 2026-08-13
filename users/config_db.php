@@ -262,3 +262,39 @@ if (php_sapi_name() === 'cli' && isset($_GET["install_database"]) && $_GET["inst
     ('max_retries', '3')");
 
 }
+
+function ensure_auth_tokens_table() {
+
+    global $conn, $auth_tokens_table;
+
+    static $checked = false;
+
+    if ($checked === true) {
+        return true;
+    }
+
+    $result = $conn->query("SHOW TABLES LIKE '$auth_tokens_table'");
+
+    if ($result !== false && $result->num_rows > 0) {
+        $checked = true;
+        return true;
+    }
+
+    $conn->query("CREATE TABLE IF NOT EXISTS `$auth_tokens_table` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `token` varchar(128) NOT NULL,
+    `user_id` int(11) NOT NULL,
+    `dev_id` varchar(255) NOT NULL,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `expires_at` datetime DEFAULT NULL,
+    `revoked` tinyint(1) NOT NULL DEFAULT 0,
+     PRIMARY KEY (`id`),
+     UNIQUE KEY `token` (`token`),
+     KEY `user_id` (`user_id`),
+     KEY `dev_id` (`dev_id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
+
+    $checked = true;
+
+    return true;
+}

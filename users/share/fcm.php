@@ -21,6 +21,7 @@ $msgs_obj = array();
 function verify_auth_token($token)
 {
     global $conn, $auth_tokens_table;
+    ensure_auth_tokens_table();
     if ($token === "" || $token === null) {
         return false;
     }
