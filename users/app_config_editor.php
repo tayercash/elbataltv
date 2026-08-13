@@ -12,19 +12,26 @@ $user_ip = getUserIP();
 // }
 
 
-$continue_pass = "welcome";
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && (empty($_GET["t"]) || $_GET["t"] !== $continue_pass)) {
-    http_response_code(403);
-    echo 'Access denied: Unauthorized';
-    exit;
-} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $_POST = json_decode(file_get_contents('php://input'), true);
-    if (empty($_POST["t"]) || $_POST["t"] !== $continue_pass) {
-
-        http_response_code(403);
-        echo 'Access denied: Unauthorized';
-        exit;
-    }
+if (session_status() === PHP_SESSION_NONE) {
+    if (session_name() !== 'ELBATAL_ADMIN') {
+        session_name('ELBATAL_ADMIN');
+    }
+    session_start();
+}
+
+if (empty($_SESSION["can_join"]) || $_SESSION["can_join"] !== true) {
+
+    http_response_code(403);
+
+    echo 'Access denied: Unauthorized';
+
+    exit;
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$_POST = json_decode(file_get_contents('php://input'), true);
+    // auth: session-based (ELBATAL_ADMIN)
 }
 
 $json_file = 'app_config_data.json';
@@ -123,19 +130,39 @@ $Latest_ios_version = isset($data['Latest_ios_version']) ? $data['Latest_ios_ver
 $ios_dl_link = isset($data['ios_dl_link']) ? $data['ios_dl_link'] : '';
 
 
-function getUserIP()
-{
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        // Use the first IP in the list (before any comma)
-        $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        $ip = trim($ipList[0]);
-    } else {
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    return $ip;
-}
+function getUserIP()
+{
+    $candidates = [];
+
+    if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+        $candidates[] = trim($_SERVER['HTTP_CF_CONNECTING_IP']);
+    }
+
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        foreach (explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']) as $ip) {
+            $candidates[] = trim($ip);
+        }
+    }
+
+    if (!empty($_SERVER['HTTP_X_REAL_IP'])) {
+        $candidates[] = trim($_SERVER['HTTP_X_REAL_IP']);
+    }
+
+    $candidates[] = $_SERVER['REMOTE_ADDR'];
+
+    foreach ($candidates as $ip) {
+        $ip = preg_replace('/^::ffff:/', '', $ip);
+        $ip = strtok($ip, ' ');
+        $ip = trim($ip, '"\'');
+
+        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+            return $ip;
+        }
+    }
+
+    return '0.0.0.0';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -311,9 +338,7 @@ function getUserIP()
                 formData.forEach(item => {
                     formObject[item.name] = item.value;
                 });
-
-                formObject['loader_show'] = loader_show_value,
-                    formObject['t'] = "welcome"
+                formObject['loader_show'] = loader_show_value
 
                 console.log(formObject);
                 // formData.push({ name: 'assets', value: loader_show_value });

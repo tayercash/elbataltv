@@ -53,11 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $user_id = $token_data[0];
                 $dev_id = $token_data[1];
-                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$dev_id'");
+                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($dev_id));
                 if ($result_dev_id_logins->num_rows > 0) {
                     $can_send_notification = false;
 
-                    $result_query = $conn->query("SELECT * FROM $share_queries_table WHERE query=\"$qurey_data\"");
+                    $result_query = $conn->query("SELECT * FROM $share_queries_table WHERE query=" . esc($qurey_data));
                     if ($result_query->num_rows > 0) {
                         $row = $result_query->fetch_assoc();
 
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $img_url = rand_string(5) . "_" . time() . ".png";
                         file_put_contents('imgs/' . $img_url, $data);
 
-                        if ($conn->query("INSERT INTO $share_queries_table (`title`, `body`, `query`, `img_url`,`notified`) VALUES (\"$notify_title\", \"$notify_body\", \"$qurey_data\", \"$img_url\", 1)") === TRUE) {
+                        if ($conn->query("INSERT INTO $share_queries_table (`title`, `body`, `query`, `img_url`,`notified`) VALUES (" . esc($notify_title) . ", " . esc($notify_body) . ", " . esc($qurey_data) . ", " . esc($img_url) . ", 1)") === TRUE) {
                             $share_id = $conn->insert_id;
                             if (file_exists("imgs/" . $img_url)) {
                                 $img_url = $actual_link . "/imgs/" . $img_url;
@@ -148,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 ]
                             );
 
-                            if ($conn->query("UPDATE $share_queries_table SET notified = 1 WHERE id=$share_id") === TRUE) {
+                            if ($conn->query("UPDATE $share_queries_table SET notified = 1 WHERE id=" . esc($share_id)) === TRUE) {
                                 addmsg(200, "Notify Successfully.");
                             } else {
                                 addmsg(411, "An Error On Update Notified Status");
@@ -212,11 +212,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $user_id = $token_data[0];
                 $dev_id = $token_data[1];
-                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$dev_id'");
+                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($dev_id));
                 if ($result_dev_id_logins->num_rows > 0) {
 
 
-                    $result_query = $conn->query("SELECT * FROM $share_queries_table WHERE query=\"$qurey_data\"");
+                    $result_query = $conn->query("SELECT * FROM $share_queries_table WHERE query=" . esc($qurey_data));
                     if ($result_query->num_rows > 0) {
                         $row = $result_query->fetch_assoc();
                         $share_id = $row["id"];
@@ -231,7 +231,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $img_url = rand_string(5) . "_" . time() . ".png";
                         file_put_contents('imgs/' . $img_url, $data);
 
-                        if ($conn->query("INSERT INTO $share_queries_table (`title`, `body`, `query`, `img_url`) VALUES (\"$share_title\", \"$share_body\", \"$qurey_data\", \"$img_url\")") === TRUE) {
+                        if ($conn->query("INSERT INTO $share_queries_table (`title`, `body`, `query`, `img_url`) VALUES (" . esc($share_title) . ", " . esc($share_body) . ", " . esc($qurey_data) . ", " . esc($img_url) . ")") === TRUE) {
                             $share_id = $conn->insert_id;
                             if (file_exists("imgs/" . $img_url)) {
                                 $img_url = $actual_link . "/imgs/" . $img_url;
@@ -253,7 +253,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else if ($page_action == "notified_clicked") {
             if (isset($_POST["notification_id"]) && $_POST["notification_id"] !== "") {
                 $notification_id = $_POST["notification_id"];
-                if ($conn->query("UPDATE $share_queries_table SET opend_from_notify_num = opend_from_notify_num + 1 WHERE id = $notification_id") === TRUE) {
+                if ($conn->query("UPDATE $share_queries_table SET opend_from_notify_num = opend_from_notify_num + 1 WHERE id = " . esc($notification_id)) === TRUE) {
                     // $share_id = $conn->insert_id;
                     addmsg(200, "Thanks");
                 } else {
@@ -265,7 +265,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (isset($_POST["share_id"]) && $_POST["share_id"] !== "") {
                 $share_id = $_POST["share_id"];
-                if ($conn->query("UPDATE $share_queries_table SET opend_from_web_num = opend_from_web_num + 1 WHERE id = $share_id") === TRUE) {
+                if ($conn->query("UPDATE $share_queries_table SET opend_from_web_num = opend_from_web_num + 1 WHERE id = " . esc($share_id)) === TRUE) {
                     // $share_id = $conn->insert_id;
                     addmsg(200, "Thanks");
                 } else {
@@ -300,11 +300,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $user_id = $token_data[0];
                 $dev_id = $token_data[1];
-                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$dev_id'");
+                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($dev_id));
                 if ($result_dev_id_logins->num_rows > 0) {
 
 
-                    $result_query = $conn->query("SELECT * FROM $query_img_search_table WHERE query=\"$img_search_query\"");
+                    $result_query = $conn->query("SELECT * FROM $query_img_search_table WHERE query=" . esc($img_search_query));
                     if ($result_query->num_rows > 0) {
                         $row = $result_query->fetch_assoc();
                         if (file_exists("imgs/" . $row["img_url"])) {
@@ -317,7 +317,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $img_url = rand_string(5) . "_" . time() . ".png";
                         file_put_contents('imgs/' . $img_url, $data);
 
-                        if ($conn->query("INSERT INTO $query_img_search_table (`query`, `img_url`) VALUES (\"$img_search_query\", \"$img_url\")") === TRUE) {
+                        if ($conn->query("INSERT INTO $query_img_search_table (`query`, `img_url`) VALUES (" . esc($img_search_query) . ", " . esc($img_url) . ")") === TRUE) {
                             if (file_exists("imgs/" . $img_url)) {
                                 $img_url = $actual_link . "/imgs/" . $img_url;
                             }
@@ -365,8 +365,9 @@ function send_message($json)
 
 function rand_string($length)
 {
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return substr(str_shuffle($chars), 0, $length);
+    if ($length < 1) $length = 1;
+    $bytes = random_bytes(ceil($length / 2));
+    return substr(bin2hex($bytes), 0, $length);
 }
 function mou_custom_encode($txt, $num = 1)
 {

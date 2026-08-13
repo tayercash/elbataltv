@@ -15,7 +15,7 @@ if (isset($_GET["token"]) && $_GET["token"] !== "") {
         $u_t_active_until = $u_t + (1 * 24 * 60 * 60);
 
         if ($now_utc <= $u_t_active_until) {
-            $result = $conn->query("SELECT * FROM $users_table_name WHERE id = '$u_id'");
+            $result = $conn->query("SELECT * FROM $users_table_name WHERE id = " . esc($u_id));
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $server_restoken = $row["restoken"];

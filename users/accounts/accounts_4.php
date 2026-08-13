@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stop === false) {
 
-                $result1 = $conn->query("SELECT * FROM $users_table_name WHERE email = '$user_email'");
+                $result1 = $conn->query("SELECT * FROM $users_table_name WHERE email = " . esc($user_email));
                 if ($result1->num_rows > 0) {
                     addmsg(402, "This email already exists");
                     $has_error = true;
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $activelink = $actual_link . "/login.php?action=activeaccount&username=$user_name&token=$activecode";
 
                     // $querycreateaccount = "INSERT INTO $users_table_name (username, password, email, user_icon, status, active, created_at, type ,actvcode,last_req_restoken,code_last_active) VALUES ('$user_name', '$user_pass_hashed', '$user_email', '$avatar_code', 'working',0,'$nowtime' , 'user' , '$activecode','$nowtime','$nowtime')";
-                    $querycreateaccount = "INSERT INTO $users_table_name (username, password, email, user_icon, status, active, created_at, type ,actvcode,last_req_restoken) VALUES ('$user_name', '$user_pass_hashed', '$user_email', '$avatar_code', 'working',0,'$nowtime' , 'user' , '$activecode','$nowtime')";
+                    $querycreateaccount = "INSERT INTO $users_table_name (username, password, email, user_icon, status, active, created_at, type ,actvcode,last_req_restoken) VALUES (" . esc($user_name) . ", " . esc($user_pass_hashed) . ", " . esc($user_email) . ", " . esc($avatar_code) . ", 'working',0,'$nowtime' , 'user' , " . esc($activecode) . ",'$nowtime')";
                     $result = mysqli_query($conn, $querycreateaccount);
                     if ($result) {
                         $user_id = $conn->insert_id;
@@ -168,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             $loged_in_status = false;
-            $select_this_email = $conn->query("SELECT * FROM $users_table_name WHERE google_linked_id = '$g_id'");
+            $select_this_email = $conn->query("SELECT * FROM $users_table_name WHERE google_linked_id = " . esc($g_id));
             if ($select_this_email->num_rows > 0) {
                 $loged_in_status = true;
                 $row = $select_this_email->fetch_assoc();
@@ -181,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
 
 
-                $select_g_email = $conn->query("SELECT * FROM $users_table_name WHERE email = '$g_email'");
+                $select_g_email = $conn->query("SELECT * FROM $users_table_name WHERE email = " . esc($g_email));
                 if ($select_g_email->num_rows > 0) {
                     $row = $select_g_email->fetch_assoc();
                     $user_id = $row["id"];
@@ -192,15 +192,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $avatar_or_g_icon = $row["avatar_or_g_icon"];
 
                     if ($row["google_linked_email"] == null) {
-                        $conn->query("UPDATE $users_table_name SET google_linked=1,google_linked_email='$g_email',google_linked_id='$g_id' WHERE email='$g_email'");
+                        $conn->query("UPDATE $users_table_name SET google_linked=1,google_linked_email=" . esc($g_email) . ",google_linked_id=" . esc($g_id) . " WHERE email=" . esc($g_email));
                     }
 
                     $loged_in_status = true;
                 } else {
                     $avatar_or_g_icon = 2;
 
-                    // $result_create_user_by_google = mysqli_query($conn, "INSERT INTO $users_table_name (username, password, email, user_icon,avatar_or_g_icon, google_linked,google_linked_email, google_linked_id, status, active, created_at, type ,actvcode,last_req_restoken,code_last_active) VALUES ('$g_name', '$google_user_pass_hashed', '$g_email', '$avatar_code', $avatar_or_g_icon ,1,'$g_email','$g_id', 'working',1,'$nowtime' , 'user' , '$activecode','$nowtime','$nowtime')");
-                    $result_create_user_by_google = mysqli_query($conn, "INSERT INTO $users_table_name (username, password, email, user_icon,avatar_or_g_icon, google_linked,google_linked_email, google_linked_id, status, active, created_at, type ,actvcode,last_req_restoken) VALUES ('$g_name', '$google_user_pass_hashed', '$g_email', '$avatar_code', $avatar_or_g_icon ,1,'$g_email','$g_id', 'working',1,'$nowtime' , 'user' , '$activecode','$nowtime')");
+                    // $result_create_user_by_google = mysqli_query($conn, "INSERT INTO $users_table_name (username, password, email, user_icon,avatar_or_g_icon, google_linked,google_linked_email, google_linked_id, status, active, created_at, type ,actvcode,last_req_restoken,code_last_active) VALUES (" . esc($g_name) . ", " . esc($google_user_pass_hashed) . ", " . esc($g_email) . ", " . esc($avatar_code) . ", $avatar_or_g_icon ,1," . esc($g_email) . "," . esc($g_id) . ", 'working',1," . esc($nowtime) . " , 'user' , " . esc($activecode) . "," . esc($nowtime) . "," . esc($nowtime) . ")");
+                    $result_create_user_by_google = mysqli_query($conn, "INSERT INTO $users_table_name (username, password, email, user_icon,avatar_or_g_icon, google_linked,google_linked_email, google_linked_id, status, active, created_at, type ,actvcode,last_req_restoken) VALUES (" . esc($g_name) . ", " . esc($google_user_pass_hashed) . ", " . esc($g_email) . ", " . esc($avatar_code) . ", $avatar_or_g_icon ,1," . esc($g_email) . "," . esc($g_id) . ", 'working',1," . esc($nowtime) . " , 'user' , " . esc($activecode) . "," . esc($nowtime) . ")");
 
                     if ($result_create_user_by_google === TRUE) {
                         $user_id = $conn->insert_id;
@@ -222,7 +222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 //     }
                 // }
             }
-            $conn->query("UPDATE $users_table_name SET g_icon='$g_icon' WHERE email='$g_email'");
+            $conn->query("UPDATE $users_table_name SET g_icon=" . esc($g_icon) . " WHERE email=" . esc($g_email));
 
             if ($loged_in_status == true) {
                 // addmsg(200, "LOGED IN SUCCESSFULLY");
@@ -264,7 +264,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stop === false) {
                 if ($force_login_with_email == true || filter_var($username, FILTER_VALIDATE_EMAIL)) {
-                    $sql = "SELECT * FROM $users_table_name WHERE email = '$username'";
+                    $sql = "SELECT * FROM $users_table_name WHERE email = " . esc($username);
                     $log_msg = "This email does not exist";
                 } else {
                     $sql = "SELECT * FROM $users_table_name WHERE username = '$username'";
@@ -315,15 +315,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 // echo "SELECT * FROM $users_table_name WHERE id = '$user_id' AND email = '$user_email'" . "\n";
-                $result = $conn->query("SELECT * FROM $users_table_name WHERE id = '$user_id' AND email = '$user_email'");
+                $result = $conn->query("SELECT * FROM $users_table_name WHERE id = " . esc($user_id) . " AND email = " . esc($user_email));
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     // $sqlpassword = $row["password"];
                     // if (password_verify($now_user_password, $sqlpassword)) {
 
-                    $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$dev_id'");
+                    $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($dev_id));
                     if ($result_dev_id_logins->num_rows > 0) {
-                        if ($conn->query("UPDATE $users_table_name SET username='$new_user_name' , user_icon = '$new_user_avatar' , avatar_or_g_icon = '$avatar_or_g_icon' WHERE id='$user_id' AND email = '$user_email'") === TRUE) {
+                        if ($conn->query("UPDATE $users_table_name SET username=" . esc($new_user_name) . " , user_icon = " . esc($new_user_avatar) . " , avatar_or_g_icon = " . esc($avatar_or_g_icon) . " WHERE id=" . esc($user_id) . " AND email = " . esc($user_email)) === TRUE) {
                             addmsg("user_name", $new_user_name);
                             addmsg("avatar", $new_user_avatar);
                             addmsg("avatar_or_g_icon", $avatar_or_g_icon);
@@ -358,12 +358,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $now_utc = date("Y-m-d H:i:s", time());
 
-                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$user_device_id'");
+                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id));
                 if ($result_dev_id_logins->num_rows > 0) {
 
-                    if ($conn->query("UPDATE `$logins_table` SET last_login_at='$now_utc', dev_name = '$user_device_name' WHERE user_id='$user_id' and dev_id='$user_device_id'") !== false) {
+                    if ($conn->query("UPDATE `$logins_table` SET last_login_at=" . esc($now_utc) . ", dev_name = " . esc($user_device_name) . " WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id)) !== false) {
 
-                        $select_user_data = $conn->query("SELECT * FROM $users_table_name WHERE id='$user_id'");
+                        $select_user_data = $conn->query("SELECT * FROM $users_table_name WHERE id=" . esc($user_id));
                         if ($select_user_data->num_rows > 0) {
                             $row = $select_user_data->fetch_assoc();
 
@@ -427,10 +427,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $token_data = json_decode(mou_custom_decode($token), true);
                 $user_id = $token_data["u_id"];
                 $user_device_id = $token_data["dev_id"];
-                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$user_device_id'");
+                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id));
                 if ($result_dev_id_logins->num_rows > 0) {
 
-                    $Get_User_Devices_Result = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id'");
+                    $Get_User_Devices_Result = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id));
                     addmsg("num", $Get_User_Devices_Result->num_rows);
                     addmsg("user_id", $user_id);
 
@@ -453,9 +453,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $user_id = $token_data["u_id"];
                 $user_device_id = $token_data["dev_id"];
                 $device_id_will_logout = $token_data["device_id_will_logout"];
-                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$user_device_id'");
+                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id) . "");
                 if ($result_dev_id_logins->num_rows > 0) {
-                    if ($conn->query("DELETE FROM $logins_table WHERE user_id='$user_id' and dev_id='$device_id_will_logout'") === TRUE) {
+                    if ($conn->query("DELETE FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($device_id_will_logout)) === TRUE) {
                         addmsg(200, "device loged out");
                         addmsg(201, $device_id_will_logout);
                     }
@@ -468,9 +468,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $user_id = $token_data["u_id"];
                 $user_device_id = $token_data["dev_id"];
                 $now_utc = date("Y-m-d H:i:s", time());
-                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$user_device_id'");
+                $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id) . "");
                 if ($result_dev_id_logins->num_rows > 0) {
-                    if ($conn->query("UPDATE $logins_table SET last_login_at='$now_utc' WHERE user_id='$user_id' and dev_id='$user_device_id'") === TRUE) {
+                    if ($conn->query("UPDATE $logins_table SET last_login_at=" . esc($now_utc) . " WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id)) === TRUE) {
                         exit();
                     } else {
                         addmsg(401, $conn->error);
@@ -486,7 +486,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user_id = $token_data["u_id"];
             $user_device_id = $token_data["dev_id"];
 
-            if ($conn->query("DELETE FROM $logins_table WHERE user_id = '$user_id' and dev_id = '$user_device_id'") === TRUE) {
+            if ($conn->query("DELETE FROM $logins_table WHERE user_id = " . esc($user_id) . " and dev_id = " . esc($user_device_id)) === TRUE) {
                 addmsg(200, "loged out Successfully");
             } else {
                 addmsg(400, $conn->error);
@@ -515,7 +515,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             if ($has_error == false) {
-                $result = $conn->query("SELECT * FROM $users_table_name WHERE email = '$forgeted_email'");
+                $result = $conn->query("SELECT * FROM $users_table_name WHERE email = " . esc($forgeted_email));
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     $user_id = $row["id"];
@@ -559,7 +559,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             if (!$mail->send()) {
                                 addmsg(405, "ERROR => " . $mail->ErrorInfo);
                             } else {
-                                $conn->query("UPDATE $users_table_name SET last_req_restoken = '$nowutc' WHERE email = '$forgeted_email'");
+                                $conn->query("UPDATE $users_table_name SET last_req_restoken = " . esc($nowutc) . " WHERE email = " . esc($forgeted_email));
                                 addmsg(200, "قم بفحص ايميلك . تم ارسال ايميل بمعلومات اعادة تعين كلمة المرور علي ايميلك");
                             }
                         }
@@ -597,23 +597,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $now_utc_date_time = date("Y-m-d H:i:s", $now_utc);
 
             if ($now_utc <= $u_t_active_until) {
-                $result = $conn->query("SELECT * FROM $users_table_name WHERE id = '$u_id'");
+                $result = $conn->query("SELECT * FROM $users_table_name WHERE id = " . esc($u_id));
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     $server_restoken = $row["restoken"];
                     if ($server_restoken == $u_token) {
 
                         $newpassword = password_hash($new_password, PASSWORD_DEFAULT);
-                        if ($conn->query("UPDATE $users_table_name SET password = '$newpassword' WHERE id = '$u_id'") === TRUE) {
+                        if ($conn->query("UPDATE $users_table_name SET password = " . esc($newpassword) . " WHERE id = " . esc($u_id)) === TRUE) {
                             addmsg(200, 'new password set successfully');
 
                             $newresettoken = rand_string(8);
-                            if ($conn->query("UPDATE $users_table_name SET restoken = '$newresettoken' WHERE id = '$u_id'") === TRUE) {
+                            if ($conn->query("UPDATE $users_table_name SET restoken = " . esc($newresettoken) . " WHERE id = " . esc($u_id)) === TRUE) {
                                 addmsg(201, "Link Stoped Successfully.");
                             }
 
                             if ($logout_from_devices == true) {
-                                if ($conn->query("DELETE FROM $logins_table WHERE user_id = '$u_id'") === TRUE) {
+                                if ($conn->query("DELETE FROM $logins_table WHERE user_id = " . esc($u_id)) === TRUE) {
                                     addmsg(201, "Devices Loged OUT.");
                                 }
                             }
@@ -636,10 +636,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
-function rand_string($length)
-{
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return substr(str_shuffle($chars), 0, $length);
+function rand_string($length)
+{
+    if ($length < 1) $length = 1;
+    $bytes = random_bytes(ceil($length / 2));
+    return substr(bin2hex($bytes), 0, $length);
 }
 function addmsg($code, $msg)
 {
@@ -706,18 +707,18 @@ function add_for_logins($user_id, $user_name, $email, $avatar_code, $g_icon, $av
     $max_devices = 4;
     $now_utc = date("Y-m-d H:i:s", time());
 
-    $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id='$user_id' and dev_id='$user_device_id'");
+    $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id) . "");
 
     if ($result_dev_id_logins->num_rows > 0) {
 
-        if ($conn->query("UPDATE `$logins_table` SET last_login_at='$now_utc', dev_name='$user_device_name' WHERE user_id='$user_id' and dev_id='$user_device_id'") !== false) {
+        if ($conn->query("UPDATE `$logins_table` SET last_login_at=" . esc($now_utc) . ", dev_name=" . esc($user_device_name) . " WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id)) !== false) {
             $can_loged_in = true;
         }
     } else {
-        $result_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id = '$user_id'");
+        $result_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id = " . esc($user_id) . "");
         if ($result_id_logins->num_rows < $max_devices) {
 
-            $result_add_login = mysqli_query($conn, "INSERT INTO $logins_table (user_id, dev_id, dev_name, dev_ip, last_login_at) VALUES ('$user_id', '$user_device_id', '$user_device_name', '$user_ip', '$now_utc')");
+            $result_add_login = mysqli_query($conn, "INSERT INTO $logins_table (user_id, dev_id, dev_name, dev_ip, last_login_at) VALUES (" . esc($user_id) . ", " . esc($user_device_id) . ", " . esc($user_device_name) . ", " . esc($user_ip) . ", " . esc($now_utc) . ")");
             if ($result_add_login === TRUE) {
                 $can_loged_in = true;
             }
@@ -728,7 +729,7 @@ function add_for_logins($user_id, $user_name, $email, $avatar_code, $g_icon, $av
     if ($can_loged_in) {
 
 
-        $result = $conn->query("SELECT * FROM $users_table_name WHERE id = '$user_id'");
+        $result = $conn->query("SELECT * FROM $users_table_name WHERE id = " . esc($user_id));
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $user_id = $row["id"];

@@ -1,15 +1,25 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+error_reporting(0);
+ini_set('display_errors', 'Off');
 include "../config_db.php";
 $messages = [];
 
+// إعدادات الدخول: بتحمل من ملف خارج الـ web root (أنشئه اول مرة)
+// فلا تبقى كلمة السر مكتوبة في ملف عام يقدر أي حد يشوفه
+$credentials_file = dirname(__DIR__, 2) . '/credentials/admen_credentials.php';
+if (!file_exists($credentials_file)) {
+  @mkdir(dirname($credentials_file), 0770, true);
+  // قيمة أولية مشفرة - غيّرها فوراً من ملف credentials
+  file_put_contents($credentials_file, "<?php\n\$admen_username = 'mouscripts@gmail.com';\n\$admen_password_hash = '" . password_hash('Mozo@mozo1', PASSWORD_DEFAULT) . "';\n");
+}
+include $credentials_file;
+
+$admen_username = isset($admen_username) ? $admen_username : '';
+$admen_password_hash = isset($admen_password_hash) ? $admen_password_hash : '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $server_username = "mouscripts@gmail.com";
-  $server_password = "Mozo@mozo1";
-
-  $user_name = !empty($_POST['user_name']) ? $_POST['user_name'] : '';
+  $user_name = !empty($_POST['user_name']) ? trim($_POST['user_name']) : '';
   $user_pass = !empty($_POST['user_pass']) ? $_POST['user_pass'] : '';
 
   $stop = false;
@@ -24,18 +34,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   if ($stop == false) {
-    if ($user_name == $server_username) {
-      if ($server_password == $user_pass) {
-        session_start();
+    // حد محاولات الدخول لمنع الـ Brute Force
+    if (session_status() === PHP_SESSION_NONE) {
+      if (session_name() !== 'ELBATAL_ADMIN') {
+        session_name('ELBATAL_ADMIN');
+      }
+      session_set_cookie_params([
+        'httponly' => true,
+        'samesite' => 'Lax',
+        'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+      ]);
+      session_start();
+    }
+    $now = time();
+    $max_attempts = 5;
+    $lock_seconds = 15 * 60; // 15 دقيقة
+
+    $attempts = isset($_SESSION['login_attempts']) ? $_SESSION['login_attempts'] : 0;
+    $first_attempt = isset($_SESSION['login_first_attempt']) ? $_SESSION['login_first_attempt'] : $now;
+
+    if ($attempts >= $max_attempts && ($now - $first_attempt) < $lock_seconds) {
+      $wait = $lock_seconds - ($now - $first_attempt);
+      addmsgs("تم تجاوز حد المحاولات، حاول بعد " . ceil($wait / 60) . " دقيقة");
+    } else {
+      // مقارنة آمنة: username بالـ hash_equals + كلمة المرور بـ password_verify
+      if (hash_equals($admen_username, $user_name) && password_verify($user_pass, $admen_password_hash)) {
+        $_SESSION["login_attempts"] = 0;
+        unset($_SESSION["login_first_attempt"]);
+        session_regenerate_id(true); // منع الـ session fixation
         $_SESSION["can_join"] = true;
 
         header("Location: index.php");
+        exit;
       } else {
+        $_SESSION["login_attempts"] = ($attempts + 1);
+        if (!isset($_SESSION["login_first_attempt"])) {
+          $_SESSION["login_first_attempt"] = $now;
+        }
         addmsgs("من فضلك تحقق من بيانات تسجيل الدخول !");
-
       }
-    } else {
-      addmsgs("من فضلك تحقق من بيانات تسجيل الدخول !");
     }
   }
 

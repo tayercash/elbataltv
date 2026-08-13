@@ -36,7 +36,7 @@ if (isset($_GET["action"]) && $_GET["action"] !== "") {
                 $add_what = '+1 Year';
             }
 
-            $user_data = $conn->query("SELECT * From $users_table_name WHERE id=$user_id");
+            $user_data = $conn->query("SELECT * From $users_table_name WHERE id=" . esc($user_id));
             if ($user_data->num_rows > 0) {
                 $row = $user_data->fetch_assoc();
 
@@ -63,14 +63,14 @@ if (isset($_GET["action"]) && $_GET["action"] !== "") {
                     exit();
                 }
 
-                $payment_info = $conn->query("SELECT * From `$paypal_payments_table` WHERE txn_id='$txn_id'");
+                $payment_info = $conn->query("SELECT * From `$paypal_payments_table` WHERE txn_id=" . esc($txn_id));
                 if ($payment_info->num_rows > 0) {
                     $row = $payment_info->fetch_assoc();
                     $successfull_url_status = $row["successfull_url_status"];
 
-                    if ($successfull_url_status == 0) {
+                    if ($successfull_url_status == 0 && (string)$row["from_user"] === (string)$user_id) {
 
-                        if ($conn->query("UPDATE `$users_table_name` SET has_pro=1 , pro_until='$updated_pro_until_string' WHERE id=$user_id") !== false) {
+                        if ($conn->query("UPDATE `$users_table_name` SET has_pro=1 , pro_until=" . esc($updated_pro_until_string) . " WHERE id=" . esc($user_id)) !== false) {
                             addmsg(200, "تم تجديد اشتراك للحساب - $user_id" . "\n" . "تاريخ التجديد اصبح : " . $updated_pro_until_string);
                         } else {
                             addmsg(401, "حدث خطأ اثناء التجديد");
@@ -81,7 +81,7 @@ if (isset($_GET["action"]) && $_GET["action"] !== "") {
                         // echo "updated_pro_until_string => " . $updated_pro_until_string . "\n\n";
                         // echo "difs => " . $updated_pro_until - $pro_until;
 
-                        if ($conn->query("UPDATE `$paypal_payments_table` SET successfull_url_status=1 WHERE txn_id='$txn_id'") === false) {
+                        if ($conn->query("UPDATE `$paypal_payments_table` SET successfull_url_status=1 WHERE txn_id=" . esc($txn_id)) === false) {
                             addmsg(402, "An error occurred while modifying the successful status of the payment");
                         }
                     } else if ($successfull_url_status == 1) {
@@ -99,14 +99,14 @@ if (isset($_GET["action"]) && $_GET["action"] !== "") {
                     exit();
                 }
 
-                $payment_info = $conn->query("SELECT * From `$Coin_Payments_table` WHERE txn_id='$txn_id'");
+                $payment_info = $conn->query("SELECT * From `$Coin_Payments_table` WHERE txn_id=" . esc($txn_id));
                 if ($payment_info->num_rows > 0) {
                     $row = $payment_info->fetch_assoc();
                     $successfull_url_status = $row["successfull_url_status"];
 
-                    if ($successfull_url_status == 0) {
+                    if ($successfull_url_status == 0 && (string)$row["from_user"] === (string)$user_id) {
 
-                        if ($conn->query("UPDATE `$users_table_name` SET has_pro=1 , pro_until='$updated_pro_until_string' WHERE id=$user_id") !== false) {
+                        if ($conn->query("UPDATE `$users_table_name` SET has_pro=1 , pro_until=" . esc($updated_pro_until_string) . " WHERE id=" . esc($user_id)) !== false) {
                             addmsg(200, "تم تجديد اشتراك للحساب - $user_id" . "\n" . "تاريخ التجديد اصبح : " . $updated_pro_until_string);
                         } else {
                             addmsg(401, "حدث خطأ اثناء التجديد");
@@ -117,7 +117,7 @@ if (isset($_GET["action"]) && $_GET["action"] !== "") {
                         // echo "updated_pro_until_string => " . $updated_pro_until_string . "\n\n";
                         // echo "difs => " . $updated_pro_until - $pro_until;
 
-                        if ($conn->query("UPDATE `$Coin_Payments_table` SET successfull_url_status=1 WHERE txn_id='$txn_id'") === false) {
+                        if ($conn->query("UPDATE `$Coin_Payments_table` SET successfull_url_status=1 WHERE txn_id=" . esc($txn_id)) === false) {
                             addmsg(402, "An error occurred while modifying the successful status of the payment");
                         }
                     } else if ($successfull_url_status == 1) {
@@ -133,21 +133,21 @@ if (isset($_GET["action"]) && $_GET["action"] !== "") {
                 } else {
                     die("pay_id not found");
                 }
-                $payment_info = $conn->query("SELECT * From `$phone_payments_table` WHERE id='$pay_id' and from_user_id='$user_id'");
+                $payment_info = $conn->query("SELECT * From `$phone_payments_table` WHERE id=" . esc($pay_id) . " and from_user_id=" . esc($user_id));
                 if ($payment_info->num_rows > 0) {
                     $row_payment = $payment_info->fetch_assoc();
                     $product_id = $row_payment["product_id"];
                     $payment_status = $row_payment["status"];
                     if ($payment_status == 0) {
 
-                        if ($conn->query("UPDATE `$users_table_name` SET has_pro = 1 , pro_until='$updated_pro_until_string' WHERE id=$user_id") !== false) {
+                        if ($conn->query("UPDATE `$users_table_name` SET has_pro = 1 , pro_until=" . esc($updated_pro_until_string) . " WHERE id=" . esc($user_id)) !== false) {
                             addmsg(200, "Update Subscription Successfully.");
                             addmsg("updated_pro_until", $updated_pro_until);
                         } else {
                             addmsg(401, "حدث خطأ اثناء التجديد");
                         }
 
-                        if ($conn->query("UPDATE `$phone_payments_table` SET status=1 WHERE id='$pay_id' and from_user_id='$user_id'") === false) {
+                        if ($conn->query("UPDATE `$phone_payments_table` SET status=1 WHERE id='" . esc($pay_id) . "' and from_user_id='" . esc($user_id) . "'") === false) {
                             addmsg(402, "An error occurred while modifying the successful status of the payment");
                         }
                     } else {
@@ -165,10 +165,11 @@ if (isset($_GET["action"]) && $_GET["action"] !== "") {
 echo response();
 exit();
 
-function rand_string($length)
-{
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return substr(str_shuffle($chars), 0, $length);
+function rand_string($length)
+{
+    if ($length < 1) $length = 1;
+    $bytes = random_bytes(ceil($length / 2));
+    return substr(bin2hex($bytes), 0, $length);
 }
 function mou_custom_encode($txt, $num = 1)
 {

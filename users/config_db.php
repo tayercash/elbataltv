@@ -11,6 +11,30 @@ if ($conn->connect_error) {
 }
 $conn->set_charset("utf8mb4");
 
+// ============================================================
+// حماية عامة ضد SQL Injection و XSS
+// ============================================================
+// أي قيمة بتدخل في استعلام SQL لازم تمر من esc()
+function esc($value)
+{
+  global $conn;
+  if (is_null($value)) return 'NULL';
+  if (is_numeric($value) && !is_string($value)) return $value;
+  return "'" . $conn->real_escape_string((string) $value) . "'";
+}
+
+// تطهير مدخلات النصوص من أي وسوم أو حقن HTML/JS
+function clean_input($value, $max_len = 0)
+{
+  if (is_array($value)) return $value;
+  $value = trim((string) $value);
+  $value = strip_tags($value);
+  if ($max_len > 0) {
+    $value = mb_substr($value, 0, $max_len);
+  }
+  return $value;
+}
+
 $dollar_to_pound = "50";
 $paypal_email_for_send = "promahmoudnabil@gmail.com";
 $vodafone_num_for_send = "01067480965";
@@ -41,7 +65,7 @@ $downloads_settings_table = "Elbatal_downloads_settings";
 
 
 // $conn->query("SET GLOBAL time_zone = '+00:00';");
-if (isset($_GET["install_database"]) && $_GET["install_database"] == "true") {
+if (php_sapi_name() === 'cli' && isset($_GET["install_database"]) && $_GET["install_database"] == "true") {
 
   $conn->query("CREATE TABLE IF NOT EXISTS `$users_table_name` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

@@ -62,7 +62,7 @@ if ($post['status'] >= 100 || $post['status'] == 2) {
 // Example:
     // Update the order with $order_id as paid.
 
-    $result = $conn->query("SELECT * FROM $Coin_Payments_table WHERE txn_id = '$txn_id'");
+    $result = $conn->query("SELECT * FROM $Coin_Payments_table WHERE txn_id = " . esc($txn_id));
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $transaction_db_id = $row["id"];
@@ -74,7 +74,7 @@ if ($post['status'] >= 100 || $post['status'] == 2) {
         if ($payment_status == "1" && $successfull_url_status == "1") {
         } else {
 
-            $result_update_transaction = mysqli_query($conn, "UPDATE $Coin_Payments_table SET payment_status='1',txn_id='$txn_id',amount='$amount', done_at='$now_utc_date_time' WHERE id='$transaction_db_id'");
+            $result_update_transaction = mysqli_query($conn, "UPDATE $Coin_Payments_table SET payment_status=" . esc("1") . ",txn_id=" . esc($txn_id) . ",amount=" . esc($amount) . ", done_at=" . esc($now_utc_date_time) . " WHERE id=" . esc($transaction_db_id));
             if ($result_update_transaction === TRUE) {
 
                 $log_msg .= "$user_id, $txn_id";
@@ -85,7 +85,7 @@ if ($post['status'] >= 100 || $post['status'] == 2) {
 
 
 
-        $product = $conn->query("SELECT * From `$products_table` WHERE id=$item_number");
+        $product = $conn->query("SELECT * From `$products_table` WHERE id=" . esc($item_number));
         if ($product->num_rows > 0) {
             $row = $product->fetch_assoc();
             $item_image = $row["image"];

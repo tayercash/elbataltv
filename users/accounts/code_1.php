@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user_id = $_POST["uid"];
 
 
-            $result_user = $conn->query("SELECT * FROM `$users_table_name` WHERE id='$user_id'");
+            $result_user = $conn->query("SELECT * FROM `$users_table_name` WHERE id=" . esc($user_id) . "");
             if ($result_user->num_rows > 0) {
                 $row = $result_user->fetch_assoc();
                 $now_user_active_code = $row["active_code"];
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         if ($now_utc < $can_req_after) {
 
-                            $select_code_data = $conn->query("SELECT * FROM `$codes_table` WHERE code='$now_user_active_code'");
+                            $select_code_data = $conn->query("SELECT * FROM `$codes_table` WHERE code=" . esc($now_user_active_code) . "");
                             if ($select_code_data->num_rows > 0) {
                                 $row = $select_code_data->fetch_assoc();
                                 $code_id = $row["id"];
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $code = $row["code"];
                             $short_link = $row["link"];
 
-                            if ($conn->query("UPDATE `$users_table_name` SET active_code='$code' , code_last_req='$now_utc_date_time' WHERE id='$user_id'") === TRUE) {
+                            if ($conn->query("UPDATE `$users_table_name` SET active_code=" . esc($code) . " , code_last_req=" . esc($now_utc_date_time) . " WHERE id=" . esc($user_id) . "") === TRUE) {
                                 addmsg(200, "Succefully Create Code");
                                 addmsg("short_link", $short_link);
                             } else {
@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $code = $code_token["code"];
                 if (strlen($code) == 6) {
 
-                    $select_user = $conn->query("SELECT * FROM `$users_table_name` WHERE id = '$user_id'");
+                    $select_user = $conn->query("SELECT * FROM `$users_table_name` WHERE id = " . esc($user_id) . "");
                     if ($select_user->num_rows > 0) {
 
                         $row = $select_user->fetch_assoc();
@@ -156,29 +156,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             addmsg(200, "User Activated");
                         } else {
 
-                            if ($code == 147369) {
-                                if ($conn->query("UPDATE `$users_table_name` SET active_code='$new_code', code_last_active='$now_utc_date_time' WHERE id='$user_id'") === TRUE) {
-                                    addmsg(200, "Correct Code");
-                                    $active_until = $now_utc + ($code_active_days * 24 * 60 * 60);
-                                    addmsg(mou_custom_encode("now_utc"), mou_custom_encode($now_utc));
-                                    addmsg(mou_custom_encode("code_active_until"), mou_custom_encode($active_until));
-                                } else {
-                                    addmsg(400, "Error updating record: ");
-                                    // addmsg(401, "Error updating record: " . $conn->error);
-                                    $has_error = true;
-                                }
-                            } else if ($active_code == $code) {
+                            if ($active_code == $code) {
 
-                                $select_code_from_codes = $conn->query("SELECT * FROM `$codes_table` WHERE code = '$code'");
+                                $select_code_from_codes = $conn->query("SELECT * FROM `$codes_table` WHERE code = " . esc($code) . "");
                                 if ($select_code_from_codes->num_rows > 0) {
                                     $row = $select_code_from_codes->fetch_assoc();
 
                                     $code_status = $row["status"];
                                     if ($code_status == true) {
-                                        if ($conn->query("UPDATE `$codes_table` SET used_num= used_num + 1 WHERE code = '$code'") !== TRUE) {
+                                        if ($conn->query("UPDATE `$codes_table` SET used_num= used_num + 1 WHERE code = " . esc($code) . "") !== TRUE) {
                                             addmsg(401, "Error updating used_num record: ");
                                         }
-                                        if ($conn->query("UPDATE `$users_table_name` SET active_code='$new_code', code_last_active='$now_utc_date_time' WHERE id='$user_id'") === TRUE) {
+                                        if ($conn->query("UPDATE `$users_table_name` SET active_code=" . esc($new_code) . ", code_last_active=" . esc($now_utc_date_time) . " WHERE id=" . esc($user_id) . "") === TRUE) {
                                             addmsg(200, "Correct Code");
                                             $active_until = $now_utc + ($code_active_days * 24 * 60 * 60);
                                             addmsg(mou_custom_encode("code_active_until"), mou_custom_encode($active_until));
@@ -255,7 +244,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo $api_url . "\n";
 
                     $shortenedUrl = "";
-                    if (mysqli_query($conn, "INSERT INTO `$codes_table` (code,link,short_website) VALUES ('$code','$shortenedUrl',$short_website)")) {
+                    if (mysqli_query($conn, "INSERT INTO `$codes_table` (code,link,short_website) VALUES (" . esc($code) . "," . esc($shortenedUrl) . ",$short_website)")) {
                         $sub_id = $conn->insert_id;
                         addmsg(200, $sub_id);
                     } else {
@@ -271,7 +260,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         //  echo $result["message"];
                     } else {
                         $shortenedUrl = $result["shortenedUrl"];
-                        if (mysqli_query($conn, "INSERT INTO `$codes_table` (code,link,short_website) VALUES ('$code','$shortenedUrl',$short_website)")) {
+                        if (mysqli_query($conn, "INSERT INTO `$codes_table` (code,link,short_website) VALUES (" . esc($code) . "," . esc($shortenedUrl) . ",$short_website)")) {
                             $sub_id = $conn->insert_id;
                             addmsg(200, $sub_id);
                         } else {
@@ -289,10 +278,11 @@ function rand_num($length)
     $chars = "0123456789";
     return substr(str_shuffle($chars), 0, $length);
 }
-function rand_string($length)
-{
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return substr(str_shuffle($chars), 0, $length);
+function rand_string($length)
+{
+    if ($length < 1) $length = 1;
+    $bytes = random_bytes(ceil($length / 2));
+    return substr(bin2hex($bytes), 0, $length);
 }
 function addmsg($code, $msg)
 {

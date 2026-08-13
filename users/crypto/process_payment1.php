@@ -51,7 +51,7 @@ try {
     echo "Transaction created:\n";
     print_r($result);
     // Redirect the user to the checkout URL
-    $add_new_transaction = mysqli_query($conn, "INSERT INTO $coinryze_users_Transactions_name (uid,status,transaction_id) VALUES ('$uid', 0, '$order_id')");
+    $add_new_transaction = mysqli_query($conn, "INSERT INTO $coinryze_users_Transactions_name (uid,status,transaction_id) VALUES (" . esc($uid) . ", 0, " . esc($order_id));
     if ($add_new_transaction === TRUE) {
 
     }

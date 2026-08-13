@@ -87,16 +87,16 @@ if (strcmp($res, "VERIFIED") == 0 || strcasecmp($res, "VERIFIED") == 0) {
 
 
         //Check if transation data exists with the same TXN ID
-        $prevPayment = $conn->query("SELECT id FROM $paypal_payments_table WHERE txn_id= '" . $txn_id . "'");
+        $prevPayment = $conn->query("SELECT id FROM $paypal_payments_table WHERE txn_id= " . esc($txn_id));
         if ($prevPayment->num_rows == 0) {
 
-            $insert = $conn->query("INSERT INTO $paypal_payments_table (item_number,txn_id,from_user,payment_gross,currency_code,payment_status) VALUES('$item_number','$txn_id','$user_id','$payment_gross','$currency_code','$payment_status')");
+            $insert = $conn->query("INSERT INTO $paypal_payments_table (item_number,txn_id,from_user,payment_gross,currency_code,payment_status) VALUES(" . esc($item_number) . "," . esc($txn_id) . "," . esc($user_id) . "," . esc($payment_gross) . "," . esc($currency_code) . "," . esc($payment_status));
         }
 
         $log_msg .= "$user_id, $txn_id";
 
 
-        $product = $conn->query("SELECT * From `$products_table` WHERE id=$item_number");
+        $product = $conn->query("SELECT * From `$products_table` WHERE id=" . esc($item_number));
         if ($product->num_rows > 0) {
             $row = $product->fetch_assoc();
             $item_image = $row["image"];

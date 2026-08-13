@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $product_id = $_POST["product_id"];
 
 
-            $last_payment_from_user_id = $conn->query("SELECT * FROM `$phone_payments_table` WHERE from_user_id = '$user_id' ORDER BY ID DESC LIMIT 1");
+            $last_payment_from_user_id = $conn->query("SELECT * FROM `$phone_payments_table` WHERE from_user_id = " . esc($user_id) . " ORDER BY ID DESC LIMIT 1");
             if ($last_payment_from_user_id->num_rows > 0) {
                 $last_paymentRow = $last_payment_from_user_id->fetch_assoc();
                 $last_payment_from_id = $last_paymentRow['id'];
@@ -47,19 +47,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             if ($can_save_data == true) {
-                $result = $conn->query("SELECT * FROM $products_table WHERE id = '$product_id'");
+                $result = $conn->query("SELECT * FROM $products_table WHERE id = " . esc($product_id));
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     $sub_type = $row["name"];
                 }
-                $result = $conn->query("SELECT * FROM $users_table_name WHERE id = '$user_id'");
+                $result = $conn->query("SELECT * FROM $users_table_name WHERE id = " . esc($user_id));
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     $user_name = $row["username"];
                     $user_email = $row["email"];
                 }
 
-                if (mysqli_query($conn, "INSERT INTO `$phone_payments_table` (from_user_id,sender_phone,value,phone_cash_name,product_id,status,datetime) VALUES ('$user_id','$sender_number','$donation_value','$phone_cash_name','$product_id','0','$nowtime')")) {
+                if (mysqli_query($conn, "INSERT INTO `$phone_payments_table` (from_user_id,sender_phone,value,phone_cash_name,product_id,status,datetime) VALUES (" . esc($user_id) . "," . esc($sender_number) . "," . esc($donation_value) . "," . esc($phone_cash_name) . "," . esc($product_id) . ",'0'," . esc($nowtime) . ")")) {
                     $sub_id = $conn->insert_id;
 
                     addmsg(200, "Your Payment Successfull.");
@@ -75,10 +75,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
-function rand_string($length)
-{
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return substr(str_shuffle($chars), 0, $length);
+function rand_string($length)
+{
+    if ($length < 1) $length = 1;
+    $bytes = random_bytes(ceil($length / 2));
+    return substr(bin2hex($bytes), 0, $length);
 }
 function addmsg($code, $msg)
 {

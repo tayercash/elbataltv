@@ -142,7 +142,7 @@ function on_google_signed_error() {
 }
 if (typeof window.electron !== "undefined") {
     ipcRenderer.on('g_profile', (profile) => {
-        on_google_signed_success(profile.id, profile.name, mou_custom_encode(profile.email), profile.picture);
+        on_google_signed_success(profile.id, profile.name, mou_custom_encode(profile.email), profile.picture, profile.idToken);
     });
     ipcRenderer.on('g_error', (msg) => {
         console.log(msg);
@@ -152,11 +152,12 @@ if (typeof window.electron !== "undefined") {
         paste_code(code);
     })
 }
-function on_google_signed_success(personID, personName, personEmail, personImg) {
+function on_google_signed_success(personID, personName, personEmail, personImg, idToken) {
     can_use_login_with_google = false;
     user_name = personName;
     email = personEmail;
     gid = personID;
+    google_id_token = idToken;
     avatar_code = "10b15ef17da8534081";
     g_icon = personImg == "null" ? null : personImg;
     // alert("تم تسجيل الدخول بنجاح : " + "\n" + gid + "\n" + user_name + "\n" + email + "\n" + avatar_code);
@@ -166,6 +167,7 @@ function on_google_signed_success(personID, personName, personEmail, personImg) 
         timeout: api_time_out,
         data: {
             action: "login_account_with_google",
+            id_token: google_id_token,
             gid: gid,
             username: user_name,
             email: email,

@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($page_action == "get_sub_packs") {
 
             $products = array();
-            $result_query = $conn->query("SELECT * FROM $products_table WHERE category='batal_pro'");
+            $result_query = $conn->query("SELECT * FROM $products_table WHERE category=" . esc("batal_pro"));
             if ($result_query->num_rows > 0) {
                 while ($row = $result_query->fetch_assoc()) {
                     $product["id"] = $row["id"];
@@ -130,10 +130,11 @@ function send_message_to_whatsapp()
     curl_close($ch);
 }
 
-function rand_string($length)
-{
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return substr(str_shuffle($chars), 0, $length);
+function rand_string($length)
+{
+    if ($length < 1) $length = 1;
+    $bytes = random_bytes(ceil($length / 2));
+    return substr(bin2hex($bytes), 0, $length);
 }
 function mou_custom_encode($txt, $num = 1)
 {

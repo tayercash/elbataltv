@@ -67,7 +67,7 @@ if ($tx) {
 
 
             //Check if transaction data exists with the same TXN ID
-            $prevPaymentResult = $conn->query("SELECT * FROM `$paypal_payments_table` WHERE txn_id = '" . $txn_id . "'");
+            $prevPaymentResult = $conn->query("SELECT * FROM `$paypal_payments_table` WHERE txn_id = " . esc($txn_id));
             if ($prevPaymentResult->num_rows > 0) {
                 $paymentRow = $prevPaymentResult->fetch_assoc();
                 $payment_id = $paymentRow['id'];
@@ -75,12 +75,12 @@ if ($tx) {
                 $payment_status = $paymentRow['payment_status'];
             } else {
                 //Insert transaction data into the database
-                $insert = $conn->query("INSERT INTO `$paypal_payments_table` (item_number,txn_id,from_user,payment_gross,currency_code,payment_status) VALUES('$item_number','$txn_id','$user_id' , '$payment_gross','$currency_code','$payment_status')");
+                $insert = $conn->query("INSERT INTO `$paypal_payments_table` (item_number,txn_id,from_user,payment_gross,currency_code,payment_status) VALUES(" . esc($item_number) . "," . esc($txn_id) . "," . esc($user_id) . " , " . esc($payment_gross) . "," . esc($currency_code) . "," . esc($payment_status) . ")");
                 $payment_id = $conn->insert_id;
             }
 
             //Get Product infomation from the database
-            $productResult = $conn->query("SELECT * FROM `$products_table` WHERE id = " . $item_number);
+            $productResult = $conn->query("SELECT * FROM `$products_table` WHERE id = " . esc($item_number));
             $productRow = $productResult->fetch_assoc();
 
 
