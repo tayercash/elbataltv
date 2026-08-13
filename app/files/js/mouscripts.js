@@ -62,7 +62,8 @@ $.ajaxSetup({
             'User-Agent', 'Referer', 'Host', 'Connection', 'Content-Length',
             'Cookie', 'Origin', 'Date',
             'sec-ch-ua', 'sec-ch-ua-mobile', 'sec-ch-ua-platform',
-            'Sec-Fetch-Site', 'Sec-Fetch-Mode', 'Sec-Fetch-User', 'Sec-Fetch-Dest'
+            'Sec-Fetch-Site', 'Sec-Fetch-Mode', 'Sec-Fetch-User', 'Sec-Fetch-Dest',
+            'Accept-Encoding', 'Priority', 'Pragma', 'Cache-Control', 'Accept', 'Accept-Language'
         ];
         let unsafeHeadersBypass = {};
         // Check if headers are set

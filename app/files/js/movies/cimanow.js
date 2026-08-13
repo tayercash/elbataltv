@@ -719,7 +719,19 @@ obj = {
                     "headers": {
                         "User-Agent": what_window.Main_USER_AGENT,
                         "Referer": watch_btn_link,
-                        "Cookie": mou_aflam_server.phpSessId ? `PHPSESSID=${mou_aflam_server.phpSessId}` : ""
+                        "Cookie": mou_aflam_server.phpSessId ? `PHPSESSID=${mou_aflam_server.phpSessId}` : "",
+                        "sec-ch-ua": "\"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"144\"",
+                        "sec-ch-ua-mobile": "?0",
+                        "sec-ch-ua-platform": "\"Windows\"",
+                        "Sec-Fetch-Dest": "empty",
+                        "Sec-Fetch-Mode": "cors",
+                        "Sec-Fetch-Site": "cross-site",
+                        "Priority": "u=1, i",
+                        "Pragma": "no-cache",
+                        "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
+                        "Accept": "*/*",
+                        "Accept-Language": "en-US",
+                        "Accept-Encoding": "gzip, deflate, br, zstd"
                     },
                     success: function (redrict_res, textStatus, xhr) {
 
@@ -741,7 +753,19 @@ obj = {
                                         "headers": {
                                             "User-Agent": what_window.Main_USER_AGENT,
                                             "Referer": "https://rm.freex2line.online/2020/02/blog-post.html/",
-                                            "Cookie": mou_aflam_server.phpSessId ? `PHPSESSID=${mou_aflam_server.phpSessId}` : ""
+                                            "Cookie": mou_aflam_server.phpSessId ? `PHPSESSID=${mou_aflam_server.phpSessId}` : "",
+                                            "sec-ch-ua": "\"Not(A:Brand\";v=\"8\", \"Chromium\";v=\"144\"",
+                                            "sec-ch-ua-mobile": "?0",
+                                            "sec-ch-ua-platform": "\"Windows\"",
+                                            "Sec-Fetch-Dest": "empty",
+                                            "Sec-Fetch-Mode": "cors",
+                                            "Sec-Fetch-Site": "cross-site",
+                                            "Priority": "u=1, i",
+                                            "Pragma": "no-cache",
+                                            "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
+                                            "Accept": "*/*",
+                                            "Accept-Language": "en-US",
+                                            "Accept-Encoding": "gzip, deflate, br, zstd"
                                         },
                                         "contentType": "application/x-www-form-urlencoded",
                                         "data": postBody,
