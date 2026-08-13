@@ -73,17 +73,21 @@ function Start_Login() {
             // auto login with what
             what_loged_in_with = now_user_data.loged_in_with;
             if (what_loged_in_with == "account") {
-                log_with_email = now_user_data.email;
-                log_with_password = now_user_data.pass;
-                $("#in_username").val(log_with_email);
-                $("#in_password").val(log_with_password);
+                if (now_user_data.token) {
+                    auto_login_with_token(now_user_data.token);
+                } else {
+                    log_with_email = now_user_data.email;
+                    log_with_password = now_user_data.pass;
+                    $("#in_username").val(log_with_email);
+                    $("#in_password").val(log_with_password);
 
-                $(document).ready(function () {
-                    $(".user_log_stats").css("display", "flex");
-                    setTimeout(function () {
-                        $("#sign_in").click();
-                    }, 1000);
-                });
+                    $(document).ready(function () {
+                        $(".user_log_stats").css("display", "flex");
+                        setTimeout(function () {
+                            $("#sign_in").click();
+                        }, 1000);
+                    });
+                }
 
             } else if (what_loged_in_with == "google") {
 
@@ -107,6 +111,39 @@ function Start_Login() {
         $(".mou_login").show();
     }
 
+}
+
+function auto_login_with_token(token) {
+    $.ajax({
+        url: elbatal_api + "accounts/accounts.php",
+        type: 'POST',
+        timeout: 20 * 1000,
+        data: {
+            action: "get_user_data",
+            token: token
+        },
+        success: function (res, textStatus, jqXHR) {
+            data = res;
+            for (var i = 0; i < Object.keys(data.messages).length; i++) {
+                message_code = Object.keys(data.messages)[i];
+                message = data.messages[message_code];
+                if (message_code == 200) {
+                    window.location.replace("index1.html");
+                    return;
+                } else if (message_code == 401) {
+                    localStorage.removeItem("user_data");
+                    window.location.replace("index.html");
+                    return;
+                }
+            }
+            localStorage.removeItem("user_data");
+            window.location.replace("index.html");
+        },
+        error: function (jqXHR, error, errorThrown) {
+            localStorage.removeItem("user_data");
+            window.location.replace("index.html");
+        }
+    });
 }
 
 var can_use_login_with_google = true;
@@ -821,7 +858,9 @@ function loged_in_success(is_gust = true, username, user_id, email, avatar, g_ic
     user_obj["avatar_or_g_icon"] = avatar_or_g_icon;
     user_obj["loged_in_with"] = loged_in_with;
     user_obj["role"] = role == null ? null : role.split(",");
-    if (password !== false) {
+    if (full_data && full_data.token) {
+        user_obj["token"] = full_data.token;
+    } else if (password !== false) {
         user_obj["pass"] = password;
     }
     localStorage.setItem("user_data", JSON.stringify(user_obj));

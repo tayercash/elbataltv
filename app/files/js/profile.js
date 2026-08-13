@@ -166,15 +166,12 @@ refresh_user_data();
 $("#logout_from_elbatal").click(function () {
 
     if (user_data.loged_in_with_email == true) {
-        user_data_token = {};
-        user_data_token["u_id"] = user_data.user_id;
-        user_data_token["dev_id"] = what_window.dev_id;
         $.ajax({
             url: elbatal_api + "accounts/accounts.php",
             type: 'POST',
             data: {
                 action: "logout",
-                token: mou_custom_encode(JSON.stringify(user_data_token))
+                token: user_data.token ? user_data.token : mou_custom_encode(JSON.stringify({ u_id: user_data.user_id, dev_id: what_window.dev_id }))
             },
             success: function (res, textStatus, jqXHR) {
                 // data = JSON.parse(MouDecrypt(res["d"], "ajhsbcjkas@#@!!@sc" + res["t"]));
@@ -352,11 +349,10 @@ $("#save_user_data").click(function () {
             data: {
                 action: "update_user_data",
                 new_user_name: new_user_name,
-                new_user_id: new_user_id,
                 new_user_email: new_user_email,
                 new_user_avatar: new_user_avatar,
                 avatar_or_g_icon: avatar_or_g_icon,
-                dev_id: what_window.dev_id
+                token: user_data.token ? user_data.token : mou_custom_encode(JSON.stringify({ u_id: new_user_id, dev_id: what_window.dev_id }))
             },
             success: function (res, textStatus, jqXHR) {
                 // data = JSON.parse(MouDecrypt(res["d"], "ajhsbcjkas@#@!!@sc" + res["t"]));
@@ -711,16 +707,13 @@ function logout_an_device(device_name_will_logout, device_id_will_logout) {
     } else {
         if (!confirm("هل انت متأكد من تسجيل الخروج من حسابك علي جهاز \n" + device_name_will_logout)) return false;
     }
-    user_data_token = {};
-    user_data_token["u_id"] = user_data.user_id;
-    user_data_token["dev_id"] = what_window.dev_id;
-    user_data_token["device_id_will_logout"] = device_id_will_logout;
     $.ajax({
         type: "POST",
         url: elbatal_api + "accounts/accounts.php",
         data: {
             "action": "logout_an_device",
-            token: mou_custom_encode(JSON.stringify(user_data_token))
+            token: user_data.token ? user_data.token : mou_custom_encode(JSON.stringify({ u_id: user_data.user_id, dev_id: what_window.dev_id })),
+            device_id_will_logout: device_id_will_logout
         },
         success: function (res, textStatus, jqXHR) {
             // data = JSON.parse(MouDecrypt(res["d"], "ajhsbcjkas@#@!!@sc" + res["t"]));

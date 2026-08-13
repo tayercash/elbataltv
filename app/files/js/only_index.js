@@ -520,16 +520,12 @@ $("#active_with_code").click(function () {
 // end code
 
 function ref_log_me() {
-    user_data_token = {};
-    user_data_token["u_id"] = user_data.user_id;
-    user_data_token["dev_id"] = what_window.dev_id;
-    user_data_token["u_client"] = what_window.u_client;
     $.ajax({
         type: "POST",
         url: elbatal_api + "accounts/accounts.php",
         data: {
             "action": "ref_log_me",
-            token: mou_custom_encode(JSON.stringify(user_data_token))
+            token: user_data.token ? user_data.token : mou_custom_encode(JSON.stringify({ u_id: user_data.user_id, dev_id: what_window.dev_id, u_client: what_window.u_client }))
         },
         dataType: "text",  // Treats JSON response as a string
         success: function (res, textStatus, jqXHR) {
@@ -812,7 +808,7 @@ function sync_vid_to_server(vid_data, to_where, this_btn = false, callback = fal
                 img_base64: vid_data.img_file,
                 qurey_data: this_qurey_data,
                 server_name: vid_data.server_name,
-                token: mou_custom_encode(user_data.user_id + "#" + what_window.dev_id)
+                token: user_data.token ? user_data.token : mou_custom_encode(user_data.user_id + "#" + what_window.dev_id)
             },
             success: async function (data, textStatus, xhr) {
                 for (var i = 0; i < Object.keys(data.messages).length; i++) {
@@ -916,7 +912,7 @@ function delete_fav(id, from_where = "local", this_btn = false) {
             data: {
                 action: "remove_fav",
                 vid_id: vid_btn_id,
-                token: mou_custom_encode(user_data.user_id + "#" + what_window.dev_id)
+                token: user_data.token ? user_data.token : mou_custom_encode(user_data.user_id + "#" + what_window.dev_id)
             },
             success: function (data, textStatus, xhr) {
                 for (var i = 0; i < Object.keys(data.messages).length; i++) {

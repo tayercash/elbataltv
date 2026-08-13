@@ -18,6 +18,24 @@ $serverKey = 'AAAAz4LPjhA:APA91bHqxOTkHq1bXr7rWlPmzvgKrs1LnS7mDi61ot--VO-CwFjaJC
 
 $msgs_obj = array();
 
+function verify_auth_token($token)
+{
+    global $conn, $auth_tokens_table;
+    if ($token === "" || $token === null) {
+        return false;
+    }
+    $result = $conn->query("SELECT user_id, dev_id, expires_at FROM $auth_tokens_table WHERE token=" . esc($token) . " AND revoked=0");
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $expires_at = $row["expires_at"] ?? "";
+        if ($expires_at !== "" && strtotime($expires_at) < time()) {
+            return false;
+        }
+        return array("user_id" => $row["user_id"], "dev_id" => $row["dev_id"]);
+    }
+    return false;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST["action"]) && $_POST["action"] !== "") {
@@ -37,8 +55,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data_error = false;
             if (isset($_POST["token"]) && $_POST["token"] !== "") {
                 $token = $_POST["token"];
-                $token = mou_custom_decode($token);
-                $token_data = explode("#", $token);
+                $token_data = verify_auth_token($token);
+                if ($token_data === false) {
+                    $data_error = true;
+                    addmsg(401, "loged out");
+                }
             } else {
                 $data_error = true;
                 addmsg(400, "token not found");
@@ -51,8 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($data_error == false) {
 
-                $user_id = $token_data[0];
-                $dev_id = $token_data[1];
+                $user_id = $token_data["user_id"];
+                $dev_id = $token_data["dev_id"];
                 $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($dev_id));
                 if ($result_dev_id_logins->num_rows > 0) {
                     $can_send_notification = false;
@@ -200,8 +221,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data_error = false;
             if (isset($_POST["token"]) && $_POST["token"] !== "") {
                 $token = $_POST["token"];
-                $token = mou_custom_decode($token);
-                $token_data = explode("#", $token);
+                $token_data = verify_auth_token($token);
+                if ($token_data === false) {
+                    $data_error = true;
+                    addmsg(401, "loged out");
+                }
             } else {
                 $data_error = true;
                 addmsg(400, "token not found");
@@ -210,8 +234,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-                $user_id = $token_data[0];
-                $dev_id = $token_data[1];
+                $user_id = $token_data["user_id"];
+                $dev_id = $token_data["dev_id"];
                 $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($dev_id));
                 if ($result_dev_id_logins->num_rows > 0) {
 
@@ -288,8 +312,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data_error = false;
             if (isset($_POST["token"]) && $_POST["token"] !== "") {
                 $token = $_POST["token"];
-                $token = mou_custom_decode($token);
-                $token_data = explode("#", $token);
+                $token_data = verify_auth_token($token);
+                if ($token_data === false) {
+                    $data_error = true;
+                    addmsg(401, "loged out");
+                }
             } else {
                 $data_error = true;
                 addmsg(400, "token not found");
@@ -298,8 +325,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-                $user_id = $token_data[0];
-                $dev_id = $token_data[1];
+                $user_id = $token_data["user_id"];
+                $dev_id = $token_data["dev_id"];
                 $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($dev_id));
                 if ($result_dev_id_logins->num_rows > 0) {
 

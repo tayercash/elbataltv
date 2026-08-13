@@ -205,7 +205,9 @@ function refresh_user_data(data = "") {
             type: 'POST',
             data: {
                 action: "get_user_data",
-                token: mou_custom_encode(JSON.stringify(user_data_token))
+                token: user_data.token ? user_data.token : mou_custom_encode(JSON.stringify(user_data_token)),
+                dev_name: user_data_token["dev_name"],
+                u_client: user_data_token["u_client"]
             },
             success: function (res, textStatus, jqXHR) {
                 // data = JSON.parse(MouDecrypt(res["d"], "ajhsbcjkas@#@!!@sc" + res["t"]));

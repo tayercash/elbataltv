@@ -652,7 +652,7 @@ function show_film_data(film_data) {
         data: {
             action: "is_query_in_fav",
             query: query_data,
-            token: mou_custom_encode(user_data.user_id + "#" + what_window.dev_id)
+            token: (user_data.token ? user_data.token : mou_custom_encode(user_data.user_id + "#" + what_window.dev_id))
         },
         success: function (data, textStatus, xhr) {
             $(".add_to_fav").attr("data-first_load", "true");
@@ -894,7 +894,7 @@ $(document).on("click", ".share_this_post", function () {
             share_body: share_body,
             qurey_data: query_data,
             img_base64: img_base64,
-            token: mou_custom_encode(user_data.user_id + "#" + what_window.dev_id),
+            token: (user_data.token ? user_data.token : mou_custom_encode(user_data.user_id + "#" + what_window.dev_id)),
         },
         success: function (data, textStatus, xhr) {
             $(".share_this_post").html(`<i class="fal fa-share-alt"></i>`);
@@ -1185,7 +1185,7 @@ $(document).on("click", "#submit_notify", function () {
             img_base64: img_base64,
             qurey_data: now_query_data,
             to_topics: JSON.stringify(tobics_selected),
-            token: mou_custom_encode(user_data.user_id + "#" + what_window.dev_id),
+            token: (user_data.token ? user_data.token : mou_custom_encode(user_data.user_id + "#" + what_window.dev_id)),
             verify_notify: verify_notify
         },
         success: function (data, textStatus, xhr) {

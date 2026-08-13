@@ -623,8 +623,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $new_user_name = @$_POST["new_user_name"];
 
-            $user_id = @$_POST["new_user_id"];
-
             $user_email = @$_POST["new_user_email"];
 
             $new_user_avatar = @$_POST["new_user_avatar"];
@@ -633,13 +631,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $avatar_or_g_icon = $_POST["avatar_or_g_icon"];
 
-            $dev_id = $_POST["dev_id"];
+            $token = isset($_POST["token"]) ? $_POST["token"] : "";
 
+            $auth_data = verify_auth_token($token);
 
+            if ($auth_data === false) {
+
+                addmsg(401, "loged out");
+
+                $has_error = true;
+
+                return false;
+            }
+
+            $user_id = $auth_data["user_id"];
+
+            $dev_id = $auth_data["dev_id"];
 
             $stop = false;
-
-
 
             if ($new_user_name == "" || $user_email == "" || $user_id == "" || $dev_id == "") {
 
@@ -722,17 +731,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $token = $_POST["token"];
 
-                $token_data = json_decode(mou_custom_decode($token), true);
+                $token_data = verify_auth_token($token);
 
+                if ($token_data === false) {
 
+                    addmsg(401, "loged out");
 
-                $user_id = $token_data["u_id"];
+                    $has_error = true;
+
+                    return false;
+                }
+
+                $user_id = $token_data["user_id"];
 
                 $user_device_id = $token_data["dev_id"];
 
-                $user_device_name = $token_data["dev_name"];
+                $user_device_name = isset($_POST["dev_name"]) ? $_POST["dev_name"] : "";
 
-                $u_client = isset($token_data["u_client"]) ? $token_data["u_client"] : "mouscripts";
+                $u_client = isset($_POST["u_client"]) ? $_POST["u_client"] : "mouscripts";
 
 
 
@@ -862,9 +878,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $token = $_POST["token"];
 
-                $token_data = json_decode(mou_custom_decode($token), true);
+                $token_data = verify_auth_token($token);
 
-                $user_id = $token_data["u_id"];
+                if ($token_data === false) {
+
+                    addmsg(401, "loged out");
+
+                    $has_error = true;
+
+                    return false;
+                }
+
+                $user_id = $token_data["user_id"];
 
                 $user_device_id = $token_data["dev_id"];
 
@@ -907,19 +932,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $token = $_POST["token"];
 
-                $token_data = json_decode(mou_custom_decode($token), true);
+                $token_data = verify_auth_token($token);
 
-                $user_id = $token_data["u_id"];
+                if ($token_data === false) {
+
+                    addmsg(401, "loged out");
+
+                    $has_error = true;
+
+                    return false;
+                }
+
+                $user_id = $token_data["user_id"];
 
                 $user_device_id = $token_data["dev_id"];
 
-                $device_id_will_logout = $token_data["device_id_will_logout"];
+                $device_id_will_logout = isset($_POST["device_id_will_logout"]) ? $_POST["device_id_will_logout"] : "";
 
                 $result_dev_id_logins = $conn->query("SELECT * FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id));
 
                 if ($result_dev_id_logins->num_rows > 0) {
 
                     if ($conn->query("DELETE FROM $logins_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($device_id_will_logout) . "") === TRUE) {
+
+                        revoke_auth_token_for_device($user_id, $device_id_will_logout);
 
                         addmsg(200, "device loged out");
 
@@ -937,13 +973,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $token = $_POST["token"];
 
-                $token_data = json_decode(mou_custom_decode($token), true);
+                $token_data = verify_auth_token($token);
 
-                $user_id = $token_data["u_id"];
+                if ($token_data === false) {
+
+                    addmsg(401, "loged out");
+
+                    $has_error = true;
+
+                    return false;
+                }
+
+                $user_id = $token_data["user_id"];
 
                 $user_device_id = $token_data["dev_id"];
 
-                $u_client = $token_data["u_client"] ?? "mouscripts";
+                $u_client = isset($_POST["u_client"]) ? $_POST["u_client"] : "mouscripts";
 
                 $now_utc = date("Y-m-d H:i:s", time());
 
@@ -1025,19 +1070,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else if ($page_action == "logout") {
 
-            $token = $_POST["token"];
+            $token = isset($_POST["token"]) ? $_POST["token"] : "";
 
-            $token_data = json_decode(mou_custom_decode($token), true);
+            $token_data = verify_auth_token($token);
 
+            if ($token_data === false) {
 
+                addmsg(401, "loged out");
 
-            $user_id = $token_data["u_id"];
+                $has_error = true;
+
+                return false;
+            }
+
+            $user_id = $token_data["user_id"];
 
             $user_device_id = $token_data["dev_id"];
 
-
-
             if ($conn->query("DELETE FROM $logins_table WHERE user_id = " . esc($user_id) . " and dev_id = " . esc($user_device_id) . "") === TRUE) {
+
+                revoke_auth_token($token);
 
                 addmsg(200, "loged out Successfully");
 
@@ -1596,6 +1648,10 @@ function add_for_logins($user_id, $user_name, $email, $avatar_code, $g_icon, $av
 
             if ($code_passed == true) {
 
+                $auth_token = issue_auth_token($user_id, $user_device_id);
+
+                addmsg("token", $auth_token);
+
                 addmsg("loged_in_u_id", $user_id);
 
                 addmsg("user_name", $user_name);
@@ -1629,6 +1685,84 @@ function add_for_logins($user_id, $user_name, $email, $avatar_code, $g_icon, $av
         $has_error = true;
     }
 }
+
+
+
+function issue_auth_token($user_id, $user_device_id)
+{
+
+    global $conn, $auth_tokens_table;
+
+    $token = bin2hex(random_bytes(32));
+
+    $expires_at = date("Y-m-d H:i:s", time() + (365 * 24 * 60 * 60));
+
+    $check = $conn->query("SELECT id FROM $auth_tokens_table WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id));
+
+    if ($check->num_rows > 0) {
+
+        $conn->query("UPDATE $auth_tokens_table SET token=" . esc($token) . " , expires_at=" . esc($expires_at) . " , revoked=0 WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id));
+    } else {
+
+        $conn->query("INSERT INTO $auth_tokens_table (token, user_id, dev_id, expires_at) VALUES (" . esc($token) . ", " . esc($user_id) . ", " . esc($user_device_id) . ", " . esc($expires_at) . ")");
+    }
+
+    return $token;
+}
+
+
+
+function verify_auth_token($token)
+{
+
+    global $conn, $auth_tokens_table;
+
+    if ($token === "" || $token === null) {
+        return false;
+    }
+
+    $result = $conn->query("SELECT user_id, dev_id, expires_at FROM $auth_tokens_table WHERE token=" . esc($token) . " AND revoked=0");
+
+    if ($result && $result->num_rows > 0) {
+
+        $row = $result->fetch_assoc();
+
+        $expires_at = $row["expires_at"] ?? "";
+
+        if ($expires_at !== "" && strtotime($expires_at) < time()) {
+            return false;
+        }
+
+        return array("user_id" => $row["user_id"], "dev_id" => $row["dev_id"]);
+    }
+
+    return false;
+}
+
+
+
+function revoke_auth_token($token)
+{
+
+    global $conn, $auth_tokens_table;
+
+    if ($token === "" || $token === null) {
+        return false;
+    }
+
+    return $conn->query("UPDATE $auth_tokens_table SET revoked=1 WHERE token=" . esc($token));
+}
+
+
+
+function revoke_auth_token_for_device($user_id, $user_device_id)
+{
+
+    global $conn, $auth_tokens_table;
+
+    return $conn->query("UPDATE $auth_tokens_table SET revoked=1 WHERE user_id=" . esc($user_id) . " and dev_id=" . esc($user_device_id));
+}
+
 
 
 

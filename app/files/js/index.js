@@ -1157,15 +1157,12 @@ function open_My_devices(for_what = "normal") {
 function load_my_devices(for_what = "normal") {
     $(".mydevices").html("");
 
-    user_data_token = {};
-    user_data_token["u_id"] = user_data.user_id;
-    user_data_token["dev_id"] = what_window.dev_id;
     $.ajax({
         type: "POST",
         url: elbatal_api + "accounts/accounts.php",
         data: {
             "action": "Get_My_Devices",
-            token: mou_custom_encode(JSON.stringify(user_data_token))
+            token: user_data.token ? user_data.token : mou_custom_encode(JSON.stringify({ u_id: user_data.user_id, dev_id: what_window.dev_id }))
         },
         success: function (res, textStatus, jqXHR) {
             // data = JSON.parse(MouDecrypt(res["d"], "ajhsbcjkas@#@!!@sc" + res["t"]));

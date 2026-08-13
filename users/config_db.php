@@ -62,6 +62,7 @@ $user_favs_table = "Elbatal_UsersFavs";
 $user_continue_watching_table = "Elbatal_continue_watching";
 $downloads_table = "Elbatal_downloads";
 $downloads_settings_table = "Elbatal_downloads_settings";
+$auth_tokens_table = "Elbatal_auth_tokens";
 
 
 // $conn->query("SET GLOBAL time_zone = '+00:00';");
@@ -139,6 +140,20 @@ if (php_sapi_name() === 'cli' && isset($_GET["install_database"]) && $_GET["inst
   `dev_ip` varchar(255) NOT NULL,
   `last_login_at` timestamp NOT NULL DEFAULT current_timestamp(),
    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
+
+  $conn->query("CREATE TABLE IF NOT EXISTS `$auth_tokens_table` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(128) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `dev_id` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `expires_at` datetime DEFAULT NULL,
+  `revoked` tinyint(1) NOT NULL DEFAULT 0,
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `token` (`token`),
+   KEY `user_id` (`user_id`),
+   KEY `dev_id` (`dev_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
 
   $conn->query("CREATE TABLE IF NOT EXISTS `$share_queries_table` (

@@ -95,7 +95,7 @@ function load_favs_from_server() {
         url: elbatal_api + "share/fcm.php",
         data: {
             action: "get_favs",
-            token: mou_custom_encode(user_data.user_id + "#" + what_window.dev_id)
+            token: (user_data.token ? user_data.token : mou_custom_encode(user_data.user_id + "#" + what_window.dev_id))
         },
         success: function (data, textStatus, xhr) {
             $("#favs_loading").hide();
