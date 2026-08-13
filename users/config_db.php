@@ -64,6 +64,9 @@ $downloads_table = "Elbatal_downloads";
 $downloads_settings_table = "Elbatal_downloads_settings";
 $auth_tokens_table = "Elbatal_auth_tokens";
 
+// Google OAuth Web Client ID (aud) — املأه من مشروع Google Cloud لتفعيل التحقق من aud
+$google_oauth_client_id = "";
+
 
 // $conn->query("SET GLOBAL time_zone = '+00:00';");
 if (php_sapi_name() === 'cli' && isset($_GET["install_database"]) && $_GET["install_database"] == "true") {

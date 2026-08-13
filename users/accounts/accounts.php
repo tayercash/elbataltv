@@ -302,7 +302,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 return false;
             }
 
-            $g_info = verify_google_id_token($id_token);
+            $g_info = verify_google_id_token($id_token, $google_oauth_client_id);
 
             if ($g_info === false) {
 
@@ -1480,7 +1480,7 @@ function mou_custom_decode($txt, $num = 1)
 
 
 
-function verify_google_id_token($id_token)
+function verify_google_id_token($id_token, $client_id = "")
 {
     $url = "https://oauth2.googleapis.com/tokeninfo?id_token=" . urlencode($id_token);
     $ch = curl_init($url);
@@ -1502,6 +1502,9 @@ function verify_google_id_token($id_token)
         return false;
     }
     if (!isset($data["exp"]) || (int) $data["exp"] < time()) {
+        return false;
+    }
+    if ($client_id !== "" && (!isset($data["aud"]) || $data["aud"] !== $client_id)) {
         return false;
     }
     $email_verified = isset($data["email_verified"]) ? $data["email_verified"] : false;

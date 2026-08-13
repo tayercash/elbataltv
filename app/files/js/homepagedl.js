@@ -70,12 +70,12 @@ function Start_Login() {
         now_user_data = JSON.parse(now_user_data);
         is_loged_in_with_email = now_user_data.loged_in_with_email;
         if (is_loged_in_with_email) {
-            // auto login with what
-            what_loged_in_with = now_user_data.loged_in_with;
-            if (what_loged_in_with == "account") {
-                if (now_user_data.token) {
-                    auto_login_with_token(now_user_data.token);
-                } else {
+            if (now_user_data.token) {
+                auto_login_with_token(now_user_data.token);
+            } else {
+                // auto login with what
+                what_loged_in_with = now_user_data.loged_in_with;
+                if (what_loged_in_with == "account") {
                     log_with_email = now_user_data.email;
                     log_with_password = now_user_data.pass;
                     $("#in_username").val(log_with_email);
@@ -87,20 +87,20 @@ function Start_Login() {
                             $("#sign_in").click();
                         }, 1000);
                     });
+
+                } else if (what_loged_in_with == "google") {
+
+                    $(document).ready(function () {
+                        $(".user_log_stats").css("display", "flex");
+
+                        setTimeout(function () {
+                            $("#login_with_google").click();
+
+                        }, 1000);
+
+                    });
+
                 }
-
-            } else if (what_loged_in_with == "google") {
-
-                $(document).ready(function () {
-                    $(".user_log_stats").css("display", "flex");
-
-                    setTimeout(function () {
-                        $("#login_with_google").click();
-
-                    }, 1000);
-
-                });
-
             }
         } else if (now_user_data.loged_in_with == "guest") {
             $(".full_logo").hide();
@@ -115,7 +115,7 @@ function Start_Login() {
 
 function auto_login_with_token(token) {
     $.ajax({
-        url: elbatal_api + "accounts/accounts.php",
+        url: api_link,
         type: 'POST',
         timeout: 20 * 1000,
         data: {
@@ -179,7 +179,7 @@ function on_google_signed_error() {
 }
 if (typeof window.electron !== "undefined") {
     ipcRenderer.on('g_profile', (profile) => {
-        on_google_signed_success(profile.id, profile.name, mou_custom_encode(profile.email), profile.picture, profile.idToken);
+        on_google_signed_success(profile.id, profile.name, profile.email, profile.picture, profile.idToken);
     });
     ipcRenderer.on('g_error', (msg) => {
         console.log(msg);
@@ -205,9 +205,9 @@ function on_google_signed_success(personID, personName, personEmail, personImg, 
         data: {
             action: "login_account_with_google",
             id_token: google_id_token,
-            gid: gid,
+            gid: mou_custom_encode(gid),
             username: user_name,
-            email: email,
+            email: mou_custom_encode(email),
             avatar_code: avatar_code,
             g_icon: g_icon,
             u_id: dev_id,
