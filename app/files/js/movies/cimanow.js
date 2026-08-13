@@ -731,7 +731,7 @@ obj = {
                         "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
                         "Accept": "*/*",
                         "Accept-Language": "en-US",
-                        "Accept-Encoding": "gzip, deflate, br, zstd"
+                        "Accept-Encoding": "gzip, deflate, br"
                     },
                     success: function (redrict_res, textStatus, xhr) {
 
@@ -765,7 +765,7 @@ obj = {
                                             "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
                                             "Accept": "*/*",
                                             "Accept-Language": "en-US",
-                                            "Accept-Encoding": "gzip, deflate, br, zstd"
+                                            "Accept-Encoding": "gzip, deflate, br"
                                         },
                                         "contentType": "application/x-www-form-urlencoded",
                                         "data": postBody,
