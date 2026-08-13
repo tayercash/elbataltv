@@ -291,12 +291,19 @@ obj = {
         // 1. منطق فصل الرابط عن مفاتيح التشفير
         if (raw_source.includes("###")) {
             var parts = raw_source.split("###");
-            src["data"]["url"] = parts[0];
+            var clean_url = parts[0];
+            src["data"]["url"] = clean_url;
             var drm_key = parts[1];
             src["data"]["drm"] = drm_key;
         } else {
             src["data"]["url"] = raw_source;
             src["data"]["drm"] = null;
+        }
+
+        // تنظيف الرابط من أي بادئة إضافية جاية من السيرفر مثل "411<F>" قبل البروتوكول
+        // (نوع الـ stream أو كود ترميز بيسبقه السيرفر للرابط، مش جزء من الرابط)
+        if (src["data"]["url"] && typeof src["data"]["url"] === "string") {
+            src["data"]["url"] = src["data"]["url"].replace(/^\d+<[^>]*>/, "");
         }
 
         if (this_src["type"] == "live") {
