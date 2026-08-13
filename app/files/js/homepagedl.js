@@ -163,9 +163,18 @@ $("#login_with_google").click(function () {
     }
 
 });
-function on_google_signed_error() {
-    can_use_login_with_google = true;
+function reset_to_login_form() {
+    localStorage.removeItem("user_data");
+    $(".user_log_stats").hide();
+    $(".full_logo").hide();
+    $(".mou_login").show();
     $("#login_with_google").removeClass("loading");
+    $("#sign_in").removeClass("loading");
+    can_use_login_form = true;
+    can_use_login_with_google = true;
+}
+function on_google_signed_error() {
+    reset_to_login_form();
     Toastify({
         text: "حدث خطأ اثناء التسجيل بحساب جوجل . يرجي المحاوله مجددا",
         duration: 3000,
@@ -240,6 +249,7 @@ function on_google_signed_success(personID, personName, personEmail, personImg, 
                         break;
                     } else if (message_code == 409) {
                         mouscripts.logout_with_google();
+                        reset_to_login_form();
                         // alert(message);
                         Toastify({
                             text: message,
@@ -252,8 +262,7 @@ function on_google_signed_success(personID, personName, personEmail, personImg, 
                         }).showToast();
                     } else {
                         showToast("من فضلك قم بالتحقق من بيانات تسجيل الدخول وحاول مجددا.");
-                        $(".full_logo").hide();
-                        $(".mou_login").show();
+                        reset_to_login_form();
                     }
                 }
             } else {
@@ -272,6 +281,7 @@ function on_google_signed_success(personID, personName, personEmail, personImg, 
                         loged_in_success(false, user_name, loged_in_u_id, email, avatar_code, g_icon, avatar_or_g_icon, loged_in_with, false, role, data.messages);
                     } else if (message_code == 409) {
                         mouscripts.logout_with_google();
+                        reset_to_login_form();
                         showToast(message);
                     }
                 }
@@ -283,6 +293,7 @@ function on_google_signed_success(personID, personName, personEmail, personImg, 
             can_use_login_with_google = true;
             $("#login_with_google").removeClass("loading");
             handel_server_error(jqXHR, error, errorThrown);
+            reset_to_login_form();
         }
     })
 }
@@ -417,10 +428,10 @@ $("#signinform").submit(function (e) {
                                     break;
                                 } else if (message_code == 409) {
                                     alert(message);
+                                    reset_to_login_form();
                                 } else {
                                     showToast("من فضلك قم بالتحقق من بيانات تسجيل الدخول وحاول مجددا.");
-                                    $(".full_logo").hide();
-                                    $(".mou_login").show();
+                                    reset_to_login_form();
                                 }
                             }
                         } else {
@@ -441,6 +452,7 @@ $("#signinform").submit(function (e) {
                                     loged_in_success(false, user_name, loged_in_u_id, email, avatar_code, g_icon, avatar_or_g_icon, loged_in_with, password, role, data.messages);
                                 } else if (message_code == 409) {
                                     // alert(message);
+                                    reset_to_login_form();
                                     Toastify({
                                         text: message,
                                         duration: 3000,
@@ -461,6 +473,7 @@ $("#signinform").submit(function (e) {
                         $("#sign_in").html(`<i class="fas fa-sign-in"></i> تسجيل
                         الدخول`);
                         handel_server_error(jqXHR, error, errorThrown);
+                        reset_to_login_form();
                     }
                 })
             } else {
