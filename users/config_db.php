@@ -65,7 +65,7 @@ $downloads_settings_table = "Elbatal_downloads_settings";
 $auth_tokens_table = "Elbatal_auth_tokens";
 
 // Google OAuth Web Client ID (aud) — املأه من مشروع Google Cloud لتفعيل التحقق من aud
-$google_oauth_client_id = "";
+$google_oauth_client_id = "946673100461-erbq13h4ja12af720gq62mmqghkudadp.apps.googleusercontent.com";
 
 
 // $conn->query("SET GLOBAL time_zone = '+00:00';");
