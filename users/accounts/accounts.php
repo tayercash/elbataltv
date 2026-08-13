@@ -1529,7 +1529,7 @@ function add_for_logins($user_id, $user_name, $email, $avatar_code, $g_icon, $av
 
     $can_loged_in = false;
 
-    $max_devices = 4;
+    $max_devices = 8;
 
     $now_utc = date("Y-m-d H:i:s", time());
 

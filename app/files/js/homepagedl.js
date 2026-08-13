@@ -248,7 +248,9 @@ function on_google_signed_success(personID, personName, personEmail, personImg, 
                         }
                         break;
                     } else if (message_code == 409) {
-                        mouscripts.logout_with_google();
+                        if (typeof mouscripts !== "undefined") {
+                            mouscripts.logout_with_google();
+                        }
                         reset_to_login_form();
                         // alert(message);
                         Toastify({
@@ -280,7 +282,9 @@ function on_google_signed_success(personID, personName, personEmail, personImg, 
                         role = data.messages.role;
                         loged_in_success(false, user_name, loged_in_u_id, email, avatar_code, g_icon, avatar_or_g_icon, loged_in_with, false, role, data.messages);
                     } else if (message_code == 409) {
-                        mouscripts.logout_with_google();
+                        if (typeof mouscripts !== "undefined") {
+                            mouscripts.logout_with_google();
+                        }
                         reset_to_login_form();
                         showToast(message);
                     }
