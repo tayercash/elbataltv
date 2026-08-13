@@ -587,7 +587,7 @@ function handlePaste(e) {
 }
 
 $("#get_my_activation_code").click(function () {
-    create_url = "https://www.elbatal-app.com/?getCode=" + user_id_want_active;
+    create_url = "https://new.elbatal-app.com/?getCode=" + user_id_want_active;
     // create_url = "file:///C:/android/%D9%82%D8%A7%D9%84%D8%A8%20%D8%A7%D9%84%D8%AA%D8%AD%D9%85%D9%8A%D9%84/index.html?getCode=" + user_id_want_active;
     if (typeof mouscripts !== "undefined") {
         mouscripts.open_external_link(create_url);

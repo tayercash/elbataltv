@@ -378,7 +378,7 @@ function handlePaste(e) {
 }
 
 $("#get_my_activation_code").click(function () {
-    create_url = "https://www.elbatal-app.com/?getCode=" + user_data.user_id;
+    create_url = "https://new.elbatal-app.com/?getCode=" + user_data.user_id;
     if (typeof mouscripts !== "undefined") {
         mouscripts.open_external_link(create_url);
     } else {
