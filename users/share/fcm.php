@@ -1,6 +1,6 @@
 <?php
 header("Content-Type:application/json");
-include("../config_db.php");
+include("../../config_db.php");
 
 require 'vendor/autoload.php';
 use Google\Auth\Credentials\ServiceAccountCredentials;
