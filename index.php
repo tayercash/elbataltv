@@ -10,7 +10,7 @@ $page_description = "تطبيق البطل. Elbatal TV. افضل تطبيق لم
 $page_image = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfO0U_DyEwxYMyTMzuYAkJQLyFTP2M17J45CDHfbcFnD6RztG2xNpAnrbEGz-OZ34XrnBfM4OJsMJjAWZ19D-7JReUGs2lyhz-UHb2KjZVteCr1oqyVRBHQHJ50reo86lrXT0rN9OkCs396KXol4FcM3Pc2mZpxDlipOjlV93MILk_xx-vCJV64DMs_jU/s1024/logo-1024-back.png";
 $fav_icon_url = $domainlink . "/favicon.ico";
 
-$is_dev = $_GET["is_dev"] == "1" ? true : false;
+$is_dev = isset($_GET["is_dev"]) && $_GET["is_dev"] == "1" ? true : false;
 
 ?>
 <!DOCTYPE html>
